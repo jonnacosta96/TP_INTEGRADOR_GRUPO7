@@ -15,4 +15,13 @@ public class LogInController {
 		
 		return mv;
 	}
+	
+	@RequestMapping("adminHome.html")
+	public ModelAndView eventLogInPage() {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("adminHome");
+		
+		return mv;
+	}
 }
