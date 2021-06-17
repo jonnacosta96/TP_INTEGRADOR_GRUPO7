@@ -37,7 +37,7 @@
             <div class="col-3">
                 <form>
                     <div class="text-center mb-4">
-                    <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+                    <h1 class="h3 mb-3 font-weight-normal">Login Prueba</h1>
                     </div>
                     <div class="form-label-group mb-2">
                     <label>Usuario</label>
