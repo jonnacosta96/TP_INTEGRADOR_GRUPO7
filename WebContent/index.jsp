@@ -35,7 +35,7 @@
     <div style="background-color: #e9ecef; min-height:94vh!important" class="container-fluid py-3" >
         <div class="d-flex justify-content-center mt5">
             <div class="col-3">
-                <form>
+                <form action="adminHome.html" method="get">
                     <div class="text-center mb-4">
                     <h1 class="h3 mb-3 font-weight-normal">Login Prueba</h1>
                     </div>
@@ -47,7 +47,7 @@
                     <label>Password</label>
                     <input type="text" class="form-control">
                     </div>
-                    <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Sign in</button>
+                    <button class="btn btn-lg btn-primary btn-block mt-3" type="submit" name="adminHome">Sign in</button>
                 </form>
             </div>
         </div>
