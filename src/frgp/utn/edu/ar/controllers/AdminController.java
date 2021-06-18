@@ -18,6 +18,8 @@ public class AdminController {
 		return mv;
 	}
 	
+	// Cuentas
+	
 	@RequestMapping(value="adminCuentas.html")
 	public ModelAndView eventClickMenuCuentas() {
 		
@@ -27,4 +29,75 @@ public class AdminController {
 		
 		return mv;
 	}
+	
+	@RequestMapping(value="crearCuenta.html")
+	public ModelAndView eventClickCrearCuenta() {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("crearCuenta");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="guardarCuenta")
+	public ModelAndView eventClickGuardarNuevaCuenta() {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("adminCuentas");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="cancelarCreacionCuenta")
+	public ModelAndView eventClickCancelarCreacionDeCuenta() {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("adminCuentas");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="modificarCuenta.html")
+	public ModelAndView eventClickModificarCuenta() {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("modificarCuenta");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="eliminarCuenta")
+	public ModelAndView eventClickEliminarCuenta() {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("modificarCuenta");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="guardarModificacionesCuenta")
+	public ModelAndView eventClickGuardarModificacionesCuenta() {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("adminCuentas");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="cancelarModificacionCuenta")
+	public ModelAndView eventClickCancelarModificacionDeCuenta() {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("adminCuentas");
+		
+		return mv;
+	}
+	
 }

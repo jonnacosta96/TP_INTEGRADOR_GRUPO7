@@ -9,28 +9,28 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-          <a class="nav-link">Home</a>
+          <li>
+          <a class="nav-link" href="${pageContext.servletContext.contextPath}/adminHome.html">Home</a>
           </li>
-          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Administrar
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a href="${pageContext.servletContext.contextPath}/adminCuentas.html"class="dropdown-item">Cuentas</a>
-              <a href="${pageContext.servletContext.contextPath}/adminClientes.html" class="dropdown-item">Clientes</a>
-          </div>
+          <li class="nav-item dropdown" style="cursor:pointer">
+            <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Administrar
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a href="${pageContext.servletContext.contextPath}/adminCuentas.html" class="dropdown-item">Cuentas</a>
+                <a href="${pageContext.servletContext.contextPath}/adminClientes.html" class="dropdown-item">Clientes</a>
+            </div>
           </li>
       </ul>
       </div>
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center" style="cursor:pointer">
           <ul class="navbar-nav mr-auto">
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown" style="cursor:pointer">
                 <a class="nav-link dropdown-toggle text-light"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  userName
+                  John Doe
                 </a>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item">Logout</a>
+                  <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/index.html">Logout</a>
                 </div>
               </li>
             </ul>
