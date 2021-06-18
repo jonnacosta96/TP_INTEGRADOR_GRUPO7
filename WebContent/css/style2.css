@@ -1,0 +1,214 @@
+@charset "ISO-8859-1";
+
+/*********** HTML ***********/
+
+body{
+	background-color: #e9ecef !important;
+}
+
+* {
+	margin:0px;
+	padding:0px;
+}
+
+#header {
+	margin:auto;
+	width:500px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+ul, ol {
+	list-style:none;
+}
+
+/*********** HEADERs ***********/
+.ImagenAltaUsuario{
+  	background-image:url(../imagenes/HeaderAltaAlumno.jpg);
+    background-size: cover;
+    height: 10vh;
+    min-height: 10rem;
+}
+
+.ImagenMenuPrincipalAdm{
+  	background-image:url(../imagenes/HeaderAdministrador.jpg);
+    background-size: cover;
+    height: 10vh;
+    min-height: 10rem;
+}
+
+/*********** BOTONES ***********/
+#btnLogin{
+	width:100%;
+}
+
+/*********** FORMS Y CONTENEDORES ***********/
+
+#containerLogin{
+	width:350px;
+	margin-top:40px;
+}
+
+#formLogin{
+	margin-top:30px;
+}
+
+.ContenedorAltaAlumno{
+	color: white;
+	background-image:url(../imagenes/altaUsuario.jpeg);
+	background-size: cover;
+	border-color: #000000;
+    border-width: 1px;
+    border-style: solid;
+	border-radius: 15px;
+    display: block;
+    width: 50%;
+    margin: auto;
+    justify-content: space-between;
+
+}
+
+.ContenedorCalificaciones{
+	/*background-color: red;*/
+}
+
+.ContenedorTabla{
+	/*background-color: blue;*/
+	justify-content: center;
+	width: 60%;
+	height: 100%;
+	margin: auto;
+	display: flex;
+	
+}
+
+.ContenedorDiv{
+	justify-content: center; 
+}
+
+.ContenedorCmbBoxsCalificaciones{
+	display: flex;
+    justify-content: space-between;
+    heigth: 30px;
+}
+
+.ContenedorBusquedaAlumnsCalificaciones{
+    display: flex;
+    justify-content: space-between;
+    width: 55%;
+    margin: auto;
+    min-width:140px;
+}
+.ContenedorMenuModificarCurso{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ContenedorSesion{
+	display: flex;
+	float: right;
+    align-items: center;
+    background-color: #000;
+    color: #fff;
+    height: 43px;
+    width: 200px;
+}
+
+
+/*********** BARRA MENU ADMINISTRADOR ***********/
+			
+.MenuEncabezado > li {
+	float:left;
+}
+
+.MenuEncabezado li a {
+	background-color:#000;
+	color:#fff;
+	text-decoration:none;
+	padding:10px 12px;
+	display:block;
+}
+
+.MenuEncabezado li a:hover {
+	background-color:#434343;
+}
+
+.MenuEncabezado li ul {
+	display:none;
+	position:absolute;
+	min-width:140px;
+}
+
+.MenuEncabezado li:hover > ul {
+	display:block;
+}
+
+.MenuEncabezado li ul li {
+	position:relative;
+}
+
+.MenuEncabezado li ul li ul {
+	right:-140px;
+	top:0px;
+}
+
+/*********** FORMATO TABLA ***********/
+table.blueTable {
+  border: 1px solid #1C6EA4;
+  background-color: #EEEEEE;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+table.blueTable td, table.blueTable th {
+  border: 1px solid #AAAAAA;
+  padding: 3px 2px;
+}
+table.blueTable tbody td {
+  font-size: 13px;
+}
+table.blueTable tr:nth-child(even) {
+  background: #D0E4F5;
+}
+table.blueTable thead {
+  background: #1C6EA4;
+  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  border-bottom: 2px solid #444444;
+}
+table.blueTable thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  border-left: 2px solid #D0E4F5;
+}
+table.blueTable thead th:first-child {
+  border-left: none;
+}
+
+table.blueTable tfoot {
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #D0E4F5;
+  background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  border-top: 2px solid #444444;
+}
+table.blueTable tfoot td {
+  font-size: 14px;
+}
+table.blueTable tfoot .links {
+  text-align: right;
+}
+table.blueTable tfoot .links a{
+  display: inline-block;
+  background: #1C6EA4;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+
+
+

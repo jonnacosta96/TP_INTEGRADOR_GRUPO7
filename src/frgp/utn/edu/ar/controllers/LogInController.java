@@ -7,11 +7,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LogInController {
 
-	@RequestMapping("RedirigirPagina1.html")
-	public ModelAndView eventLogInPage() {
+	@RequestMapping("index.html")
+	public ModelAndView eventLoadPage() {
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("Prueba");
+		mv.setViewName("index");
 		
 		return mv;
 	}
