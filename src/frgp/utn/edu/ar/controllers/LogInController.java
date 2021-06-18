@@ -1,5 +1,6 @@
 package frgp.utn.edu.ar.controllers;
 
+import org.apache.catalina.valves.rewrite.InternalRewriteMap.UpperCase;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,11 +17,20 @@ public class LogInController {
 		return mv;
 	}
 	
-	@RequestMapping("adminHome.html")
-	public ModelAndView eventLogInPage() {
+	@RequestMapping("validarIngreso.html")
+	public ModelAndView eventLogInPage(String txtUsuario) {
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("adminHome");
+		
+		if(txtUsuario.toUpperCase().equals("CLIENTE"))
+		{
+			mv.setViewName("clienteHome");
+		}
+		else
+		{
+			mv.setViewName("adminHome");
+		}
+		
 		
 		return mv;
 	}

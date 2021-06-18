@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="./css/glyphicon.css" type="text/css"/>
 	<link rel="stylesheet" href="./css/table.css" type="text/css"/>
 	
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -36,8 +37,8 @@
 			</div>
 		    <div class="row">
 		        <div class="col-md-12">                                
-		            <br />
-		            <p><a href="${pageContext.servletContext.contextPath}/crearCuenta.html" style="color: #337ab7">Crear Cuenta</a></p>
+		            <br/>
+		            <p><a href="${pageContext.servletContext.contextPath}/crearCuenta.html" style="color: #337ab7"><i class="glyphicon glyphicon-list-alt" style="color: #337ab7"></i>Crear Cuenta</a></p>
 		            <p><a href="${pageContext.servletContext.contextPath}/modificarCuenta.html" style="color: #337ab7">Modificar Cuenta</a></p>
 		        </div>
 		    </div>
