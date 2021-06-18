@@ -4223,8 +4223,8 @@ fieldset[disabled] .btn-link:hover {
 .btn-group-sm > .btn,
 .btn-sm {
     padding: 5px 10px;
-    font-size: 12px;
-    line-height: 1.5;
+    /*font-size: 12px;
+    line-height: 1.5;*/
     border-radius: 3px
 }
 
@@ -5076,12 +5076,12 @@ textarea.input-group-sm > .input-group-btn > .btn {
     border-top-right-radius: 0
 }
 
-.navbar {
+/*.navbar {
     position: relative;
     min-height: 50px;
     margin-bottom: 20px;
     border: 1px solid transparent
-}
+}*/
 
 @media (min-width:768px) {
     .navbar {

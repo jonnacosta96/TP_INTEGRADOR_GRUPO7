@@ -40,8 +40,9 @@
 			</div>
 		    <div class="row">
 		        <div class="col-md-12">                                
-		            <br />
-		            <p><a href="" style="color: #337ab7"><i class="glyphicon glyphicon-user" style="color: #337ab7"></i>Crear Cliente</a></p>
+		            <br/>           
+		            <p><a href="${pageContext.servletContext.contextPath}/crearCliente.html" style="color: #337ab7"><i class="glyphicon glyphicon-user" style="color: #337ab7"></i>Crear Cliente</a></p>
+		        	<p><a href="${pageContext.servletContext.contextPath}/modificarCliente.html" style="color: #337ab7">Modificar Cliente</a></p>
 		        </div>
 		    </div>
 			<br>
