@@ -13,5 +13,7 @@
         
         <mapping class="frgp.utn.edu.ar.entidades.Cliente"/>
         <mapping class="frgp.utn.edu.ar.entidades.Provincia"/>
+        <mapping class="frgp.utn.edu.ar.entidades.User"/>
+        <mapping class="frgp.utn.edu.ar.entidades.Login"/>
     </session-factory>
 </hibernate-configuration>
