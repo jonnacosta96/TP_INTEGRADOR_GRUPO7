@@ -18,6 +18,25 @@ public class AdminController {
 		return mv;
 	}
 	
+	@RequestMapping(value="crearCliente.html")
+	public ModelAndView eventClickCrearCliente() {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("crearCliente");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="modificarCliente.html")
+	public ModelAndView eventClickModificarCliente() {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("modificarCliente");
+		
+		return mv;
+	}
 	// Cuentas
 	
 	@RequestMapping(value="adminCuentas.html")

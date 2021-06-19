@@ -38,7 +38,7 @@
 		<img src="./img/imagenLogin.jpg"  class="img-circle" />
 		</center>
 		
-		<form method="get" action="adminHome.html" id="formLogin">
+		<form method="get" action="validarIngreso.html" id="formLogin">
 			  <div class="form-group">
 			    <input type="text" name="txtUsuario" class="form-control"  placeholder="Ingrese usuario"  />
 			  </div>
