@@ -9,16 +9,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         </div>
-        <div class="d-flex align-items-center">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle text-light"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    User Prueba
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item">Logout</a>
-                  </div>
-                </li>
-              </ul>
-          </div>
+        <div class="d-flex align-items-center" style="cursor:pointer">
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item dropdown" style="cursor:pointer">
+                <a class="nav-link dropdown-toggle text-light"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  John Doe
+                </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/index.html">Logout</a>
+                </div>
+              </li>
+            </ul>
+        </div>
     </nav>

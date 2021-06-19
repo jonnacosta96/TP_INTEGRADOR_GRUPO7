@@ -8,6 +8,16 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AdminController {
 
+	@RequestMapping(value="adminHome.html")
+	public ModelAndView eventClickAdminHome() {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("adminHome");
+		
+		return mv;
+	}
+	
 	@RequestMapping(value="adminClientes.html")
 	public ModelAndView eventClickMenuClientes() {
 		
