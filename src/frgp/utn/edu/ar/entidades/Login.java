@@ -5,14 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="Login")
 public class Login {
 	
-	@Id
-	@Column(name="UserName")
 	private String username;
-	@Column(name="Password")
 	private String password;
 	
 	public String getUsername() {

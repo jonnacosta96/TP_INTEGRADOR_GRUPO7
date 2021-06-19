@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -38,17 +39,29 @@
 		<img src="./img/imagenLogin.jpg"  class="img-circle" />
 		</center>
 		
-		<form id="loginForm" modelAttribute="login" action="validarIngreso.html" method="post">
+		<form:form id="loginForm" modelAttribute="login" action="validarIngreso.html" method="post">
 			  <div class="form-group">
-			    <input type="text" name="txtUsuario" class="form-control"  placeholder="Ingrese usuario"  />
+			    <form:input
+			    	path="username"
+			    	name="username"
+			    	id="username"
+			    	class="form-control"
+			    	placeholder="Ingrese usuario"
+			    />
 			  </div>
 			  <div class="form-group">
-			    <input type="password" name="txtPass" class="form-control" placeholder="Password" />
+			    <form:password
+			    	path="password"
+			    	name="password"
+			    	id="password"
+			    	class="form-control"
+			    	placeholder="Ingrese contraseña"
+			    />
 			  </div>
 			  <center>
 			  	<input type="submit" class="btn btn-dark" id="btnLogin" name="btnLogin" value= Ingresar>
 			  </center>
-		</form>
+		</form:form>
 	
 	</div>
 </body>
