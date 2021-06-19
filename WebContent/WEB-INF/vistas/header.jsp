@@ -27,10 +27,10 @@
           <ul class="navbar-nav mr-auto">
               <li class="nav-item dropdown" style="cursor:pointer">
                 <a class="nav-link dropdown-toggle text-light"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  John Doe
+                  ${nombreUsuario}
                 </a>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/index.html">Logout</a>
+                  <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/login.html">Logout</a>
                 </div>
               </li>
             </ul>
