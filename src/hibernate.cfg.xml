@@ -14,5 +14,8 @@
         <mapping class="frgp.utn.edu.ar.entidades.Cliente"/>
         <mapping class="frgp.utn.edu.ar.entidades.Provincia"/>
         <mapping class="frgp.utn.edu.ar.entidades.User"/>
+        <mapping class="frgp.utn.edu.ar.entidades.Cuenta"/>
+        <mapping class="frgp.utn.edu.ar.entidades.Moneda"/>
+        <mapping class="frgp.utn.edu.ar.entidades.TipoCuenta"/>
     </session-factory>
 </hibernate-configuration>

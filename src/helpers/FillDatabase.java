@@ -12,10 +12,10 @@ public class FillDatabase {
 	    session.beginTransaction();
 	    
 	    session.saveOrUpdate(new User(
-	      "admin", "admin", "Admin", "User", "admin@user.com", "Alvear 575", 123456, "Admin"
+	      "admin", "admin", "Admin", "User", "admin@user.com", "Alvear 575", 123456, "Admin", true
 	    ));
 	    session.saveOrUpdate(new User(
-  	      "customer", "customer", "Customer", "User", "customer@user.com", "Alvear 575", 132456, "Customer"
+  	      "customer", "customer", "Customer", "User", "customer@user.com", "Alvear 575", 132456, "Customer", true
   	    ));
 	    
 	    session.getTransaction().commit();

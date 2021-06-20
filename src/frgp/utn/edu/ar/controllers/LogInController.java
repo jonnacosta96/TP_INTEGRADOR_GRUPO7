@@ -62,19 +62,11 @@ public class LogInController {
     Conexion cn = new Conexion();
     Session session = cn.abrirConexion();
     
-    String hql = "from User u where u.username = :username and u.password = :password";
+    String hql = "from User u where u.username = :username and u.password = :password and u.active = 1";
     User user = (User)session.createQuery(hql)
     		.setParameter("username", login.getUsername())
     		.setParameter("password", login.getPassword())
     		.uniqueResult();
-
-    /*
-    User user = (User)session.createQuery("" +
-      "SELECT u FROM " +
-      "User u " +
-      "WHERE u.username='" + login.getUsername() +
-      "'	AND u.password='" + login.getPassword() + "'").uniqueResult();
-	*/
     
     cn.cerrarSession();
 
