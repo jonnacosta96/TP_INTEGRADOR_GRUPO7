@@ -9,7 +9,12 @@ public class ViewNameResolver {
 		String servletPath
 	){
 		
-		if(userSessionDto == null) return "redirect:/login.html";
+		if(userSessionDto == null && servletPath.equals("/login.html"))
+			return "login";
+		
+		if(userSessionDto == null)
+			return "redirect:/login.html";
+		
 		String userType = userSessionDto.getUserType().toUpperCase().toString(); 
 		
 		switch(userType)

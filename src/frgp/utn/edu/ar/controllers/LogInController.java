@@ -1,4 +1,4 @@
-package frgp.utn.edu.ar.controllers;
+	package frgp.utn.edu.ar.controllers;
 
 import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import frgp.utn.edu.ar.entidades.User;
 import frgp.utn.edu.ar.entidades.Login;
 import frgp.utn.edu.ar.services.UserServiceImpl;
-
+import helpers.FillDatabase;
+import helpers.ViewNameResolver;
 import frgp.utn.edu.ar.dao.Conexion;
 import frgp.utn.edu.ar.dto.UserSessionDto;
 
@@ -32,77 +33,21 @@ public class LogInController {
   UserServiceImpl userService;
 
   @RequestMapping("login.html")
-  public ModelAndView eventLoadPage(Model model, HttpSession httpSession) {
-    model.addAttribute("login", new Login());
+  public ModelAndView eventLoadPage(Model model, HttpSession httpSession, HttpServletRequest request) {
+    
+	model.addAttribute("login", new Login());
+	
     ModelAndView mav = new ModelAndView();
+	String viewName = ViewNameResolver.resolveViewName(
+		(UserSessionDto)httpSession.getAttribute("userSession"),
+		request.getServletPath()
+	);
+	
+	FillDatabase.GenerateRecords();
     
-    UserSessionDto userSession = (UserSessionDto)httpSession.getAttribute("userSession");
-    if(userSession != null)
-    {
-    	if(userSession.getUserType().toString().toUpperCase().equals("ADMIN"))
-		{
-			mav.setViewName("redirect:/adminHome.html");
-		}
-		if(userSession.getUserType().toString().toUpperCase().equals("CUSTOMER"))
-		{
-			mav.setViewName("redirect:/clienteHome.html");
-		}
-		return mav;
-    }
-    
-    mav.setViewName("login");
-    
-    Conexion cn = new Conexion();
-    Session session = cn.abrirConexion();
-    session.beginTransaction();
-
-    User user = new User(
-      "admin",
-      "admin",
-      "Admin",
-      "User",
-      "adim@user.com",
-      "Alvear 575",
-      1169203645,
-      "Admin"
-    );
-    
-    session.saveOrUpdate(user);
-    
-    User user2 = new User(
-      "customer",
-      "customer",
-      "Customer",
-      "User",
-      "customer@user.com",
-      "Alvear 575",
-      1169203645,
-      "Customer"
-    );
-
-    session.saveOrUpdate(user2);
-
-    session.getTransaction().commit();
-    session.close();
+    mav.setViewName(viewName);
 
     return mav;
-  }
-
-  @RequestMapping(value = "validarIngreso.html", method = RequestMethod.POST)
-  public ModelAndView eventLogInPage(String txtUsuario) {
-
-    ModelAndView mv = new ModelAndView();
-    Conexion cn = new Conexion();
-    cn.abrirConexion();
-    cn.cerrarSession();
-
-    if (txtUsuario.toUpperCase().equals("CLIENTE")) {
-      mv.setViewName("clienteHome");
-    } else {
-      mv.setViewName("adminHome");
-    }
-
-    return mv;
   }
 
   @RequestMapping(value = "loginProcess.html", method = RequestMethod.POST)
@@ -116,13 +61,21 @@ public class LogInController {
     
     Conexion cn = new Conexion();
     Session session = cn.abrirConexion();
+    
+    String hql = "from User u where u.username = :username and u.password = :password";
+    User user = (User)session.createQuery(hql)
+    		.setParameter("username", login.getUsername())
+    		.setParameter("password", login.getPassword())
+    		.uniqueResult();
 
+    /*
     User user = (User)session.createQuery("" +
       "SELECT u FROM " +
       "User u " +
       "WHERE u.username='" + login.getUsername() +
       "'	AND u.password='" + login.getPassword() + "'").uniqueResult();
-
+	*/
+    
     cn.cerrarSession();
 
     if (null != user) {
