@@ -5,6 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,6 +24,7 @@ import frgp.utn.edu.ar.entidades.Login;
 import frgp.utn.edu.ar.services.UserServiceImpl;
 
 import frgp.utn.edu.ar.dao.Conexion;
+import frgp.utn.edu.ar.dto.UserSessionDto;
 
 @Controller
 public class LogInController {
@@ -26,11 +32,26 @@ public class LogInController {
   UserServiceImpl userService;
 
   @RequestMapping("login.html")
-  public ModelAndView eventLoadPage(Model model) {
+  public ModelAndView eventLoadPage(Model model, HttpSession httpSession) {
     model.addAttribute("login", new Login());
-    ModelAndView mv = new ModelAndView();
-    mv.setViewName("login");
-
+    ModelAndView mav = new ModelAndView();
+    
+    UserSessionDto userSession = (UserSessionDto)httpSession.getAttribute("userSession");
+    if(userSession != null)
+    {
+    	if(userSession.getUserType().toString().toUpperCase().equals("ADMIN"))
+		{
+			mav.setViewName("redirect:/adminHome.html");
+		}
+		if(userSession.getUserType().toString().toUpperCase().equals("CUSTOMER"))
+		{
+			mav.setViewName("redirect:/clienteHome.html");
+		}
+		return mav;
+    }
+    
+    mav.setViewName("login");
+    
     Conexion cn = new Conexion();
     Session session = cn.abrirConexion();
     session.beginTransaction();
@@ -64,7 +85,7 @@ public class LogInController {
     session.getTransaction().commit();
     session.close();
 
-    return mv;
+    return mav;
   }
 
   @RequestMapping(value = "validarIngreso.html", method = RequestMethod.POST)
@@ -92,11 +113,11 @@ public class LogInController {
 		  HttpSession httpSession
 		  ) {
     ModelAndView mav = null;
-
+    
     Conexion cn = new Conexion();
     Session session = cn.abrirConexion();
 
-    User user = (User) session.createQuery("" +
+    User user = (User)session.createQuery("" +
       "SELECT u FROM " +
       "User u " +
       "WHERE u.username='" + login.getUsername() +
@@ -105,29 +126,41 @@ public class LogInController {
     cn.cerrarSession();
 
     if (null != user) {
-    	
-    	String userName = "";
+    	mav = new ModelAndView();
     	
 		if(user.getType().toString().toUpperCase().equals("ADMIN"))
 		{
-			mav = new ModelAndView("adminHome");
-			
+			mav.setViewName("redirect:/adminHome.html");
 		}
 		if(user.getType().toString().toUpperCase().equals("CUSTOMER"))
 		{
-			mav = new ModelAndView("clienteHome");
+			mav.setViewName("redirect:/clienteHome.html");
 		}
 		
-		userName = user.getFirstname().toString() + user.getLastname().toString();
+		String userName = user.getFirstname().toString() + " " + user.getLastname().toString();
 		
-		httpSession.setAttribute("userName", userName);
+		httpSession.setAttribute("userSession", new UserSessionDto(
+			userName,
+			LocalDateTime.now(),
+			user.getType()
+		));
 		
     } else {
-      mav = new ModelAndView("login");
-      mav.addObject("message", "Username or Password is wrong!!");
+      mav = new ModelAndView();
+      mav.setViewName("login");
+      mav.addObject("message", "Error. Usuario y/o contraseña incorrectos.");
     }
 
     return mav;
   }
-
+  
+  @RequestMapping(value = "logout.html")
+  public ModelAndView logout(HttpSession httpSession) {
+    ModelAndView mav = new ModelAndView();
+    
+    httpSession.removeAttribute("userSession");
+    mav.setViewName("redirect:/login.html");
+    
+    return mav;
+  }
 }

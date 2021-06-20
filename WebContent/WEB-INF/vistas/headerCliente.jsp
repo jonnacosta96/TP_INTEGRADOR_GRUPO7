@@ -1,3 +1,5 @@
+<%@ page session= "true" %>
+<%@ page import="frgp.utn.edu.ar.dto.UserSessionDto" %>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a><img src="assets/img/logo.png" height="30px" alt="" style="margin-right: 10px;"></a>
         <ng-container>
@@ -13,10 +15,13 @@
           <ul class="navbar-nav mr-auto">
               <li class="nav-item dropdown" style="cursor:pointer">
                 <a class="nav-link dropdown-toggle text-light"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  John Doe
+                  <% 
+					    UserSessionDto userSession = (UserSessionDto)session.getAttribute("userSession");
+					%>
+					<%= userSession.getUserName() %>
                 </a>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/index.html">Logout</a>
+                  <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/logout.html">Logout</a>
                 </div>
               </li>
             </ul>
