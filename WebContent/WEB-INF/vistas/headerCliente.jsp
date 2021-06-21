@@ -1,10 +1,10 @@
 <%@ page session= "true" %>
-<%@ page import="frgp.utn.edu.ar.dto.UserSessionDto" %>
+<%@ page import="frgp.utn.edu.ar.dto.UserSessionDto"%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a><img src="assets/img/logo.png" height="30px" alt="" style="margin-right: 10px;"></a>
-        <ng-container>
+        <container>
           <a class="navbar-brand mr-5 text-light">UTN Banking</a>
-        </ng-container>
+        </container>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

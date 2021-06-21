@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import frgp.utn.edu.ar.entidades.Cliente;
@@ -50,7 +49,7 @@ public class Cuenta implements Serializable {
     private Boolean activo;
 	
 	public Cuenta() {
-		super();
+		
 	}
 
 	public Cuenta(int nroCuenta, Cliente cliente, String nombre, TipoCuenta tipoCuenta, String cBU,
@@ -130,14 +129,13 @@ public class Cuenta implements Serializable {
 		this.activo = activo;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	@Override
+	public String toString() {
+		return "nroCuenta=" + nroCuenta + ", cliente=" + cliente + ", nombre=" + nombre + ", tipoCuenta="
+				+ tipoCuenta + ", CBU=" + CBU + ", fechaCreacion=" + fechaCreacion + ", saldo=" + saldo + ", activo="
+				+ activo;
 	}
-	
-	
-	
-	
-	
+
 	
 
 }

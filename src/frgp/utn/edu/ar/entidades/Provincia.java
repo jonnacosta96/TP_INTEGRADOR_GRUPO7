@@ -51,7 +51,7 @@ public class Provincia implements Serializable{
 		this.estadoProvincia = estadoProvincia;
 	}
 
-	@Override
+	@Override 
 	public String toString() {
 		return "idProvincia=" + idProvincia + ", nombre=" + nombre + ", estadoProvincia=" + estadoProvincia;
 	}

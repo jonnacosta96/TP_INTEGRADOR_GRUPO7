@@ -1,5 +1,5 @@
 <%@ page session= "true" %>
-<%@ page import="frgp.utn.edu.ar.dto.UserSessionDto" %>
+<%@ page import="frgp.utn.edu.ar.dto.UserSessionDto"%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
        <a><img src="assets/img/logo.png" height="30px" alt="" style="margin-right: 10px;"></a>
       <container>
