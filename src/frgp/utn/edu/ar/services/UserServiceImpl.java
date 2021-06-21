@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import frgp.utn.edu.ar.dao.Conexion;
 import frgp.utn.edu.ar.dao.UserDaoImpl;
 import frgp.utn.edu.ar.entidades.Login;
-import frgp.utn.edu.ar.entidades.User;
+import frgp.utn.edu.ar.entidades.Usuario;
 
 public class UserServiceImpl implements UserService {
 	
@@ -15,18 +15,18 @@ public class UserServiceImpl implements UserService {
 	public UserDaoImpl userDaoImpl;
 
 	@Override
-	public void register(User user) {
+	public void register(Usuario user) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public User validateUser(Login login) {
+	public Usuario validateUser(Login login) {
 		
 		Conexion cn = new Conexion();
 	    Session session = cn.abrirConexion();
 	    
-	    User user = (User)session.createQuery(""
+	    Usuario user = (Usuario)session.createQuery(""
 	    		+ "SELECT * FROM "
 	    		+ "User u "
 	    		+ "WHERE u.UserName=" + login.getUsername()

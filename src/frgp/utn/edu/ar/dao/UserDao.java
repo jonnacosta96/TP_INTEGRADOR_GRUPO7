@@ -1,11 +1,11 @@
 package frgp.utn.edu.ar.dao;
 
 import frgp.utn.edu.ar.entidades.Login;
-import frgp.utn.edu.ar.entidades.User;
+import frgp.utn.edu.ar.entidades.Usuario;
 
 public interface UserDao {
 
-	void register(User user);
+	void register(Usuario user);
 	
-	User validateUser(Login login);
+	Usuario validateUser(Login login);
 }
