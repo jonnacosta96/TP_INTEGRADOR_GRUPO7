@@ -22,6 +22,7 @@ public class Moneda implements Serializable{
 	public Moneda() {
 		super();
 	}
+	
 	public String getCodigo() {
 		return codigo;
 	}
