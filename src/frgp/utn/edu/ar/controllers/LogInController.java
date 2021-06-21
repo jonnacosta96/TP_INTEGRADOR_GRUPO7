@@ -19,9 +19,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import frgp.utn.edu.ar.entidades.User;
+import frgp.utn.edu.ar.entidades.Usuario;
 import frgp.utn.edu.ar.entidades.Login;
-import frgp.utn.edu.ar.services.UserServiceImpl;
 import helpers.FillDatabase;
 import helpers.ViewNameResolver;
 import frgp.utn.edu.ar.dao.Conexion;
@@ -29,8 +28,6 @@ import frgp.utn.edu.ar.dto.UserSessionDto;
 
 @Controller
 public class LogInController {
-
-  UserServiceImpl userService;
 
   @RequestMapping("login.html")
   public ModelAndView eventLoadPage(Model model, HttpSession httpSession, HttpServletRequest request) {
@@ -62,32 +59,32 @@ public class LogInController {
     Conexion cn = new Conexion();
     Session session = cn.abrirConexion();
     
-    String hql = "from User u where u.username = :username and u.password = :password and u.active = 1";
-    User user = (User)session.createQuery(hql)
-    		.setParameter("username", login.getUsername())
-    		.setParameter("password", login.getPassword())
-    		.uniqueResult();
+    String hql = "from Usuario u where u.username = :username and u.password = :password and u.activo = 1";
+    Usuario user = (Usuario)session.createQuery(hql)
+	    		.setParameter("username", login.getUsername())
+	    		.setParameter("password", login.getPassword())
+	    		.uniqueResult();
     
     cn.cerrarSession();
 
     if (null != user) {
     	mav = new ModelAndView();
     	
-		if(user.getType().toString().toUpperCase().equals("ADMIN"))
+		if(user.getTipo().toString().toUpperCase().equals("ADMIN"))
 		{
 			mav.setViewName("redirect:/adminHome.html");
 		}
-		if(user.getType().toString().toUpperCase().equals("CUSTOMER"))
+		if(user.getTipo().toString().toUpperCase().equals("CUSTOMER"))
 		{
 			mav.setViewName("redirect:/clienteHome.html");
 		}
 		
-		String userName = user.getFirstname().toString() + " " + user.getLastname().toString();
+		String userName = user.getNombre().toString() + " " + user.getApellido().toString();
 		
 		httpSession.setAttribute("userSession", new UserSessionDto(
 			userName,
 			LocalDateTime.now(),
-			user.getType()
+			user.getTipo()
 		));
 		
     } else {

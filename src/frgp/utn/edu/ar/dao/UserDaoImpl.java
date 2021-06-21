@@ -7,18 +7,19 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import frgp.utn.edu.ar.entidades.Login;
-import frgp.utn.edu.ar.entidades.User;
+import frgp.utn.edu.ar.entidades.Usuario;
+import frgp.utn.edu.ar.entidades.Usuario;
 
 public class UserDaoImpl implements UserDao {
 
 	@Override
-	public void register(User user) {
+	public void register(Usuario user) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public User validateUser(Login login) {
+	public Usuario validateUser(Login login) {
 		// TODO Auto-generated method stub
 		return null;
 	}

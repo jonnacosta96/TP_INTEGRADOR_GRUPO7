@@ -3,7 +3,7 @@ package helpers;
 import org.hibernate.Session;
 
 import frgp.utn.edu.ar.dao.Conexion;
-import frgp.utn.edu.ar.entidades.User;
+import frgp.utn.edu.ar.entidades.Usuario;
 
 public class FillDatabase {
 	public static void GenerateRecords() {
@@ -11,12 +11,12 @@ public class FillDatabase {
 	    Session session = cn.abrirConexion();
 	    session.beginTransaction();
 	    
-	    session.saveOrUpdate(new User(
-	      "admin", "admin", "Admin", "User", "admin@user.com", "Alvear 575", 123456, "Admin", true
-	    ));
-	    session.saveOrUpdate(new User(
-  	      "customer", "customer", "Customer", "User", "customer@user.com", "Alvear 575", 132456, "Customer", true
+	    session.saveOrUpdate(new Usuario(
+  	      "admin", "admin", "Admin", "User", "admin@user.com", "Admin", true
   	    ));
+	    session.saveOrUpdate(new Usuario(
+	      "customer", "customer", "Customer", "User", "customer@user.com", "Customer", true
+	    ));
 	    
 	    session.getTransaction().commit();
 	    session.close();
