@@ -42,11 +42,19 @@
                 <br>
                 <div class="row">
                   <div class="col">
-                    <h5><label for="exampleInputEmail1">Cliente</label></h5>
-                    <input type="text" class="form-control d-inline" placeholder="Cliente" >
-                    <button type="submit" class="btn btn-dark d-inline mt-2">Buscar</button>
+                    <h5><label for="exampleInputEmail1">DNI Cliente</label></h5>
+                    <div class="col-md-10">
+					    <div class="input-group">
+					        <input type="text" class="form-control" placeholder="DNI Cliente"name="txtApellido">
+							<span class="input-group-btn">
+								<input type="submit"  class="btn btn-dark" value="Buscar" name="btnBuscarCliente">
+						    </span>
+					    </div>
+					</div>
                   </div>
                   <div class="col">
+                  	<h5><label for="exampleInputEmail1">Cliente</label></h5>
+                    <input type="text" class="form-control d-inline disabled" readonly placeholder="Cliente" >
                   </div>
                 </div>
               </div>

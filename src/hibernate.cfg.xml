@@ -9,9 +9,13 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bd_banco?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
         
         <mapping class="frgp.utn.edu.ar.entidades.Cliente"/>
         <mapping class="frgp.utn.edu.ar.entidades.Provincia"/>
+        <mapping class="frgp.utn.edu.ar.entidades.Cuenta"/>
+        <mapping class="frgp.utn.edu.ar.entidades.Moneda"/>
+        <mapping class="frgp.utn.edu.ar.entidades.TipoCuenta"/>
+        <mapping class="frgp.utn.edu.ar.entidades.Usuario"/>
     </session-factory>
 </hibernate-configuration>

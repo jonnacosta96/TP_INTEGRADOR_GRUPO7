@@ -3,9 +3,12 @@ package frgp.utn.edu.ar.entidades;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,11 +21,9 @@ public class Cliente implements Serializable {
 	@Column(name="NroCliente")
 	private int nroCliente;
 	
-	@Column(name="Nombre",nullable=false)
-	private String nombre;
-	
-	@Column(name="Apellido",nullable=false)
-	private String apellido;
+	@OneToOne(cascade= { CascadeType.ALL})
+	@JoinColumn(name="UserName")
+	private Usuario usuario;
 	
 	@Column(name="Dni",nullable=false,unique=true)
 	private int dni;
@@ -59,27 +60,7 @@ public class Cliente implements Serializable {
 	public void setNroCliente(int nroCliente) {
 		this.nroCliente = nroCliente;
 	}
-	
-	public String getNombre() {
-		return nombre;
-	}
-	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	public String getApellido() {
-		return apellido;
-	}
-	
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
 
-	@Override
-	public String toString() {
-		return "Cliente [nroCliente=" + nroCliente + ", nombre=" + nombre + ", apellido=" + apellido + "]";
-	}
 	
 	
 

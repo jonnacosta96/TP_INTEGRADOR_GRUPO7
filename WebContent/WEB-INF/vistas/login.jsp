@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -11,8 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
-<title>UTN Banking 2021</title>
+<title>Login</title>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -32,24 +32,24 @@
           </container>
         </div>
     </nav>
-    
-	<div class="container well" id="containerLogin">
+    <div class="container well" id="containerLogin">
 		<center>
 		<img src="./img/imagenLogin.jpg"  class="img-circle" />
 		</center>
-		
-		<form method="get" action="validarIngreso.html" id="formLogin">
-			  <div class="form-group">
-			    <input type="text" name="txtUsuario" class="form-control"  placeholder="Ingrese usuario"  />
-			  </div>
-			  <div class="form-group">
-			    <input type="password" name="txtPass" class="form-control" placeholder="Password" />
-			  </div>
-			  <center>
-			  	<input type="submit" class="btn btn-dark" id="btnLogin" name="btnLogin" value= Ingresar>
-			  </center>
-		</form>
-	
-	</div>
+		<form:form id="loginForm" modelAttribute="login" action="loginProcess.html" method="post">
+	         <div class="form-group">
+                <form:input path="username" name="username" id="username" class="form-control"
+			    	placeholder="Ingrese usuario"/>
+             </div>
+             <div class="form-group">	
+           		<form:password path="password" name="password" id="password" class="form-control"
+			    	placeholder="Ingrese contraseña"/>
+	          </div>
+	          <center>
+                    <form:button id="login" name="login" class="btn btn-dark" value="Ingresar">Login</form:button>
+                </center>
+	     </form:form>
+	     <center></center><p class="text-danger">${message}</td></center>
+     </div>
 </body>
 </html>
