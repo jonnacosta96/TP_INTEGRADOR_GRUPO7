@@ -26,9 +26,12 @@ public class TipoCuenta implements Serializable{
 	
 	@Column(name="nombre")
 	private String nombre;
+	
+	public TipoCuenta() {
+
+	}
 
 	public TipoCuenta(String codigo, Moneda moneda, String nombre) {
-		super();
 		this.codigo = codigo;
 		this.moneda = moneda;
 		this.nombre = nombre;
@@ -58,15 +61,11 @@ public class TipoCuenta implements Serializable{
 		this.nombre = nombre;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public TipoCuenta() {
-		super();
+	@Override
+	public String toString() {
+		return "codigo=" + codigo + ", moneda=" + moneda + ", nombre=" + nombre;
 	}
 	
-
 	
 	
 }

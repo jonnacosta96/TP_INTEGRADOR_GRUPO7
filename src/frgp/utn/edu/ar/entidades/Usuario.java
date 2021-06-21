@@ -36,7 +36,7 @@ public class Usuario implements Serializable {
 	private Boolean activo;
 
 	public Usuario() {
-		super();
+
 	}
 
 	public Usuario(String username, String password, String nombre, String apellido, String email, String tipo,
@@ -106,10 +106,5 @@ public class Usuario implements Serializable {
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
 	
 }

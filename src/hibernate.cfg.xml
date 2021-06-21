@@ -13,9 +13,14 @@
         
         <mapping class="frgp.utn.edu.ar.entidades.Cliente"/>
         <mapping class="frgp.utn.edu.ar.entidades.Provincia"/>
+        <mapping class="frgp.utn.edu.ar.entidades.Localidad"/>
+        
         <mapping class="frgp.utn.edu.ar.entidades.Cuenta"/>
         <mapping class="frgp.utn.edu.ar.entidades.Moneda"/>
         <mapping class="frgp.utn.edu.ar.entidades.TipoCuenta"/>
         <mapping class="frgp.utn.edu.ar.entidades.Usuario"/>
+        
+        <mapping class="frgp.utn.edu.ar.entidades.Transaccion"/>
+        <mapping class="frgp.utn.edu.ar.entidades.TipoTransaccion"/>
     </session-factory>
 </hibernate-configuration>
