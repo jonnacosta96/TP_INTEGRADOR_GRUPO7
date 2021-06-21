@@ -1,13 +1,18 @@
 package frgp.utn.edu.ar.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import frgp.utn.edu.ar.dao.Conexion;
 import frgp.utn.edu.ar.dto.UserSessionDto;
+import frgp.utn.edu.ar.entidades.TipoCuenta;
 import helpers.ViewNameResolver;
 
 
@@ -87,8 +92,20 @@ public class AdminController {
 			(UserSessionDto)httpSession.getAttribute("userSession"),
 			request.getServletPath()
 		);
+		
+		mav.setViewName(viewName);
+		
+		if(!viewName.contains("redirect")) {
+					
+			Conexion cn = new Conexion();
+		    Session session = cn.abrirConexion();
+		    
+		    String hql = "from TipoCuenta";
+		    List<TipoCuenta> tiposCuenta = (List<TipoCuenta>)session.createQuery(hql).list();
+		    
+		    cn.cerrarSession();
+		}
 	    
-	    mav.setViewName(viewName);
 		return mav;
 	}
 	
