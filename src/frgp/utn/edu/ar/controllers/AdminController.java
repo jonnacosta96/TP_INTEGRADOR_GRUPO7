@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,6 +15,10 @@ import frgp.utn.edu.ar.dao.Conexion;
 import frgp.utn.edu.ar.dto.UserSessionDto;
 import frgp.utn.edu.ar.entidades.TipoCuenta;
 import helpers.ViewNameResolver;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 
 @Controller
@@ -71,6 +76,24 @@ public class AdminController {
 		return mav;
 	}
 	
+	@RequestMapping(value="buscarCliente")
+	public ModelAndView eventBuscarClienteEnCreacionCuenta(
+			@RequestBody JSONObject usuario,
+			HttpSession httpSession,
+			HttpServletRequest request
+		
+	) {
+		
+		ModelAndView mav = new ModelAndView();
+		String viewName = ViewNameResolver.resolveViewName(
+			(UserSessionDto)httpSession.getAttribute("userSession"),
+			request.getServletPath()
+		);
+	    
+	    mav.setViewName(viewName);
+		return mav;
+	}
+	
 	@RequestMapping(value="adminCuentas.html")
 	public ModelAndView eventClickMenuCuentas(HttpSession httpSession, HttpServletRequest request) {
 		
@@ -95,13 +118,24 @@ public class AdminController {
 		
 		mav.setViewName(viewName);
 		
-		if(!viewName.contains("redirect")) {
+		if(!viewName.contains("login")) {
 					
 			Conexion cn = new Conexion();
 		    Session session = cn.abrirConexion();
 		    
 		    String hql = "from TipoCuenta";
 		    List<TipoCuenta> tiposCuenta = (List<TipoCuenta>)session.createQuery(hql).list();
+		    JSONArray array = new JSONArray();
+		    
+		    for(TipoCuenta tipo: tiposCuenta)
+		    {
+		    	JSONObject obj = new JSONObject();
+		    	obj.put("code",tipo.getCodigo());
+		    	obj.put("nombre",tipo.getNombre());
+		    	array.add(obj);
+		    }
+		    
+		    request.setAttribute("tiposCuenta", array);
 		    
 		    cn.cerrarSession();
 		}
