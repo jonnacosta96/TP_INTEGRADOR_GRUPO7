@@ -9,6 +9,8 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import frgp.utn.edu.ar.dao.Conexion;
@@ -76,22 +78,15 @@ public class AdminController {
 		return mav;
 	}
 	
-	@RequestMapping(value="buscarCliente")
-	public ModelAndView eventBuscarClienteEnCreacionCuenta(
-			@RequestBody JSONObject usuario,
-			HttpSession httpSession,
-			HttpServletRequest request
-		
+	@RequestMapping(value="buscarCliente", method = {RequestMethod.GET, RequestMethod.PUT})
+	@ResponseBody
+	public  String eventBuscarClienteEnCreacionCuenta(
+			@RequestBody JSONObject usuario
 	) {
 		
-		ModelAndView mav = new ModelAndView();
-		String viewName = ViewNameResolver.resolveViewName(
-			(UserSessionDto)httpSession.getAttribute("userSession"),
-			request.getServletPath()
-		);
+		
 	    
-	    mav.setViewName(viewName);
-		return mav;
+		return "Yes";
 	}
 	
 	@RequestMapping(value="adminCuentas.html")
