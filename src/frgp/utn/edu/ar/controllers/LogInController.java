@@ -40,7 +40,7 @@ public class LogInController {
 		request.getServletPath()
 	);
 	
-	FillDatabase.GenerateRecords();
+	//FillDatabase.GenerateRecords();
     
     mav.setViewName(viewName);
 

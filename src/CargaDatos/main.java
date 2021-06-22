@@ -34,7 +34,7 @@ public class main {
 		Localidad loc3 = new Localidad(3, "San Miguel", true);
 		
 		
-		//Cliente client1 = new Cliente(1001, 39986516, "Masculino", pais1, LocalDate.now(), "Calle Prueba 1", prov1, loc1, true);
+		Cliente client1 = new Cliente(1001, 39986516, "Masculino", pais1, LocalDate.now(), "Calle Prueba 1", prov1, loc1, true);
 		Cliente client2 = new Cliente(1002, 39561226, "Masculino", pais1, LocalDate.now(), "Calle Prueba 2", prov2, loc3, true);
 		Cliente client3 = new Cliente(1003, 25926366, "Masculino", pais2, LocalDate.now(), "Calle Prueba 3", prov3, loc2, true);
 		Cliente client4 = new Cliente(1004, 27122807, "Femenino", pais1, LocalDate.now(), "Calle Prueba 4", prov1, loc1, true);
@@ -46,14 +46,14 @@ public class main {
 		Cliente client10 = new Cliente(1010, 31359726, "Femenino", pais2, LocalDate.now(), "Calle Prueba 10", prov3, loc2, true);
 		
 		
-		Moneda moneda1 = new Moneda("1", "Dolar EEUU");
-		Moneda moneda2 = new Moneda("2", "Peso Argentino");
+		Moneda moneda1 = new Moneda("1", "Dolar EEUU",true);
+		Moneda moneda2 = new Moneda("2", "Peso Argentino",true);
 		
-		TipoCuenta tipocuenta1 = new TipoCuenta("1", moneda1, "Cuenta en Pesos");
-		TipoCuenta tipocuenta2 = new TipoCuenta("2", moneda2, "Cuenta en USD");
+		TipoCuenta tipocuenta1 = new TipoCuenta("1", moneda1, "Cuenta en Pesos",true);
+		TipoCuenta tipocuenta2 = new TipoCuenta("2", moneda2, "Cuenta en USD",true);
 		
 		
-		//Cuenta cuenta1 = new Cuenta(2001, client1, "Cuenta Personal", tipocuenta1, "47489864989481", LocalDate.now(), 10000, true);
+		Cuenta cuenta1 = new Cuenta(2001, client1, "Cuenta Personal", tipocuenta1, "47489864989481", LocalDate.now(), 10000, true);
 		Cuenta cuenta2 = new Cuenta(2002, client2, "Cuenta Laboral", tipocuenta2, "55224194641881", LocalDate.now(), 15000, true);
 		Cuenta cuenta3 = new Cuenta(2003, client3, "Cuenta Personal", tipocuenta2, "85981388946681", LocalDate.now(), 20000, true);
 		Cuenta cuenta4 = new Cuenta(2004, client4, "Cuenta Personal", tipocuenta1, "89771368916681", LocalDate.now(), 10000, true);
@@ -67,8 +67,8 @@ public class main {
 		TipoTransaccion tipotransac1 = new TipoTransaccion(1, "Credito", true);
 		TipoTransaccion tipotransac2 = new TipoTransaccion(2, "Debito", true);
 		
-		//Transaccion transaccion1 = new Transaccion(8001, cuenta1, "Pago de Haberes", tipotransac1, 50000, LocalDate.now(), true);
-		//Transaccion transaccion2 = new Transaccion(8002, cuenta1, "Alquiler", tipotransac2, 1000, LocalDate.now(), true);
+		Transaccion transaccion1 = new Transaccion(8001, cuenta1, "Pago de Haberes", tipotransac1, 50000, LocalDate.now(), true);
+		Transaccion transaccion2 = new Transaccion(8002, cuenta1, "Alquiler", tipotransac2, 1000, LocalDate.now(), true);
 		Transaccion transaccion3 = new Transaccion(8003, cuenta4, "Cobro de Prestaciones", tipotransac1, 50000, LocalDate.now(), true);
 		Transaccion transaccion4 = new Transaccion(8004, cuenta4, "Pago de Aguinaldo", tipotransac1, 1000, LocalDate.now(), true);
 		Transaccion transaccion5 = new Transaccion(8005, cuenta4, "Pago de Haberes", tipotransac1, 50000, LocalDate.now(), true);
@@ -84,42 +84,42 @@ public class main {
 		
 		session.beginTransaction();
 		
-		//session.save(client1);
-		session.save(client2);
-		session.save(client3);
-		session.save(client4);
-		session.save(client5);
-		session.save(client6);
-		session.save(client7);
-		session.save(client8);
-		session.save(client9);
-		session.save(client10);
+		session.saveOrUpdate(client1);
+		session.saveOrUpdate(client2);
+		session.saveOrUpdate(client3);
+		session.saveOrUpdate(client4);
+		session.saveOrUpdate(client5);
+		session.saveOrUpdate(client6);
+		session.saveOrUpdate(client7);
+		session.saveOrUpdate(client8);
+		session.saveOrUpdate(client9);
+		session.saveOrUpdate(client10);
 		
-		//session.save(cuenta1);
-		session.save(cuenta2);
-		session.save(cuenta3);
-		session.save(cuenta4);
-		session.save(cuenta5);
-		session.save(cuenta6);
-		session.save(cuenta7);
-		session.save(cuenta8);
-		session.save(cuenta9);
-		session.save(cuenta10);
+		session.saveOrUpdate(cuenta1);
+		session.saveOrUpdate(cuenta2);
+		session.saveOrUpdate(cuenta3);
+		session.saveOrUpdate(cuenta4);
+		session.saveOrUpdate(cuenta5);
+		session.saveOrUpdate(cuenta6);
+		session.saveOrUpdate(cuenta7);
+		session.saveOrUpdate(cuenta8);
+		session.saveOrUpdate(cuenta9);
+		session.saveOrUpdate(cuenta10);
 		
 
-		session.save(tipotransac1);
-		session.save(tipotransac2);
+		session.saveOrUpdate(tipotransac1);
+		session.saveOrUpdate(tipotransac2);
 		
-		//session.save(transaccion1);
-		//session.save(transaccion2);
-		session.save(transaccion3);
-		session.save(transaccion4);
-		session.save(transaccion5);
-		session.save(transaccion6);
-		session.save(transaccion7);
-		session.save(transaccion8);
-		session.save(transaccion9);
-		session.save(transaccion10);
+		session.saveOrUpdate(transaccion1);
+		session.saveOrUpdate(transaccion2);
+		session.saveOrUpdate(transaccion3);
+		session.saveOrUpdate(transaccion4);
+		session.saveOrUpdate(transaccion5);
+		session.saveOrUpdate(transaccion6);
+		session.saveOrUpdate(transaccion7);
+		session.saveOrUpdate(transaccion8);
+		session.saveOrUpdate(transaccion9);
+		session.saveOrUpdate(transaccion10);
 
     	session.getTransaction().commit();
     	session.close();
