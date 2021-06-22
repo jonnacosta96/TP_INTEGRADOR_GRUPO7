@@ -22,7 +22,7 @@ public class Cuenta implements Serializable {
 	
 	@Id
 	@Column(name="NroCuenta")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int nroCuenta;
 	
 	@OneToOne(cascade= { CascadeType.ALL})

@@ -27,6 +27,13 @@ public class Localidad implements Serializable{
 		
 	}
 
+	public Localidad(int idLocalidad, String nombre, boolean estadoLocalidad) {
+		this.idLocalidad = idLocalidad;
+		this.nombre = nombre;
+		this.estadoLocalidad = estadoLocalidad;
+	}
+
+
 	public int getIdLocalidad() {
 		return idLocalidad;
 	}
