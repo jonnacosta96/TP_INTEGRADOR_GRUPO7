@@ -27,9 +27,8 @@ public class Cliente implements Serializable {
 	@Column(name="Sexo",nullable=false)
 	private String sexo;
 	
-	@OneToOne(cascade= { CascadeType.ALL})
-	@JoinColumn(name="IdPais")
-	private Pais pais;
+	@Column(name="IdPais",nullable=false)
+	private int idPais;
 	
 	@Column(name="FechaNacimiento",nullable=false)
 	private LocalDate fechaNacimiento;
@@ -57,34 +56,6 @@ public class Cliente implements Serializable {
 		
 	}
 	
-	public Cliente(int nroCliente, int dni, String sexo, Pais pais, LocalDate fechaNacimiento, String direccion,
-			Provincia prov, Localidad loc, Usuario usuario, boolean estadoCliente) {
-		this.nroCliente = nroCliente;
-		this.dni = dni;
-		this.sexo = sexo;
-		this.pais = pais;
-		this.fechaNacimiento = fechaNacimiento;
-		this.direccion = direccion;
-		this.prov = prov;
-		this.loc = loc;
-		this.usuario = usuario;
-		this.estadoCliente = estadoCliente;
-	}
-
-	public Cliente(int nroCliente, int dni, String sexo, Pais pais, LocalDate fechaNacimiento, String direccion,
-			Provincia prov, Localidad loc, boolean estadoCliente) {
-		this.nroCliente = nroCliente;
-		this.dni = dni;
-		this.sexo = sexo;
-		this.pais = pais;
-		this.fechaNacimiento = fechaNacimiento;
-		this.direccion = direccion;
-		this.prov = prov;
-		this.loc = loc;
-		this.estadoCliente = estadoCliente;
-	}
-
-
 	//GETTERS AND SETTERS
 	public int getNroCliente() {
 		return nroCliente;
@@ -118,12 +89,12 @@ public class Cliente implements Serializable {
 		this.sexo = sexo;
 	}
 
-	public Pais getIdPais() {
-		return pais;
+	public int getIdPais() {
+		return idPais;
 	}
 
-	public void setIdPais(Pais pais) {
-		this.pais = pais;
+	public void setIdPais(int idPais) {
+		this.idPais = idPais;
 	}
 
 	public LocalDate getFechaNacimiento() {
@@ -168,10 +139,12 @@ public class Cliente implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Cliente [nroCliente=" + nroCliente + ", dni=" + dni + ", sexo=" + sexo + ", pais=" + pais
-				+ ", fechaNacimiento=" + fechaNacimiento + ", direccion=" + direccion + ", prov=" + prov + ", loc="
-				+ loc + ", usuario=" + usuario + ", estadoCliente=" + estadoCliente + "]";
+		return  nroCliente + ", usuario=" + usuario + ", dni=" + dni + ", sexo=" + sexo
+				+ ", idPais=" + idPais + ", fechaNacimiento=" + fechaNacimiento + ", direccion=" + direccion + ", prov="
+				+ prov + ", loc=" + loc + ", estadoCliente=" + estadoCliente;
 	}
 
+
+	
 	
 }
