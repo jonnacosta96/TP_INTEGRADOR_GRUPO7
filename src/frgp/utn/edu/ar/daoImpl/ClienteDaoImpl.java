@@ -19,8 +19,9 @@ public class ClienteDaoImpl implements ClienteDao {
 		String query = "FROM Cliente cli WHERE cli.estadoCliente = 1";
 		List<Cliente> lista = (List<Cliente>)session.createQuery(query).list();
 		
+		cn.cerrarSession();
 		
-		return null;
+		return lista;
 	}
 
 }

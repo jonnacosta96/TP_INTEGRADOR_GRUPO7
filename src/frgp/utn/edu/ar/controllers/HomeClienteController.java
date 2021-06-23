@@ -11,7 +11,7 @@ import frgp.utn.edu.ar.dto.UserSessionDto;
 import helpers.ViewNameResolver;
 
 @Controller
-public class ClientController {
+public class HomeClienteController {
 	
 	
 	@RequestMapping("clienteHome.html")
