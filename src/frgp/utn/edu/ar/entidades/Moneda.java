@@ -16,12 +16,8 @@ public class Moneda implements Serializable{
 	@Id
 	@Column(name="codigo")
 	private String codigo;
-	
 	@Column(name="nombre")
 	private String nombre;
-	
-	@Column(name="EstadoLinea")
-	private Boolean estadoLinea;
 	
 	public Moneda() {
 		super();
@@ -40,19 +36,9 @@ public class Moneda implements Serializable{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	public Boolean getEstadoLinea() {
-		return estadoLinea;
-	}
-
-	public void setEstadoLinea(Boolean estadoLinea) {
-		this.estadoLinea = estadoLinea;
-	}
-
-	public Moneda(String codigo, String nombre, Boolean estadoLinea) {
+	public Moneda(String codigo, String nombre) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
-		this.estadoLinea =  estadoLinea;
 	}
 }

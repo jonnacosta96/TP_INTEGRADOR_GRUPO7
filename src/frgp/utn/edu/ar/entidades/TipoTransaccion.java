@@ -27,13 +27,6 @@ public class TipoTransaccion implements Serializable{
 		
 	}
 
-	
-	public TipoTransaccion(int idTipoTransaccion, String descripcion, boolean estadoTipoTransaccion) {
-		this.idTipoTransaccion = idTipoTransaccion;
-		this.descripcion = descripcion;
-		this.estadoTipoTransaccion = estadoTipoTransaccion;
-	}
-
 	public int getIdTipoTransaccion() {
 		return idTipoTransaccion;
 	}
