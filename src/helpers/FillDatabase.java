@@ -19,8 +19,8 @@ public class FillDatabase {
 	    session.saveOrUpdate(new Usuario(
 	      "customer", "customer", "Customer", "User", "customer@user.com", "Customer", true
 	    ));
-	    Moneda moneda1 = new Moneda("ARS","Peso Argentino");
-	    Moneda moneda2 = new Moneda("USD","Dolar Estadounidense");
+	    Moneda moneda1 = new Moneda("ARS","Peso Argentino",true);
+	    Moneda moneda2 = new Moneda("USD","Dolar Estadounidense",true);
 	    session.saveOrUpdate(moneda1);
 	    session.saveOrUpdate(moneda2);
 	    session.saveOrUpdate(new TipoCuenta("CA-ARS",moneda1,"Caja de ahorro en ARS"));
