@@ -21,6 +21,12 @@ public class Cliente implements Serializable {
 	@Column(name="NroCliente")
 	private int nroCliente;
 	
+	@Column(name="Nombre")
+	private String nombre;
+	
+	@Column(name="Apellido")
+	private String apellido;
+	
 	@Column(name="Dni",nullable=false,unique=true)
 	private int dni;
 	
@@ -58,7 +64,7 @@ public class Cliente implements Serializable {
 	}
 
 	public Cliente(int nroCliente, int dni, String sexo, Pais pais, LocalDate fechaNacimiento, String direccion,
-			Provincia prov, Localidad loc, Usuario usuario, boolean estadoCliente) {
+			Provincia prov, Localidad loc, Usuario usuario, boolean estadoCliente, String nombre, String apellido) {
 
 		this.nroCliente = nroCliente;
 		this.dni = dni;
@@ -70,13 +76,40 @@ public class Cliente implements Serializable {
 		this.loc = loc;
 		this.usuario = usuario;
 		this.estadoCliente = estadoCliente;
+		this.nombre = nombre;
+		this.apellido = apellido;
 	}
 
 	//GETTERS AND SETTERS
+	
 	public int getNroCliente() {
 		return nroCliente;
 	}
 	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
+
 	public void setNroCliente(int nroCliente) {
 		this.nroCliente = nroCliente;
 	}

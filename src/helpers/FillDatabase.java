@@ -9,7 +9,7 @@ import frgp.utn.edu.ar.entidades.Usuario;
 
 public class FillDatabase {
 	public static void GenerateRecords() {
-		Conexion cn = new Conexion();
+		/*Conexion cn = new Conexion();
 	    Session session = cn.abrirConexion();
 	    session.beginTransaction();
 	    
@@ -27,6 +27,6 @@ public class FillDatabase {
 	    session.saveOrUpdate(new TipoCuenta("CA-USD",moneda2,"Caja de ahorro en USD"));
 	    
 	    session.getTransaction().commit();
-	    session.close();
+	    session.close();*/
 	}
 }
