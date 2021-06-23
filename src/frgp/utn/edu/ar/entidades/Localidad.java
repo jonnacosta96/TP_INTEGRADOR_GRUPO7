@@ -23,10 +23,18 @@ public class Localidad implements Serializable{
 	@Column(name="EstadoLinea", columnDefinition="Boolean default true")
 	private boolean estadoLocalidad;
 	
+	//CONSTRUCTORES
 	public Localidad() {
 		
 	}
+	
+	public Localidad(int idLocalidad, String nombre, boolean estadoLocalidad) {
+		this.idLocalidad = idLocalidad;
+		this.nombre = nombre;
+		this.estadoLocalidad = estadoLocalidad;
+	}
 
+	//GETTERS AND SETTERS
 	public int getIdLocalidad() {
 		return idLocalidad;
 	}

@@ -27,8 +27,18 @@ public class TipoCuenta implements Serializable{
 	@Column(name="nombre")
 	private String nombre;
 	
+	@Column(name="EstadoLinea", columnDefinition="Boolean default true")
+	private boolean estadoTipoCuenta;
+	
 	public TipoCuenta() {
 
+	}
+	
+	public TipoCuenta(String codigo, Moneda moneda, String nombre, boolean estadoTipoCuenta) {
+		this.codigo = codigo;
+		this.moneda = moneda;
+		this.nombre = nombre;
+		this.estadoTipoCuenta = estadoTipoCuenta;
 	}
 
 	public TipoCuenta(String codigo, Moneda moneda, String nombre) {
@@ -60,7 +70,13 @@ public class TipoCuenta implements Serializable{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
+	public boolean isEstadoTipoCuenta() {
+		return estadoTipoCuenta;
+	}
+	public void setEstadoTipoCuenta(boolean estadoTipoCuenta) {
+		this.estadoTipoCuenta = estadoTipoCuenta;
+	}
+	
 	@Override
 	public String toString() {
 		return "codigo=" + codigo + ", moneda=" + moneda + ", nombre=" + nombre;
