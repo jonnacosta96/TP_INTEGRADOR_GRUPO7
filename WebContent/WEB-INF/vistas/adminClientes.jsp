@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -20,7 +22,6 @@
 <body>
 	
 	<jsp:include page="header.jsp"></jsp:include>	
-	
     <div style="background-color: #e9ecef; min-height:94vh!important" class="container-fluid py-3" >
         <div class="container">
         	<div>
@@ -74,33 +75,17 @@
 						</tr>
 					</tfoot>
 					<tbody>
-						<tr>
-							<td>cell1_1</td>
-							<td>cell2_1</td>
-							<td>cell3_1</td>
-							<td>cell4_1</td>
-							<td>cell5_1</td>
-							<td>cell6_1</td>
-							<td><button type="button" class="btn btn-secondary btn-sm">Modificar</button><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
-						</tr>
-						<tr>
-							<td>cell1_2</td>
-							<td>cell2_2</td>
-							<td>cell3_2</td>
-							<td>cell4_2</td>
-							<td>cell5_2</td>
-							<td>cell6_2</td>
-							<td><button type="button" class="btn btn-secondary btn-sm">Modificar</button><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
-						</tr>
-						<tr>
-							<td>cell1_3</td>
-							<td>cell2_3</td>
-							<td>cell3_3</td>
-							<td>cell4_3</td>
-							<td>cell5_3</td>
-							<td>cell6_3</td>
-							<td><button type="button" class="btn btn-secondary btn-sm">Modificar</button><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
-						</tr>
+						<c:forEach items="${ListaClientes}" var="objcli">
+							<tr>
+								<td>${objcli.nroCliente}</td>
+								<td>${objcli.nroCliente}</td>
+								<td>${objcli.idPais}</td>
+								<td>${objcli.dni}</td>
+								<td>${objcli.direccion}</td>
+								<td>${objcli.sexo}</td>
+								<td><button type="button" class="btn btn-secondary btn-sm">Modificar</button><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
             </div>	 	

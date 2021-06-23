@@ -19,7 +19,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a href="${pageContext.servletContext.contextPath}/adminCuentas.html" class="dropdown-item">Cuentas</a>
-                <a href="${pageContext.servletContext.contextPath}/adminClientes.html" class="dropdown-item">Clientes</a>
+                <a href="${pageContext.servletContext.contextPath}/listadoClientes.html" class="dropdown-item">Clientes</a>
             </div>
           </li>
       </ul>
