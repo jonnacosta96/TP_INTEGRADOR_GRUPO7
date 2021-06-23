@@ -28,11 +28,11 @@
                 <div class="row">
                   <div class="col">
                     <h5><label for="exampleInputEmail1">Cliente</label></h5>
-                    <input type="text" class="form-control" placeholder="Nombre" >
+                    <input type="text" class="form-control" placeholder="Nombre" readonly>
                   </div>
                   <div class="col">
                     <h5><label for="exampleInputEmail1">Tipo</label></h5>
-                    <select class="form-select form-control" aria-label="Default select example">
+                    <select class="form-select form-control" aria-label="Default select example" readonly>
                       <option selected>Caja de ahorro ARS</option>
                       <option value="1">Caja de ahorro USD</option>
                     </select>

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import frgp.utn.edu.ar.entidades.Cliente;
@@ -22,17 +23,17 @@ public class Cuenta implements Serializable {
 	
 	@Id
 	@Column(name="NroCuenta")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int nroCuenta;
 	
-	@OneToOne(cascade= { CascadeType.ALL})
+	@ManyToOne(cascade= { CascadeType.ALL})
 	@JoinColumn(name="NroCliente")
     private Cliente cliente;
 	
 	@Column(name="Nombre")
     private String nombre;
 	
-	@OneToOne(cascade= { CascadeType.ALL})
+	@ManyToOne(cascade= { CascadeType.ALL})
 	@JoinColumn(name="CodigoTipoCuenta")
 	private TipoCuenta tipoCuenta;
 	

@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,21 +21,26 @@ public class TipoCuenta implements Serializable{
 	@Column(name="Codigo")
 	private String codigo;
 	
-	@OneToOne(cascade= { CascadeType.ALL})
+	@ManyToOne(cascade= { CascadeType.ALL})
 	@JoinColumn(name="CodigoMoneda")
 	private Moneda moneda;
 	
-	@Column(name="nombre")
+	@Column(name="Nombre")
 	private String nombre;
+	
+	@Column(name="EstadoLinea")
+	private Boolean estadoLinea;
 	
 	public TipoCuenta() {
 
 	}
 
-	public TipoCuenta(String codigo, Moneda moneda, String nombre) {
+	public TipoCuenta(String codigo, Moneda moneda, String nombre, Boolean estadoLinea) {
+		super();
 		this.codigo = codigo;
 		this.moneda = moneda;
 		this.nombre = nombre;
+		this.estadoLinea = estadoLinea;
 	}
 
 	public String getCodigo() {
@@ -61,11 +67,16 @@ public class TipoCuenta implements Serializable{
 		this.nombre = nombre;
 	}
 
-	@Override
-	public String toString() {
-		return "codigo=" + codigo + ", moneda=" + moneda + ", nombre=" + nombre;
+	public Boolean getEstadoLinea() {
+		return estadoLinea;
 	}
-	
-	
+
+	public void setEstadoLinea(Boolean estadoLinea) {
+		this.estadoLinea = estadoLinea;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 }
