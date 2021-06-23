@@ -29,7 +29,6 @@ public class Pais implements Serializable{
 		
 	}
 
-
 	public Pais(int idPais, String nombre, boolean estadoPais) {
 		this.idPais = idPais;
 		this.nombre = nombre;
