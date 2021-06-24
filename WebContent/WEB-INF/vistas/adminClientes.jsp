@@ -8,10 +8,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-	<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="./css/glyphicon.css" type="text/css"/>
 	<link rel="stylesheet" href="./css/table.css" type="text/css"/>
@@ -20,10 +16,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-
-	<script>
+	<script type="text/javascript" src="./js/jquery.configTables.min.js"></script>
+	<script type="text/javascript">
 		$(document).ready( function () {
-		    $('#myTable').DataTable();
+		$("#TablaClientes").DataTable();
 		} );
 	</script>
 	
@@ -39,6 +35,7 @@
         		<h2>Administrar Clientes</h2>
         	</div>
             <br>
+            <%--
 			<div class="row">
 				<div class="col-md-6">
 				    <div class="input-group">
@@ -49,7 +46,7 @@
 					    </span>
 				    </div>
 				</div>
-			</div>
+			</div>--%>
 		    <div class="row">
 		        <div class="col-md-12">                                
 		            <br/>           
@@ -59,33 +56,25 @@
 		    </div>
 			<br>
             <div>
-            	<table class="blueTable">
+            	<table id="TablaClientes" class="blueTable">
 					<thead>
 						<tr>
-							<th>Id</th>
+							<th>ID</th>
 							<th>Nombre</th>
 							<th>Apellido</th>
 							<th>DNI</th>
 							<th>Fecha Nacimiento</th>
 							<th>Sexo</th>
+							<th>Direccion</th>
 							<th>Pais</th>
 							<th>Provincia</th>
 							<th>Localidad</th>
-							<th>Direccion</th>
 							<th>Accion</th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
 							<td colspan="11">
-								<div class="links">
-									<a href="#">&laquo;</a>
-									<a class="active" href="#">1</a>
-									<a href="#">2</a>
-									<a href="#">3</a>
-									<a href="#">4</a>
-									<a href="#">&raquo;</a>
-								</div>
 							</td>
 						</tr>
 					</tfoot>
@@ -93,11 +82,15 @@
 						<c:forEach items="${ListaClientes}" var="objcli">
 							<tr>
 								<td>${objcli.nroCliente}</td>
-								<td>${objcli.nroCliente}</td>
-								<td>${objcli.idPais}</td>
+								<td>${objcli.nombre}</td>
+								<td>${objcli.apellido}</td>
 								<td>${objcli.dni}</td>
-								<td>${objcli.direccion}</td>
 								<td>${objcli.sexo}</td>
+								<td>${objcli.sexo}</td>
+								<td>${objcli.pais.nombre}</td>
+								<td>${objcli.prov.nombre}</td>
+								<td>${objcli.loc.nombre}</td>
+								<td>${objcli.direccion}</td>
 								<td><button type="button" class="btn btn-secondary btn-sm">Modificar</button><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
 							</tr>
 						</c:forEach>
