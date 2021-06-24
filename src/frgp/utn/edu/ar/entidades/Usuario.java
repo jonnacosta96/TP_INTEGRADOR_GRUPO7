@@ -58,7 +58,7 @@ public class Usuario implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -82,5 +82,7 @@ public class Usuario implements Serializable {
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
 	}
+
+	
 	
 }

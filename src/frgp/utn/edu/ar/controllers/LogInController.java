@@ -66,8 +66,7 @@ public class LogInController {
 	    		.setParameter("username", login.getUsername())
 	    		.setParameter("password", login.getPassword())
 	    		.uniqueResult();
-    
-    cn.cerrarSession();
+
 
     if (null != user) {
     	mav = new ModelAndView();
@@ -76,15 +75,21 @@ public class LogInController {
     	
 		if(user.getTipo().toString().toUpperCase().equals("ADMIN"))
 		{
-			hql = "from Empleado e where e.username = " + user.getUsername();
-			Empleado empleado = (Empleado)session.createQuery(hql).uniqueResult();
+			hql = "from Empleado e where e.usuario = :username";
+			Empleado empleado = (Empleado)session.createQuery(hql)
+					.setParameter("username", user)
+					.uniqueResult();
+			//Empleado empleado = (Empleado)session.createQuery("from Empleado").uniqueResult();
 			userName = empleado.getNombre() + " " + empleado.getApellido();
 			mav.setViewName("redirect:/adminHome.html");
 		}
 		if(user.getTipo().toString().toUpperCase().equals("CUSTOMER"))
 		{
-			hql = "from Cliente e where e.username = " + user.getUsername();
-			Cliente cliente = (Cliente)session.createQuery(hql).uniqueResult();
+			hql = "from Cliente c where c.usuario = :username";
+			Cliente cliente = (Cliente)session.createQuery(hql)
+					.setParameter("username", user)
+					.uniqueResult();
+			//Cliente cliente = (Cliente)session.createQuery("from Cliente").uniqueResult();
 			userName = cliente.getNombre() + " " + cliente.getApellido();
 			
 			mav.setViewName("redirect:/clienteHome.html");
