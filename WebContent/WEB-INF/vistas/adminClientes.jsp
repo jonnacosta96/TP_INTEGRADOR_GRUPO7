@@ -8,18 +8,14 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="./css/glyphicon.css" type="text/css"/>
 	<link rel="stylesheet" href="./css/table.css" type="text/css"/>
 	
-	
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	
-	
+
 	<script type="text/javascript" src="./js/jquery.configTables.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready( function () {
@@ -69,24 +65,16 @@
 							<th>DNI</th>
 							<th>Fecha Nacimiento</th>
 							<th>Sexo</th>
+							<th>Direccion</th>
 							<th>Pais</th>
 							<th>Provincia</th>
 							<th>Localidad</th>
-							<th>Direccion</th>
 							<th>Accion</th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="10">
-								<div class="links">
-									<a href="#">&laquo;</a>
-									<a class="active" href="#">1</a>
-									<a href="#">2</a>
-									<a href="#">3</a>
-									<a href="#">4</a>
-									<a href="#">&raquo;</a>
-								</div>
+							<td colspan="11">
 							</td>
 						</tr>
 					</tfoot>
