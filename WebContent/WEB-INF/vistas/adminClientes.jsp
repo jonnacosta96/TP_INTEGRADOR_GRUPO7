@@ -23,7 +23,7 @@
 	<script type="text/javascript" src="./js/jquery.configTables.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready( function () {
-		$("#TablaAlumnos").DataTable();
+		$("#TablaClientes").DataTable();
 		} );
 	</script>
 	
@@ -39,6 +39,7 @@
         		<h2>Administrar Clientes</h2>
         	</div>
             <br>
+            <%--
 			<div class="row">
 				<div class="col-md-6">
 				    <div class="input-group">
@@ -49,7 +50,7 @@
 					    </span>
 				    </div>
 				</div>
-			</div>
+			</div>--%>
 		    <div class="row">
 		        <div class="col-md-12">                                
 		            <br/>           
@@ -59,10 +60,10 @@
 		    </div>
 			<br>
             <div>
-            	<table id="TablaAlumnos" class="blueTable">
+            	<table id="TablaClientes" class="blueTable">
 					<thead>
 						<tr>
-							<th>Id</th>
+							<th>ID</th>
 							<th>Nombre</th>
 							<th>Apellido</th>
 							<th>DNI</th>
@@ -77,7 +78,7 @@
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="11">
+							<td colspan="10">
 								<div class="links">
 									<a href="#">&laquo;</a>
 									<a class="active" href="#">1</a>
@@ -93,15 +94,15 @@
 						<c:forEach items="${ListaClientes}" var="objcli">
 							<tr>
 								<td>${objcli.nroCliente}</td>
-								<td>${objcli.nroCliente}</td>
-								<td>${objcli.pais.nombre}</td>
+								<td>${objcli.nombre}</td>
+								<td>${objcli.apellido}</td>
 								<td>${objcli.dni}</td>
+								<td>${objcli.sexo}</td>
+								<td>${objcli.sexo}</td>
+								<td>${objcli.pais.nombre}</td>
+								<td>${objcli.prov.nombre}</td>
+								<td>${objcli.loc.nombre}</td>
 								<td>${objcli.direccion}</td>
-								<td>${objcli.sexo}</td>
-								<td>${objcli.sexo}</td>
-								<td>${objcli.sexo}</td>
-								<td>${objcli.sexo}</td>
-								<td>${objcli.sexo}</td>
 								<td><button type="button" class="btn btn-secondary btn-sm">Modificar</button><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
 							</tr>
 						</c:forEach>
