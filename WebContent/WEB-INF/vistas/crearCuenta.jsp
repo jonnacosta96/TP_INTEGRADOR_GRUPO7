@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,27 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
-    <script type="text/Javascript">
-    	console.log();
-    	jQuery(document).ready(function($) {     
-		    $('#buscarCliente').submit(function(evento) {
-				debugger;
-		        $.ajax({
-		            url: 'buscarCliente.html',
-		            type: 'POST',
-					headers: { 
-				        'Accept': 'application/json',
-				        'Content-Type': 'application/json' 
-				    },
-		            data: JSON.stringify({
-							login: $('#dniCliente').val()
-					}),
-		            processData: false,
-		            contentType: "application/json"
-		        })
-		    })
-    	});
-	</script>
+    <script src="jquery-3.5.1.min.js"></script>
 
 <title>UTN Banking 2021</title>
 </head>
@@ -67,10 +48,10 @@
                     <h5><label for="exampleInputEmail1">DNI Cliente</label></h5>
                     <div class="col-md-10">
 					    <div class="input-group">
-						    <form id="buscarCliente" action="#">
-						        <input type="text" class="form-control" id="dniCliente" placeholder="DNI Cliente"name="txtApellido">
+						    <form id="buscarClienteForm" action="#">
+						        <input type="text" class="form-control" placeholder="DNI Cliente" id="dni">
 								<span class="input-group-btn">
-									<input type="submit"  class="btn btn-dark" value="Buscar" name="btnBuscarCliente">
+									<input  type="button" id="buscarCliente" class="btn btn-dark" value="Buscar">
 							    </span>
 						    </form>
 					    </div>
@@ -78,7 +59,7 @@
                   </div>
                   <div class="col">
                   	<h5><label for="exampleInputEmail1">Cliente</label></h5>
-                    <input type="text" class="form-control d-inline disabled" readonly placeholder="Cliente" >
+                    <input type="text" class="form-control d-inline disabled" readonly placeholder="Cliente" id="clienteNombre">
                   </div>
                 </div>
               </div>
@@ -92,3 +73,30 @@
 
 </body>
 </html>
+
+<script type="text/javascript">
+$('#buscarCliente').on('click',
+	function()
+	{
+		$.ajax({
+		    type : "GET",
+		    url : "buscarCliente.html",
+		    data : {
+		    	"dni" : $("#dni").val()
+		    },
+		    success: function(data){
+		    	debugger;
+		    	var json = JSON.parse(data);
+		    	if(json.error)
+	    		{
+		    		
+	    		}
+		    	else
+	    		{
+		    		$("#clienteNombre").val(json.nombre);
+	    		}
+		    }
+		})
+	}   
+);
+</script>
