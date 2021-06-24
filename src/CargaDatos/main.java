@@ -37,7 +37,7 @@ System.out.println(LocalDate.now().toString());
 		Usuario user11 = new Usuario("clientePrueba","clientePrueba","clientePrueba@mail.com","Customer",true);
 		Usuario user12 = new Usuario("admin","admin","admin@mail.com","Admin",true);
 		
-		Cliente client1 = new Cliente(1001, 39986516, "Masculino", pais1, LocalDate.now(), "Calle Prueba 1", prov1, loc1, user1, true, "Tobias","Olea");
+		Cliente client1 = new Cliente(1001, 40379479, "Masculino", pais1, LocalDate.now(), "Calle Prueba 1", prov1, loc1, user1, true, "Tobias","Olea");
 		Cliente client2 = new Cliente(1002, 39561226, "Masculino", pais1, LocalDate.now(), "Calle Prueba 2", prov2, loc3, user2, true, "Jonathan","Costa");
 		Cliente client3 = new Cliente(1003, 25926366, "Masculino", pais2, LocalDate.now(), "Calle Prueba 3", prov3, loc2, user3, true, "Ricardo","Mollo");
 		Cliente client4 = new Cliente(1004, 27122807, "Femenino", pais1, LocalDate.now(), "Calle Prueba 4", prov1, loc1, user4, true, "David","Gilmour");
@@ -60,9 +60,9 @@ System.out.println(LocalDate.now().toString());
 		
 		
 		Cuenta cuenta1 = new Cuenta(2001, client1, "Cuenta Personal", tipocuenta1, "47489864989481", LocalDate.now(), 10000, true);
-		Cuenta cuenta2 = new Cuenta(2002, client2, "Cuenta Laboral", tipocuenta2, "55224194641881", LocalDate.now(), 15000, true);
-		Cuenta cuenta3 = new Cuenta(2003, client3, "Cuenta Personal", tipocuenta2, "85981388946681", LocalDate.now(), 20000, true);
-		Cuenta cuenta4 = new Cuenta(2004, client4, "Cuenta Personal", tipocuenta1, "89771368916681", LocalDate.now(), 10000, true);
+		Cuenta cuenta2 = new Cuenta(2002, client1, "Cuenta Laboral", tipocuenta2, "55224194641881", LocalDate.now(), 15000, true);
+		Cuenta cuenta3 = new Cuenta(2003, client1, "Cuenta Personal", tipocuenta2, "85981388946681", LocalDate.now(), 20000, true);
+		Cuenta cuenta4 = new Cuenta(2004, client1, "Cuenta Personal", tipocuenta1, "89771368916681", LocalDate.now(), 10000, true);
 		Cuenta cuenta5 = new Cuenta(2005, client5, "Caja de Ahorro", tipocuenta1, "78943154894316", LocalDate.now(), 64000, true);
 		Cuenta cuenta6 = new Cuenta(2006, client6, "Felipe Melo", tipocuenta1, "44613165887896", LocalDate.now(), 100000, true);
 		Cuenta cuenta7 = new Cuenta(2007, client7, "Cuenta inversiones", tipocuenta1, "21347873156746", LocalDate.now(), 160000, true);
