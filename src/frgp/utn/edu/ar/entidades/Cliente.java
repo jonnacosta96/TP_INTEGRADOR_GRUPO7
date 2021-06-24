@@ -105,11 +105,11 @@ public class Cliente implements Serializable {
 		this.sexo = sexo;
 	}
 
-	public Pais getIdPais() {
+	public Pais getPais() {
 		return pais;
 	}
 
-	public void setIdPais(Pais pais) {
+	public void setPais(Pais pais) {
 		this.pais = pais;
 	}
 
