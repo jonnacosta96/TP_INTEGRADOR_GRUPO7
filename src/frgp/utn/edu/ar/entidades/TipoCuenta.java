@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,26 +20,31 @@ public class TipoCuenta implements Serializable{
 	@Column(name="Codigo")
 	private String codigo;
 	
-	@ManyToOne(cascade= { CascadeType.ALL})
+	@OneToOne(cascade= { CascadeType.ALL})
 	@JoinColumn(name="CodigoMoneda")
 	private Moneda moneda;
 	
-	@Column(name="Nombre")
+	@Column(name="nombre")
 	private String nombre;
 	
-	@Column(name="EstadoLinea")
-	private Boolean estadoLinea;
+	@Column(name="EstadoLinea", columnDefinition="Boolean default true")
+	private boolean estadoTipoCuenta;
 	
 	public TipoCuenta() {
 
 	}
-
-	public TipoCuenta(String codigo, Moneda moneda, String nombre, Boolean estadoLinea) {
-		super();
+	
+	public TipoCuenta(String codigo, Moneda moneda, String nombre, boolean estadoTipoCuenta) {
 		this.codigo = codigo;
 		this.moneda = moneda;
 		this.nombre = nombre;
-		this.estadoLinea = estadoLinea;
+		this.estadoTipoCuenta = estadoTipoCuenta;
+	}
+
+	public TipoCuenta(String codigo, Moneda moneda, String nombre) {
+		this.codigo = codigo;
+		this.moneda = moneda;
+		this.nombre = nombre;
 	}
 
 	public String getCodigo() {
@@ -66,17 +70,18 @@ public class TipoCuenta implements Serializable{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public Boolean getEstadoLinea() {
-		return estadoLinea;
+	public boolean isEstadoTipoCuenta() {
+		return estadoTipoCuenta;
 	}
-
-	public void setEstadoLinea(Boolean estadoLinea) {
-		this.estadoLinea = estadoLinea;
+	public void setEstadoTipoCuenta(boolean estadoTipoCuenta) {
+		this.estadoTipoCuenta = estadoTipoCuenta;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	
+	@Override
+	public String toString() {
+		return "codigo=" + codigo + ", moneda=" + moneda + ", nombre=" + nombre;
 	}
+	
+	
 	
 }

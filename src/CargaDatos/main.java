@@ -5,23 +5,13 @@ import java.time.LocalDate;
 import org.hibernate.Session;
 
 import frgp.utn.edu.ar.dao.Conexion;
-import frgp.utn.edu.ar.entidades.Cliente;
-import frgp.utn.edu.ar.entidades.Cuenta;
-import frgp.utn.edu.ar.entidades.Localidad;
-import frgp.utn.edu.ar.entidades.Moneda;
-import frgp.utn.edu.ar.entidades.Pais;
-import frgp.utn.edu.ar.entidades.Provincia;
-import frgp.utn.edu.ar.entidades.TipoCuenta;
-import frgp.utn.edu.ar.entidades.TipoTransaccion;
-import frgp.utn.edu.ar.entidades.Transaccion;
-import frgp.utn.edu.ar.entidades.Usuario;
+import frgp.utn.edu.ar.entidades.*;
 
 public class main {
 
 	public static void main(String[] args) {
-
 		
-		System.out.println(LocalDate.now().toString());	
+System.out.println(LocalDate.now().toString());	
 		
 		Pais pais1 = new Pais(1, "Argentina", true);
 		Pais pais2 = new Pais(2, "Uruguay", true);
@@ -34,28 +24,30 @@ public class main {
 		Localidad loc2 = new Localidad(2, "Pacheco", true);
 		Localidad loc3 = new Localidad(3, "San Miguel", true);
 		
-		Usuario user1 = new Usuario("tolea","tolea","Tobias","Olea","tolea@mail.com","Customer",true);
-		Usuario user2 = new Usuario("jcosta","jcosta","Jonathan","Costa","jcosta@mail.com","Customer",true);
-		Usuario user3 = new Usuario("rmollo","rmollo","Ricardo","Mollo","rmollo@mail.com","Customer",true);
-		Usuario user4 = new Usuario("dgilmour","dgilmour","David","Gilmour","dgilmour@mail.com","Customer",true);
-		Usuario user5 = new Usuario("jpage","jpage","Jimmy","Page","jpage@mail.com","Customer",true);
-		Usuario user6 = new Usuario("jhendrix","jhendrix","Jimi","Hendrix","jhendrix@mail.com","Customer",true);
-		Usuario user7 = new Usuario("ehalen","ehalen","Edie","Halen","ehalen@mail.com","Customer",true);
-		Usuario user8 = new Usuario("eclapton","eclapton","Eric","Clapton","eclapton@mail.com","Customer",true);
-		Usuario user9 = new Usuario("gcerati","gcerati","Gustavo","Cerati","gcerati@mail.com","Customer",true);
-		Usuario user10 = new Usuario("cliente","cliente","Usuario","Cliente","cliente@mail.com","Customer",true);
-		Usuario user11 = new Usuario("admin","admin","Usuario","Admin","admin@mail.com","Admin",true);
+		Usuario user1 = new Usuario("tolea","tolea","tolea@mail.com","Customer",true);
+		Usuario user2 = new Usuario("jcosta","jcosta","jcosta@mail.com","Customer",true);
+		Usuario user3 = new Usuario("rmollo","rmollo","rmollo@mail.com","Customer",true);
+		Usuario user4 = new Usuario("dgilmour","dgilmour","dgilmour@mail.com","Customer",true);
+		Usuario user5 = new Usuario("jpage","jpage","jpage@mail.com","Customer",true);
+		Usuario user6 = new Usuario("jhendrix","jhendrix","jhendrix@mail.com","Customer",true);
+		Usuario user7 = new Usuario("ehalen","ehalen","ehalen@mail.com","Customer",true);
+		Usuario user8 = new Usuario("eclapton","eclapton","eclapton@mail.com","Customer",true);
+		Usuario user9 = new Usuario("gcerati","gcerati","gcerati@mail.com","Customer",true);
+		Usuario user10 = new Usuario("cliente","cliente","cliente@mail.com","Customer",true);
+		Usuario user11 = new Usuario("admin","admin","admin@mail.com","Admin",true);
 		
-		Cliente client1 = new Cliente(1001, 39986516, "Masculino", pais1, LocalDate.now(), "Calle Prueba 1", prov1, loc1, user1, true);
-		Cliente client2 = new Cliente(1002, 39561226, "Masculino", pais1, LocalDate.now(), "Calle Prueba 2", prov2, loc3, user2, true);
-		Cliente client3 = new Cliente(1003, 25926366, "Masculino", pais2, LocalDate.now(), "Calle Prueba 3", prov3, loc2, user3, true);
-		Cliente client4 = new Cliente(1004, 27122807, "Femenino", pais1, LocalDate.now(), "Calle Prueba 4", prov1, loc1, user4, true);
-		Cliente client5 = new Cliente(1005, 17506588, "Femenino", pais1, LocalDate.now(), "Calle Prueba 5", prov2, loc3, user5, true);
-		Cliente client6 = new Cliente(1006, 29655222, "Masculino", pais2, LocalDate.now(), "Calle Prueba 6", prov3, loc2, user6, true);
-		Cliente client7 = new Cliente(1007, 40525111, "Masculino", pais1, LocalDate.now(), "Calle Prueba 7", prov1, loc1, user7, true);
-		Cliente client8 = new Cliente(1008, 34666888, "Femenino", pais1, LocalDate.now(), "Calle Prueba 8", prov2, loc2, user8, true);
-		Cliente client9 = new Cliente(1009, 22335879, "Masculino", pais2, LocalDate.now(), "Calle Prueba 9", prov3, loc3, user9, true);
-		Cliente client10 = new Cliente(1010, 31359726, "Femenino", pais2, LocalDate.now(), "Calle Prueba 10", prov3, loc2, user10, true);
+		Cliente client1 = new Cliente(1001, 39986516, "Masculino", pais1, LocalDate.now(), "Calle Prueba 1", prov1, loc1, user1, true, "Tobias","Olea");
+		Cliente client2 = new Cliente(1002, 39561226, "Masculino", pais1, LocalDate.now(), "Calle Prueba 2", prov2, loc3, user2, true, "Jonathan","Costa");
+		Cliente client3 = new Cliente(1003, 25926366, "Masculino", pais2, LocalDate.now(), "Calle Prueba 3", prov3, loc2, user3, true, "Ricardo","Mollo");
+		Cliente client4 = new Cliente(1004, 27122807, "Femenino", pais1, LocalDate.now(), "Calle Prueba 4", prov1, loc1, user4, true, "David","Gilmour");
+		Cliente client5 = new Cliente(1005, 17506588, "Femenino", pais1, LocalDate.now(), "Calle Prueba 5", prov2, loc3, user5, true, "Jimmy","Page");
+		Cliente client6 = new Cliente(1006, 29655222, "Masculino", pais2, LocalDate.now(), "Calle Prueba 6", prov3, loc2, user6, true, "Jimi","Hendrix");
+		Cliente client7 = new Cliente(1007, 40525111, "Masculino", pais1, LocalDate.now(), "Calle Prueba 7", prov1, loc1, user7, true, "Eddie","Van Halen");
+		Cliente client8 = new Cliente(1008, 34666888, "Femenino", pais1, LocalDate.now(), "Calle Prueba 8", prov2, loc2, user8, true, "Eric","Clapton");
+		Cliente client9 = new Cliente(1009, 22335879, "Masculino", pais2, LocalDate.now(), "Calle Prueba 9", prov3, loc3, user9, true, "Gustavo","Cerati");
+		Cliente client10 = new Cliente(1010, 31359726, "Femenino", pais2, LocalDate.now(), "Calle Prueba 10", prov3, loc2, user10, true, "Usuario","Cliente");
+		
+		Empleado empleado = new Empleado(1001,"Usuario","Cliente", user11);
 		
 		
 		Moneda moneda1 = new Moneda("1", "Dolar EEUU",true);
@@ -91,7 +83,7 @@ public class main {
 		Transaccion transaccion10 = new Transaccion(80010, cuenta2, "Servicio Luz Edenor", tipotransac2, 1870, LocalDate.now(), true);
 		
 		Conexion cn = new Conexion();
-		
+
 		Session session = cn.abrirConexion();
 		
 		session.beginTransaction();
@@ -118,6 +110,8 @@ public class main {
 		session.saveOrUpdate(client8);
 		session.saveOrUpdate(client9);
 		session.saveOrUpdate(client10);
+		
+		session.saveOrUpdate(empleado);
 		
 		session.saveOrUpdate(cuenta1);
 		session.saveOrUpdate(cuenta2);

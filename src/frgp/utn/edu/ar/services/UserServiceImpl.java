@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import frgp.utn.edu.ar.dao.Conexion;
-import frgp.utn.edu.ar.dao.UserDaoImpl;
+import frgp.utn.edu.ar.daoImpl.UserDaoImpl;
 import frgp.utn.edu.ar.entidades.Login;
 import frgp.utn.edu.ar.entidades.Usuario;
 

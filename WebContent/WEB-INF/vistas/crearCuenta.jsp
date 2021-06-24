@@ -22,12 +22,14 @@
 				debugger;
 		        $.ajax({
 		            url: 'buscarCliente.html',
-		            type: 'GET',
+		            type: 'POST',
 					headers: { 
 				        'Accept': 'application/json',
 				        'Content-Type': 'application/json' 
 				    },
-		            data: "dniCliente=" + $('#dniCliente').val(),
+		            data: JSON.stringify({
+							login: $('#dniCliente').val()
+					}),
 		            processData: false,
 		            contentType: "application/json"
 		        })
@@ -66,9 +68,9 @@
                     <div class="col-md-10">
 					    <div class="input-group">
 						    <form id="buscarCliente" action="#">
-						        <input type="text" class="form-control" id="dniCliente" placeholder="DNI Cliente">
+						        <input type="text" class="form-control" id="dniCliente" placeholder="DNI Cliente"name="txtApellido">
 								<span class="input-group-btn">
-									<input type="submit"  class="btn btn-dark" value="Buscar">
+									<input type="submit"  class="btn btn-dark" value="Buscar" name="btnBuscarCliente">
 							    </span>
 						    </form>
 					    </div>
@@ -80,11 +82,10 @@
                   </div>
                 </div>
               </div>
-              
-              
+              <!--
               	<button class="btn btn-success d-inline" href="${pageContext.servletContext.contextPath}/guardarCuenta">Guardar</button>
               	<button class="btn btn-danger d-inline" href="${pageContext.servletContext.contextPath}/cancelarCreacionCuenta">Volver</button>
-              
+              -->
             
         </div>
     </div>

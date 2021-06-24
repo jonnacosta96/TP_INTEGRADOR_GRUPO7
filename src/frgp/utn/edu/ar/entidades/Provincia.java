@@ -23,10 +23,11 @@ public class Provincia implements Serializable{
 	@Column(name="EstadoLinea", columnDefinition="Boolean default true")
 	private boolean estadoProvincia;
 	
+	//CONSTRUCTORES
 	public Provincia() {
 		
 	}
-
+	
 	public Provincia(int idProvincia, String nombre, boolean estadoProvincia) {
 		this.idProvincia = idProvincia;
 		this.nombre = nombre;
@@ -34,6 +35,7 @@ public class Provincia implements Serializable{
 	}
 
 
+	//GETTERS AND SETTERS
 	public int getIdProvincia() {
 		return idProvincia;
 	}

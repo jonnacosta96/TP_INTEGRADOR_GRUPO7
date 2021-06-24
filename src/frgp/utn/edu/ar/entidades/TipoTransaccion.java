@@ -23,17 +23,19 @@ public class TipoTransaccion implements Serializable{
 	@Column(name="EstadoLinea", columnDefinition="Boolean default true")
 	private boolean estadoTipoTransaccion;
 	
+	
+	//CONSTRUCTORES
 	public TipoTransaccion() {
 		
 	}
 
-	
 	public TipoTransaccion(int idTipoTransaccion, String descripcion, boolean estadoTipoTransaccion) {
 		this.idTipoTransaccion = idTipoTransaccion;
 		this.descripcion = descripcion;
 		this.estadoTipoTransaccion = estadoTipoTransaccion;
 	}
-
+	
+	//GETTERS AND SETTERS
 	public int getIdTipoTransaccion() {
 		return idTipoTransaccion;
 	}

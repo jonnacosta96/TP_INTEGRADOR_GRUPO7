@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+	<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="./css/glyphicon.css" type="text/css"/>
 	<link rel="stylesheet" href="./css/table.css" type="text/css"/>
@@ -14,13 +20,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+
+	<script>
+		$(document).ready( function () {
+		    $('#myTable').DataTable();
+		} );
+	</script>
+	
 	<title>UTN Banking 2021</title>
 </head>
 
 <body>
 	
 	<jsp:include page="header.jsp"></jsp:include>	
-	
     <div style="background-color: #e9ecef; min-height:94vh!important" class="container-fluid py-3" >
         <div class="container">
         	<div>
@@ -54,14 +66,18 @@
 							<th>Nombre</th>
 							<th>Apellido</th>
 							<th>DNI</th>
+							<th>Fecha Nacimiento</th>
+							<th>Sexo</th>
+							<th>Pais</th>
+							<th>Provincia</th>
+							<th>Localidad</th>
 							<th>Direccion</th>
-							<th>Ciudad</th>
 							<th>Accion</th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="7">
+							<td colspan="11">
 								<div class="links">
 									<a href="#">&laquo;</a>
 									<a class="active" href="#">1</a>
@@ -74,33 +90,17 @@
 						</tr>
 					</tfoot>
 					<tbody>
-						<tr>
-							<td>cell1_1</td>
-							<td>cell2_1</td>
-							<td>cell3_1</td>
-							<td>cell4_1</td>
-							<td>cell5_1</td>
-							<td>cell6_1</td>
-							<td><button type="button" class="btn btn-secondary btn-sm">Modificar</button><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
-						</tr>
-						<tr>
-							<td>cell1_2</td>
-							<td>cell2_2</td>
-							<td>cell3_2</td>
-							<td>cell4_2</td>
-							<td>cell5_2</td>
-							<td>cell6_2</td>
-							<td><button type="button" class="btn btn-secondary btn-sm">Modificar</button><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
-						</tr>
-						<tr>
-							<td>cell1_3</td>
-							<td>cell2_3</td>
-							<td>cell3_3</td>
-							<td>cell4_3</td>
-							<td>cell5_3</td>
-							<td>cell6_3</td>
-							<td><button type="button" class="btn btn-secondary btn-sm">Modificar</button><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
-						</tr>
+						<c:forEach items="${ListaClientes}" var="objcli">
+							<tr>
+								<td>${objcli.nroCliente}</td>
+								<td>${objcli.nroCliente}</td>
+								<td>${objcli.idPais}</td>
+								<td>${objcli.dni}</td>
+								<td>${objcli.direccion}</td>
+								<td>${objcli.sexo}</td>
+								<td><button type="button" class="btn btn-secondary btn-sm">Modificar</button><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
             </div>	 	

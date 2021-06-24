@@ -10,9 +10,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Paises")
 public class Pais implements Serializable{
-
-	private static final long serialVersionUID = 1L;
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name="IdPais")
 	private int idPais;
@@ -20,42 +20,46 @@ public class Pais implements Serializable{
 	@Column(name="Nombre")
 	private String nombre;
 	
-	@Column(name="EstadoLinea")
+	@Column(name="EstadoLinea", columnDefinition="Boolean default true")
 	private boolean estadoPais;
-
+	
 	
 	//CONSTRUCTORES
 	public Pais() {
 		
 	}
-	
+
 	public Pais(int idPais, String nombre, boolean estadoPais) {
 		this.idPais = idPais;
 		this.nombre = nombre;
 		this.estadoPais = estadoPais;
 	}
-	
-	
-	//GETTERS AND SETTERS
+
+
 	public int getIdPais() {
 		return idPais;
 	}
-
+	
+	//GETTERS AND SETTERS
 	public void setIdPais(int idPais) {
 		this.idPais = idPais;
 	}
+
 
 	public String getNombre() {
 		return nombre;
 	}
 
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+
 	public boolean isEstadoPais() {
 		return estadoPais;
 	}
+
 
 	public void setEstadoPais(boolean estadoPais) {
 		this.estadoPais = estadoPais;
@@ -64,7 +68,9 @@ public class Pais implements Serializable{
 	@Override
 	public String toString() {
 		return "idPais=" + idPais + ", nombre=" + nombre + ", estadoPais=" + estadoPais;
-	}	
+	}
+	
+	
 	
 	
 

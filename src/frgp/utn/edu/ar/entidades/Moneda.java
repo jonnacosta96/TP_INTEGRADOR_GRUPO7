@@ -14,19 +14,24 @@ public class Moneda implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name="codigo")
+	@Column(name="Codigo")
 	private String codigo;
-	
-	@Column(name="nombre")
+	@Column(name="Nombre")
 	private String nombre;
-	
-	@Column(name="EstadoLinea")
-	private Boolean estadoLinea;
+	@Column(name="EstadoLinea", columnDefinition="Boolean default true")
+	private boolean estadoMoneda;
 	
 	public Moneda() {
-		super();
+
 	}
 	
+	public Moneda(String codigo, String nombre, boolean estadoMoneda) {
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.estadoMoneda = estadoMoneda;
+	}
+
+
 	public String getCodigo() {
 		return codigo;
 	}
@@ -40,19 +45,17 @@ public class Moneda implements Serializable{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	public boolean getEstadoMoneda() {
+		return estadoMoneda;
+	}
+	public void setEstadoMoneda(boolean estadoMoneda) {
+		this.estadoMoneda = estadoMoneda;
+	}
+
+	@Override
+	public String toString() {
+		return "codigo=" + codigo + ", nombre=" + nombre + ", estadoMoneda=" + estadoMoneda;
+	}
 	
-	public Boolean getEstadoLinea() {
-		return estadoLinea;
-	}
-
-	public void setEstadoLinea(Boolean estadoLinea) {
-		this.estadoLinea = estadoLinea;
-	}
-
-	public Moneda(String codigo, String nombre, Boolean estadoLinea) {
-		super();
-		this.codigo = codigo;
-		this.nombre = nombre;
-		this.estadoLinea =  estadoLinea;
-	}
+	
 }

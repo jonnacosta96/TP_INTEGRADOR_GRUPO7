@@ -42,14 +42,14 @@ public class Transaccion implements Serializable{
 	@Column(name="EstadoLinea")
 	private boolean estadoTransaccion;
 	
+	//CONSTRUCTORES
 	public Transaccion() {
 		
 	}
 	
-	
-
 	public Transaccion(int idTransaccion, Cuenta cuentaAsoc, String descripcion, TipoTransaccion tipoTransaccion,
 			float saldo, LocalDate fechaTransaccion, boolean estadoTransaccion) {
+		
 		this.idTransaccion = idTransaccion;
 		this.cuentaAsoc = cuentaAsoc;
 		this.descripcion = descripcion;
@@ -60,7 +60,7 @@ public class Transaccion implements Serializable{
 	}
 
 
-
+	//GETTERS AND SETTERS
 	public int getIdTransaccion() {
 		return idTransaccion;
 	}
