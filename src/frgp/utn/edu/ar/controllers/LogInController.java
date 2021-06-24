@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import frgp.utn.edu.ar.entidades.Usuario;
+import frgp.utn.edu.ar.entidades.Cliente;
+import frgp.utn.edu.ar.entidades.Empleado;
 import frgp.utn.edu.ar.entidades.Login;
 import helpers.FillDatabase;
 import helpers.ViewNameResolver;
@@ -64,22 +66,34 @@ public class LogInController {
 	    		.setParameter("username", login.getUsername())
 	    		.setParameter("password", login.getPassword())
 	    		.uniqueResult();
-    
-    cn.cerrarSession();
+
 
     if (null != user) {
     	mav = new ModelAndView();
     	
+    	String userName = "";
+    	
 		if(user.getTipo().toString().toUpperCase().equals("ADMIN"))
 		{
+			hql = "from Empleado e where e.usuario = :username";
+			Empleado empleado = (Empleado)session.createQuery(hql)
+					.setParameter("username", user)
+					.uniqueResult();
+			//Empleado empleado = (Empleado)session.createQuery("from Empleado").uniqueResult();
+			userName = empleado.getNombre() + " " + empleado.getApellido();
 			mav.setViewName("redirect:/adminHome.html");
 		}
 		if(user.getTipo().toString().toUpperCase().equals("CUSTOMER"))
 		{
+			hql = "from Cliente c where c.usuario = :username";
+			Cliente cliente = (Cliente)session.createQuery(hql)
+					.setParameter("username", user)
+					.uniqueResult();
+			//Cliente cliente = (Cliente)session.createQuery("from Cliente").uniqueResult();
+			userName = cliente.getNombre() + " " + cliente.getApellido();
+			
 			mav.setViewName("redirect:/clienteHome.html");
 		}
-		
-		String userName = user.getNombre().toString() + " " + user.getApellido().toString();
 		
 		httpSession.setAttribute("userSession", new UserSessionDto(
 			userName,
@@ -92,7 +106,9 @@ public class LogInController {
       mav.setViewName("login");
       mav.addObject("message", "Error. Usuario y/o contraseña incorrectos.");
     }
-
+    
+    cn.cerrarSession();
+    
     return mav;
   }
   

@@ -21,6 +21,12 @@ public class Cliente implements Serializable {
 	@Column(name="NroCliente")
 	private int nroCliente;
 	
+	@Column(name="Nombre")
+	private String nombre;
+	
+	@Column(name="Apellido")
+	private String apellido;
+	
 	@Column(name="Dni",nullable=false,unique=true)
 	private int dni;
 	
@@ -58,7 +64,7 @@ public class Cliente implements Serializable {
 	}
 
 	public Cliente(int nroCliente, int dni, String sexo, Pais pais, LocalDate fechaNacimiento, String direccion,
-			Provincia prov, Localidad loc, Usuario usuario, boolean estadoCliente) {
+			Provincia prov, Localidad loc, Usuario usuario, boolean estadoCliente, String nombre, String apellido) {
 
 		this.nroCliente = nroCliente;
 		this.dni = dni;
@@ -70,23 +76,41 @@ public class Cliente implements Serializable {
 		this.loc = loc;
 		this.usuario = usuario;
 		this.estadoCliente = estadoCliente;
+		this.nombre = nombre;
+		this.apellido = apellido;
 	}
 
 	//GETTERS AND SETTERS
+
+	@Override
+	public String toString() {
+		return "nroCliente=" + nroCliente + ", dni=" + dni + ", sexo=" + sexo + ", pais=" + pais
+				+ ", fechaNacimiento=" + fechaNacimiento + ", direccion=" + direccion + ", prov=" + prov + ", loc="
+				+ loc + ", usuario=" + usuario + ", estadoCliente=" + estadoCliente;
+	}
+
 	public int getNroCliente() {
 		return nroCliente;
 	}
-	
+
 	public void setNroCliente(int nroCliente) {
 		this.nroCliente = nroCliente;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 	public int getDni() {
@@ -145,19 +169,20 @@ public class Cliente implements Serializable {
 		this.loc = loc;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public boolean isEstadoCliente() {
 		return estadoCliente;
 	}
 
 	public void setEstadoCliente(boolean estadoCliente) {
 		this.estadoCliente = estadoCliente;
-	}
-
-	@Override
-	public String toString() {
-		return "nroCliente=" + nroCliente + ", dni=" + dni + ", sexo=" + sexo + ", pais=" + pais
-				+ ", fechaNacimiento=" + fechaNacimiento + ", direccion=" + direccion + ", prov=" + prov + ", loc="
-				+ loc + ", usuario=" + usuario + ", estadoCliente=" + estadoCliente;
 	}
 
 
