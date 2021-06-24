@@ -81,11 +81,22 @@ public class Cliente implements Serializable {
 	}
 
 	//GETTERS AND SETTERS
-	
+
+	@Override
+	public String toString() {
+		return "nroCliente=" + nroCliente + ", dni=" + dni + ", sexo=" + sexo + ", pais=" + pais
+				+ ", fechaNacimiento=" + fechaNacimiento + ", direccion=" + direccion + ", prov=" + prov + ", loc="
+				+ loc + ", usuario=" + usuario + ", estadoCliente=" + estadoCliente;
+	}
+
 	public int getNroCliente() {
 		return nroCliente;
 	}
-	
+
+	public void setNroCliente(int nroCliente) {
+		this.nroCliente = nroCliente;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -100,26 +111,6 @@ public class Cliente implements Serializable {
 
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
-	}
-
-	public Pais getPais() {
-		return pais;
-	}
-
-	public void setPais(Pais pais) {
-		this.pais = pais;
-	}
-
-	public void setNroCliente(int nroCliente) {
-		this.nroCliente = nroCliente;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 	public int getDni() {
@@ -138,11 +129,11 @@ public class Cliente implements Serializable {
 		this.sexo = sexo;
 	}
 
-	public Pais getIdPais() {
+	public Pais getPais() {
 		return pais;
 	}
 
-	public void setIdPais(Pais pais) {
+	public void setPais(Pais pais) {
 		this.pais = pais;
 	}
 
@@ -178,19 +169,20 @@ public class Cliente implements Serializable {
 		this.loc = loc;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public boolean isEstadoCliente() {
 		return estadoCliente;
 	}
 
 	public void setEstadoCliente(boolean estadoCliente) {
 		this.estadoCliente = estadoCliente;
-	}
-
-	@Override
-	public String toString() {
-		return "nroCliente=" + nroCliente + ", dni=" + dni + ", sexo=" + sexo + ", pais=" + pais
-				+ ", fechaNacimiento=" + fechaNacimiento + ", direccion=" + direccion + ", prov=" + prov + ", loc="
-				+ loc + ", usuario=" + usuario + ", estadoCliente=" + estadoCliente;
 	}
 
 

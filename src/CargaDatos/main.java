@@ -47,7 +47,7 @@ System.out.println(LocalDate.now().toString());
 		Cliente client9 = new Cliente(1009, 22335879, "Masculino", pais2, LocalDate.now(), "Calle Prueba 9", prov3, loc3, user9, true, "Gustavo","Cerati");
 		Cliente client10 = new Cliente(1010, 31359726, "Femenino", pais2, LocalDate.now(), "Calle Prueba 10", prov3, loc2, user10, true, "Usuario","Cliente");
 		
-		Empleado empleado = new Empleado(1001,"Usuario","Cliente", user11);
+		Empleado empleado = new Empleado(1001,"Usuario","Admin", user11);
 		
 		
 		Moneda moneda1 = new Moneda("1", "Dolar EEUU",true);
