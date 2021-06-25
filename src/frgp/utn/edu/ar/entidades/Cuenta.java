@@ -2,6 +2,7 @@ package frgp.utn.edu.ar.entidades;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import frgp.utn.edu.ar.entidades.Cliente;
 
 @Entity
@@ -22,6 +27,7 @@ public class Cuenta implements Serializable {
 	
 	@Id
 	@Column(name="NroCuenta")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int nroCuenta;
 	
 	@OneToOne(cascade= { CascadeType.ALL})
@@ -36,10 +42,11 @@ public class Cuenta implements Serializable {
 	private TipoCuenta tipoCuenta;
 	
 	@Column(name="Cbu")
-    private String CBU;
+    private Integer CBU;
 	
+	@Temporal(TemporalType.DATE)
 	@Column(name="FechaCreacion")
-    private LocalDate fechaCreacion;
+    private Date fechaCreacion;
 	
 	@Column(name="Saldo")
     private float saldo;
@@ -50,15 +57,24 @@ public class Cuenta implements Serializable {
 	public Cuenta() {
 		
 	}
+	
+	public Cuenta(Cliente cliente, String nombre, TipoCuenta tipoCuenta, Integer cbu,
+			Date fechaCreacion, float saldo, Boolean activo) {
+		this.cliente = cliente;
+		this.nombre = nombre;
+		this.tipoCuenta = tipoCuenta;
+		this.CBU = cbu;
+		this.fechaCreacion = fechaCreacion;
+		this.saldo = saldo;
+		this.activo = activo;
+	}
 
-	public Cuenta(int nroCuenta, Cliente cliente, String nombre, TipoCuenta tipoCuenta, String cBU,
-			LocalDate fechaCreacion, float saldo, Boolean activo) {
-		super();
+	public Cuenta(int nroCuenta, Cliente cliente, String nombre, TipoCuenta tipoCuenta,
+			Date fechaCreacion, float saldo, Boolean activo) {
 		this.nroCuenta = nroCuenta;
 		this.cliente = cliente;
 		this.nombre = nombre;
 		this.tipoCuenta = tipoCuenta;
-		CBU = cBU;
 		this.fechaCreacion = fechaCreacion;
 		this.saldo = saldo;
 		this.activo = activo;
@@ -96,19 +112,19 @@ public class Cuenta implements Serializable {
 		this.tipoCuenta = tipoCuenta;
 	}
 
-	public String getCBU() {
+	public Integer getCBU() {
 		return CBU;
 	}
 
-	public void setCBU(String cBU) {
+	public void setCBU(Integer cBU) {
 		CBU = cBU;
 	}
 
-	public LocalDate getFechaCreacion() {
+	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
 
-	public void setFechaCreacion(LocalDate fechaCreacion) {
+	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
 

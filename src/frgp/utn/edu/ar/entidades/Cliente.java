@@ -2,14 +2,19 @@ package frgp.utn.edu.ar.entidades;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="Clientes")
@@ -19,6 +24,7 @@ public class Cliente implements Serializable {
 	
 	@Id
 	@Column(name="NroCliente")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int nroCliente;
 	
 	@Column(name="Nombre")
@@ -37,8 +43,9 @@ public class Cliente implements Serializable {
 	@JoinColumn(name="IdPais")
 	private Pais pais;
 	
+	@Temporal(TemporalType.DATE)
 	@Column(name="FechaNacimiento",nullable=false)
-	private LocalDate fechaNacimiento;
+	private Date fechaNacimiento;
 	
 	@Column(name="Direccion",nullable=true)
 	private String direccion;
@@ -62,8 +69,24 @@ public class Cliente implements Serializable {
 	public Cliente() {
 		
 	}
+	
+	public Cliente(int dni, String sexo, Pais pais, Date fechaNacimiento, String direccion,
+			Provincia prov, Localidad loc, Usuario usuario, boolean estadoCliente, String nombre, String apellido) {
 
-	public Cliente(int nroCliente, int dni, String sexo, Pais pais, LocalDate fechaNacimiento, String direccion,
+		this.dni = dni;
+		this.sexo = sexo;
+		this.pais = pais;
+		this.fechaNacimiento = fechaNacimiento;
+		this.direccion = direccion;
+		this.prov = prov;
+		this.loc = loc;
+		this.usuario = usuario;
+		this.estadoCliente = estadoCliente;
+		this.nombre = nombre;
+		this.apellido = apellido;
+	}
+
+	public Cliente(int nroCliente, int dni, String sexo, Pais pais, Date fechaNacimiento, String direccion,
 			Provincia prov, Localidad loc, Usuario usuario, boolean estadoCliente, String nombre, String apellido) {
 
 		this.nroCliente = nroCliente;
@@ -137,11 +160,11 @@ public class Cliente implements Serializable {
 		this.pais = pais;
 	}
 
-	public LocalDate getFechaNacimiento() {
+	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

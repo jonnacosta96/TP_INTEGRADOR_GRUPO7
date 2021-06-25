@@ -22,6 +22,7 @@
         <mapping class="frgp.utn.edu.ar.entidades.TipoCuenta"/>
         <mapping class="frgp.utn.edu.ar.entidades.Usuario"/>
         <mapping class="frgp.utn.edu.ar.entidades.Empleado"/>
+        <mapping class="frgp.utn.edu.ar.entidades.Parametro"/>
         
         <mapping class="frgp.utn.edu.ar.entidades.Transaccion"/>
         <mapping class="frgp.utn.edu.ar.entidades.TipoTransaccion"/>
