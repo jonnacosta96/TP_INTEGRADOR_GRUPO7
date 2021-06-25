@@ -61,7 +61,7 @@ public class Localidad implements Serializable{
 
 	@Override
 	public String toString() {
-		return "idLocalidad=" + idLocalidad + ", nombre=" + nombre + ", estadoLocalidad=" + estadoLocalidad;
+		return nombre;
 	}
 	
 	
