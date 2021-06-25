@@ -3,7 +3,6 @@ package frgp.utn.edu.ar.controllers;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-
-import frgp.utn.edu.ar.dao.Conexion;
 import frgp.utn.edu.ar.entidades.Cliente;
 import frgp.utn.edu.ar.entidades.Localidad;
 import frgp.utn.edu.ar.entidades.Pais;
@@ -41,26 +38,13 @@ public class ClienteController {
 		return mv;
 	}
 	
-	@RequestMapping("altaCliente24.html")
-	public ModelAndView createNewClient(String txtNombre, String txtApellido,String txtDni, String flexRadioDefault,int cmbBoxProvincias ) {
-		
-		ModelAndView mv = new ModelAndView();
-		
-		Cliente cli = new Cliente();
-
-		mv.setViewName("adminClientes");
-		
-		return mv;
-	}
-	
 	@RequestMapping("altaCliente.html")
-	 public String submit(@Validated @ModelAttribute("Cliente")Cliente cli, BindingResult result, ModelMap model, @RequestParam String cmbBoxLocalidades, @RequestParam String cmbBoxProvincias, @RequestParam String cmbBoxPaises, @RequestParam String fechaNac,@RequestParam String email) 
+	 public String createNewClient(@Validated @ModelAttribute("Cliente")Cliente cli, BindingResult result, ModelMap model, @RequestParam String cmbBoxLocalidades, @RequestParam String cmbBoxProvincias, @RequestParam String cmbBoxPaises, @RequestParam String fechaNac,@RequestParam String email) 
 	{
 	    if (result.hasErrors()) {
 	        return "error";
 	    }
 	    
-	    cli.setNroCliente(9999);
 	    cli.setFechaNacimiento(LocalDate.parse(fechaNac));
 	    cli.setPais(new Pais(Integer.parseInt(cmbBoxPaises.split("-")[0]), cmbBoxPaises.split("-")[1], true));
 	    cli.setProv(new Provincia(Integer.parseInt(cmbBoxProvincias.split("-")[0]), cmbBoxProvincias.split("-")[1], true));
@@ -75,8 +59,24 @@ public class ClienteController {
 	    
 	    ClienteNegImpl cliNegImpl = new ClienteNegImpl();
 	    
-	    boolean resultadoGuardado = cliNegImpl.GuardarCliente(cli);
+	    boolean resultadoGuardado = true;//cliNegImpl.GuardarCliente(cli);
+	    
+	    if(resultadoGuardado) {
+		    List<Cliente> lista = cliNegImpl.ObtenerListadoClientes(true);
+		    
+		    String altaExitosa = "altaExitosa";
+	    	model.addAttribute("msgAlta", altaExitosa);
+		    model.addAttribute("ListaClientes", lista);
+		    
+		    return "adminClientes";
+	    }
+	    else {
+	    	String errorEnAlta = "error";
+	    	model.addAttribute("msgError", errorEnAlta);
+	    	
+	    	return "crearCliente";
+	    }
+	    
 
-	    return "adminClientes";
 	}
 }
