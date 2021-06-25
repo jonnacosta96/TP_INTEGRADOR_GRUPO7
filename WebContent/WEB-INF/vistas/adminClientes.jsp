@@ -34,7 +34,6 @@
         	<div>
         		<h2>Administrar Clientes</h2>
         	</div>
-            <br>
             <%--
 			<div class="row">
 				<div class="col-md-6">

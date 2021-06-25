@@ -18,4 +18,12 @@ public class ClienteNegImpl implements ClienteNeg {
 		return lista;
 	}
 
+	@Override
+	public boolean GuardarCliente(Cliente cli) {
+		
+		boolean Resultado = cliDaoImpl.GuardarCliente(cli);
+		
+		return Resultado;
+	}
+
 }

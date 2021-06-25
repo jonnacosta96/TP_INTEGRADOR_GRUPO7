@@ -13,7 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import frgp.utn.edu.ar.dao.Conexion;
 import frgp.utn.edu.ar.dto.UserSessionDto;
+import frgp.utn.edu.ar.entidades.Cliente;
 import frgp.utn.edu.ar.entidades.TipoCuenta;
+import frgp.utn.edu.ar.negocioImpl.LocalidadNegImpl;
+import frgp.utn.edu.ar.negocioImpl.PaisNegImpl;
+import frgp.utn.edu.ar.negocioImpl.ProvinciaNegImpl;
 import helpers.ViewNameResolver;
 
 import org.json.simple.JSONArray;
@@ -58,6 +62,16 @@ public class AdminController {
 			(UserSessionDto)httpSession.getAttribute("userSession"),
 			request.getServletPath()
 		);
+		
+		PaisNegImpl paisNegImpl = new PaisNegImpl();
+		ProvinciaNegImpl provNegImpl = new ProvinciaNegImpl();
+		LocalidadNegImpl locNegImpl = new LocalidadNegImpl();
+		
+		
+		mav.addObject("Cliente", new Cliente());
+		mav.addObject("ListaPaises", paisNegImpl.obtenerListadoPaises(true));
+		mav.addObject("ListaProvincias",provNegImpl.obtenerListadoProvincias(true));
+		mav.addObject("ListaLocalidades",locNegImpl.obtenerListadoLocalidades(true));
 	    
 	    mav.setViewName(viewName);
 		return mav;

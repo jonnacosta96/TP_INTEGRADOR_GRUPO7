@@ -13,14 +13,44 @@ public class ClienteDaoImpl implements ClienteDao {
 	@Override
 	public List<Cliente> ObtenerListadoClientes(boolean estado) {
 		
-		Conexion cn = new Conexion();
-		Session session = cn.abrirConexion();
+		try {
+			Conexion cn = new Conexion();
+			Session session = cn.abrirConexion();
+			
+			String query = "FROM Cliente cli WHERE cli.estadoCliente = 1";
+			List<Cliente> lista = (List<Cliente>)session.createQuery(query).list();
+			cn.cerrarSession();
+			
+			return lista;
+		}
+		catch (Exception ex)
+		{
+			return null;
+		}
+
+	}
+
+	@Override
+	public boolean GuardarCliente(Cliente cli) {
 		
-		String query = "FROM Cliente cli WHERE cli.estadoCliente = 1";
-		List<Cliente> lista = (List<Cliente>)session.createQuery(query).list();
-		cn.cerrarSession();
+		try {
+			Conexion cn = new Conexion();
+			Session session = cn.abrirConexion();
+			
+			session.beginTransaction();
+			
+			session.saveOrUpdate(cli);
+			
+			session.getTransaction().commit();
+			
+			cn.cerrarSession();
+		}
+		catch(Exception ex) {
+			return false;
+		}
+
 		
-		return lista;
+		return true;
 	}
 
 }
