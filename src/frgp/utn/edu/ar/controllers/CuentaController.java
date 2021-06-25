@@ -1,6 +1,7 @@
 package frgp.utn.edu.ar.controllers;
 
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import frgp.utn.edu.ar.dto.CrearCuentaDto;
 import frgp.utn.edu.ar.entidades.Cliente;
 import frgp.utn.edu.ar.entidades.Cuenta;
 import frgp.utn.edu.ar.entidades.Login;
+import frgp.utn.edu.ar.entidades.Parametro;
 import frgp.utn.edu.ar.entidades.TipoCuenta;
 import frgp.utn.edu.ar.entidades.Usuario;
 import helpers.JSONResponseFormatter;
@@ -127,13 +129,16 @@ public class CuentaController {
     		// return tipo cuenta esta para el orto
     	}
     	
+    	hql = "FROM Parametro pm WHERE pm.id = 'LAST_CBU'";
+    	Parametro parametro = (Parametro)session.createQuery(hql)
+    			.uniqueResult();
+    	
     	Cuenta cuenta = new Cuenta(
-			10000,
 			cliente,
 			crearCuentaDto.getCuentaNombre(),
 			tipoCuenta,
-			"123456778913215646",
-			null,
+			parametro.getIntegerParamValue(),
+			Calendar.getInstance().getTime(),
 			10000,
 			true
 		);

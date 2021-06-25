@@ -12,6 +12,7 @@ public class main {
 
 	public static void main(String[] args) {
 		
+		Parametro param = new Parametro("LAST_CBU","",1234567900);
 		
 		Pais pais1 = new Pais("Argentina", true);
 		Pais pais2 = new Pais("Uruguay", true);
@@ -59,16 +60,16 @@ public class main {
 		TipoCuenta tipocuenta2 = new TipoCuenta("2", moneda2, "Cuenta en USD",true);
 		
 		
-		Cuenta cuenta1 = new Cuenta(client1, "Cuenta Personal", tipocuenta1, "47489864989481", Calendar.getInstance().getTime(), 10000, true);
-		Cuenta cuenta2 = new Cuenta(client1, "Cuenta Laboral", tipocuenta2, "55224194641881", Calendar.getInstance().getTime(), 15000, true);
-		Cuenta cuenta3 = new Cuenta(client1, "Cuenta Personal", tipocuenta2, "85981388946681", Calendar.getInstance().getTime(), 20000, true);
-		Cuenta cuenta4 = new Cuenta(client1, "Cuenta Personal", tipocuenta1, "89771368916681", Calendar.getInstance().getTime(), 10000, true);
-		Cuenta cuenta5 = new Cuenta(client5, "Caja de Ahorro", tipocuenta1, "78943154894316", Calendar.getInstance().getTime(), 64000, true);
-		Cuenta cuenta6 = new Cuenta(client6, "Felipe Melo", tipocuenta1, "44613165887896", Calendar.getInstance().getTime(), 100000, true);
-		Cuenta cuenta7 = new Cuenta(client7, "Cuenta inversiones", tipocuenta1, "21347873156746", Calendar.getInstance().getTime(), 160000, true);
-		Cuenta cuenta8 = new Cuenta(client8, "Cuenta Personal", tipocuenta2, "54646664131486", Calendar.getInstance().getTime(), 6000, true);
-		Cuenta cuenta9 = new Cuenta(client2, "Cuenta Personal", tipocuenta2, "54646664131486", Calendar.getInstance().getTime(), 6000, true);
-		Cuenta cuenta10 = new Cuenta(client6, "Felipe Melo 2", tipocuenta2, "54646664131486", Calendar.getInstance().getTime(), 6000, true);
+		Cuenta cuenta1 = new Cuenta(client1, "Cuenta Personal", tipocuenta1, 1234567800, Calendar.getInstance().getTime(), 10000, true);
+		Cuenta cuenta2 = new Cuenta(client1, "Cuenta Laboral", tipocuenta2, 1234567801, Calendar.getInstance().getTime(), 15000, true);
+		Cuenta cuenta3 = new Cuenta(client1, "Cuenta Personal", tipocuenta2, 1234567802, Calendar.getInstance().getTime(), 20000, true);
+		Cuenta cuenta4 = new Cuenta(client1, "Cuenta Personal", tipocuenta1,1234567803, Calendar.getInstance().getTime(), 10000, true);
+		Cuenta cuenta5 = new Cuenta(client5, "Caja de Ahorro", tipocuenta1,1234567804, Calendar.getInstance().getTime(), 64000, true);
+		Cuenta cuenta6 = new Cuenta(client6, "Felipe Melo", tipocuenta1,1234567805, Calendar.getInstance().getTime(), 100000, true);
+		Cuenta cuenta7 = new Cuenta(client7, "Cuenta inversiones", tipocuenta1,1234567806, Calendar.getInstance().getTime(), 160000, true);
+		Cuenta cuenta8 = new Cuenta(client8, "Cuenta Personal", tipocuenta2,1234567807, Calendar.getInstance().getTime(), 6000, true);
+		Cuenta cuenta9 = new Cuenta(client2, "Cuenta Personal", tipocuenta2, 1234567808, Calendar.getInstance().getTime(), 6000, true);
+		Cuenta cuenta10 = new Cuenta(client6, "Felipe Melo 2", tipocuenta2, 1234567809, Calendar.getInstance().getTime(), 6000, true);
 		
 		TipoTransaccion tipotransac1 = new TipoTransaccion("Credito", true);
 		TipoTransaccion tipotransac2 = new TipoTransaccion("Debito", true);
@@ -89,6 +90,8 @@ public class main {
 		Session session = cn.abrirConexion();
 		
 		session.beginTransaction();
+		
+		session.saveOrUpdate(param);
 		
 		session.saveOrUpdate(user1);
 		session.saveOrUpdate(user2);
