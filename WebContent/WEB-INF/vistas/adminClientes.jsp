@@ -34,7 +34,7 @@
 	
 	 <c:choose>
 	     <c:when test="${not empty msgAlta}">
-	         <script type="text/javascript">AltaExitosa("Cliente")</script>
+	         <script type="text/javascript">InformarUsuarioCliente("${msgAlta}")</script>
 	     </c:when>
 	 </c:choose>
         
@@ -76,17 +76,19 @@
 					<tbody>
 						<c:forEach items="${ListaClientes}" var="objcli">
 							<tr>
-								<td>${objcli.nroCliente}</td>
-								<td>${objcli.nombre}</td>
-								<td>${objcli.apellido}</td>
-								<td>${objcli.dni}</td>
-								<td>${objcli.sexo}</td>
-								<td>${objcli.sexo}</td>
-								<td>${objcli.pais.nombre}</td>
-								<td>${objcli.prov.nombre}</td>
-								<td>${objcli.loc.nombre}</td>
-								<td>${objcli.direccion}</td>
-								<td><button type="button" class="btn btn-secondary btn-sm">Modificar</button><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
+								<form action="${pageContext.servletContext.contextPath}/accionCliente.html" method="get">
+									<td>${objcli.nroCliente}<input type="hidden" name="nroCliente" value="${objcli.nroCliente}"></td>
+									<td>${objcli.nombre}</td>
+									<td>${objcli.apellido}</td>
+									<td>${objcli.dni}</td>
+									<td>${objcli.sexo}</td>
+									<td>${objcli.sexo}</td>
+									<td>${objcli.pais.nombre}</td>
+									<td>${objcli.prov.nombre}</td>
+									<td>${objcli.loc.nombre}</td>
+									<td>${objcli.direccion}</td>
+									<td><button type="submit" name="btnModificarCli" class="btn btn-secondary btn-sm">Modificar</button><button type="submit" name="btnEliminarCli" class="btn btn-danger btn-sm">Eliminar</button></td>
+								</form>
 							</tr>
 						</c:forEach>
 					</tbody>

@@ -36,13 +36,6 @@
               <div class="border border-dark mb-4 px-5 py-3 pb-5 rounded">
               <div class="row">
                 <div class="col">
-                  <h5><label for="txtLegajo">Nro Cliente</label></h5>
-                  <input class="form-control col-2" type="text"  name="txtLegajo" maxlength="6" value="1001" readonly="readonly">	
-                </div>
-              </div>
-              <br>
-              <div class="row">
-                <div class="col">
                 
                   <h5><form:label path="nombre">Nombre</form:label></h5>
                   <form:input class="form-control" path="nombre" placeholder="Nombre" pattern="[A-Za-z]*{1,30}" title="Solo se admiten Letras sin caracteres especiales. Tamaño mínimo: 1. Tamaño máximo: 30"/>      
