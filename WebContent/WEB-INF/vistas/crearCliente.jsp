@@ -23,7 +23,7 @@
     
        <c:choose>
             <c:when test="${not empty msgError}">
-                <script type="text/javascript">AltaFallida("Cliente")</script>
+                <script type="text/javascript">AltaFallida()</script>
             </c:when>
         </c:choose>
         
@@ -32,7 +32,6 @@
             <h2>Nuevo Cliente</h2>
             <br>
             <form:form method="POST" action="${pageContext.servletContext.contextPath}/altaCliente.html" modelAttribute="Cliente">
-            <%--<form action="${pageContext.servletContext.contextPath}/altaCliente.html" method="get">--%>
               <div class="border border-dark mb-4 px-5 py-3 pb-5 rounded">
               <div class="row">
                 <div class="col">
@@ -141,7 +140,6 @@
               	<button type="submit" class="btn btn-primary d-inline">Volver</button>
               </div>
             </form:form>  
-            <%--</form>--%>
         </div>
     </div>
 </body>
