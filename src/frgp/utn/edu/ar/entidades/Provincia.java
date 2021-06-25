@@ -70,7 +70,7 @@ public class Provincia implements Serializable{
 
 	@Override 
 	public String toString() {
-		return "idProvincia=" + idProvincia + ", nombre=" + nombre + ", estadoProvincia=" + estadoProvincia;
+		return nombre;
 	}
 	
 	

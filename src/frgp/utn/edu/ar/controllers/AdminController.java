@@ -13,7 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import frgp.utn.edu.ar.dao.Conexion;
 import frgp.utn.edu.ar.dto.UserSessionDto;
+import frgp.utn.edu.ar.entidades.Cliente;
 import frgp.utn.edu.ar.entidades.TipoCuenta;
+import frgp.utn.edu.ar.negocioImpl.LocalidadNegImpl;
+import frgp.utn.edu.ar.negocioImpl.PaisNegImpl;
+import frgp.utn.edu.ar.negocioImpl.ProvinciaNegImpl;
 import helpers.ViewNameResolver;
 
 import org.json.simple.JSONArray;
@@ -39,50 +43,6 @@ public class AdminController {
 	
 	@RequestMapping(value="adminClientes.html")
 	public ModelAndView eventClickMenuClientes(HttpSession httpSession, HttpServletRequest request) {
-		
-		ModelAndView mav = new ModelAndView();
-		String viewName = ViewNameResolver.resolveViewName(
-			(UserSessionDto)httpSession.getAttribute("userSession"),
-			request.getServletPath()
-		);
-	    
-	    mav.setViewName(viewName);
-		return mav;
-	}
-	
-	@RequestMapping(value="crearCliente.html")
-	public ModelAndView eventClickCrearCliente(HttpSession httpSession, HttpServletRequest request) {
-		
-		ModelAndView mav = new ModelAndView();
-		String viewName = ViewNameResolver.resolveViewName(
-			(UserSessionDto)httpSession.getAttribute("userSession"),
-			request.getServletPath()
-		);
-	    
-	    mav.setViewName(viewName);
-		return mav;
-	}
-	
-	@RequestMapping(value="modificarCliente.html")
-	public ModelAndView eventClickModificarCliente(HttpSession httpSession, HttpServletRequest request) {
-		
-		ModelAndView mav = new ModelAndView();
-		String viewName = ViewNameResolver.resolveViewName(
-			(UserSessionDto)httpSession.getAttribute("userSession"),
-			request.getServletPath()
-		);
-	    
-	    mav.setViewName(viewName);
-		return mav;
-	}
-	
-	@RequestMapping(value="buscarCliente")
-	public ModelAndView eventBuscarClienteEnCreacionCuenta(
-			@RequestBody JSONObject usuario,
-			HttpSession httpSession,
-			HttpServletRequest request
-		
-	) {
 		
 		ModelAndView mav = new ModelAndView();
 		String viewName = ViewNameResolver.resolveViewName(

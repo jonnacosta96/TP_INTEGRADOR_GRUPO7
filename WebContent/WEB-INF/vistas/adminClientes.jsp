@@ -16,6 +16,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script type="text/javascript" src="./js/Alertas.js"></script>
+	
 	<script type="text/javascript" src="./js/jquery.configTables.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready( function () {
@@ -27,31 +30,23 @@
 </head>
 
 <body>
-	
 	<jsp:include page="header.jsp"></jsp:include>	
+	
+	 <c:choose>
+	     <c:when test="${not empty msgAlta}">
+	         <script type="text/javascript">InformarUsuarioCliente("${msgAlta}")</script>
+	     </c:when>
+	 </c:choose>
+        
     <div style="background-color: #e9ecef; min-height:94vh!important" class="container-fluid py-3" >
         <div class="container">
         	<div>
         		<h2>Administrar Clientes</h2>
         	</div>
-            <br>
-            <%--
-			<div class="row">
-				<div class="col-md-6">
-				    <div class="input-group">
-				        <span class="input-group-addon"><i class="glyphicon glyphicon-search" style="font-size: small"></i></span>
-				        <input type="text" class="form-control" placeholder="Usuario/DNI"name="txtApellido" pattern="[A-Za-z]*{1,30}" title="Solo se admiten Letras sin caracteres especiales. Tamaño mínimo: 1. Tamaño máximo: 30" required>
-						<span class="input-group-btn">
-							<input type="submit"  class="btn btn-dark" value="Buscar" name="btnBuscarCliente">
-					    </span>
-				    </div>
-				</div>
-			</div>--%>
 		    <div class="row">
 		        <div class="col-md-12">                                
 		            <br/>           
 		            <p><a href="${pageContext.servletContext.contextPath}/crearCliente.html" style="color: #337ab7"><i class="glyphicon glyphicon-user" style="color: #337ab7"></i>Crear Cliente</a></p>
-		        	<p><a href="${pageContext.servletContext.contextPath}/modificarCliente.html" style="color: #337ab7">Modificar Cliente</a></p>
 		        </div>
 		    </div>
 			<br>
@@ -81,17 +76,19 @@
 					<tbody>
 						<c:forEach items="${ListaClientes}" var="objcli">
 							<tr>
-								<td>${objcli.nroCliente}</td>
-								<td>${objcli.nombre}</td>
-								<td>${objcli.apellido}</td>
-								<td>${objcli.dni}</td>
-								<td>${objcli.sexo}</td>
-								<td>${objcli.sexo}</td>
-								<td>${objcli.pais.nombre}</td>
-								<td>${objcli.prov.nombre}</td>
-								<td>${objcli.loc.nombre}</td>
-								<td>${objcli.direccion}</td>
-								<td><button type="button" class="btn btn-secondary btn-sm">Modificar</button><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
+								<form action="${pageContext.servletContext.contextPath}/accionCliente.html" method="get">
+									<td>${objcli.nroCliente}<input type="hidden" name="nroCliente" value="${objcli.nroCliente}"></td>
+									<td>${objcli.nombre}</td>
+									<td>${objcli.apellido}</td>
+									<td>${objcli.dni}</td>
+									<td>${objcli.sexo}</td>
+									<td>${objcli.sexo}</td>
+									<td>${objcli.pais.nombre}</td>
+									<td>${objcli.prov.nombre}</td>
+									<td>${objcli.loc.nombre}</td>
+									<td>${objcli.direccion}</td>
+									<td><button type="submit" name="btnModificarCli" class="btn btn-secondary btn-sm">Modificar</button><button type="submit" name="btnEliminarCli" class="btn btn-danger btn-sm">Eliminar</button></td>
+								</form>
 							</tr>
 						</c:forEach>
 					</tbody>

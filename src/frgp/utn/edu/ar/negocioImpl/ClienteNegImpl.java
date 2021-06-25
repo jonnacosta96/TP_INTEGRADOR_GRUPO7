@@ -18,4 +18,28 @@ public class ClienteNegImpl implements ClienteNeg {
 		return lista;
 	}
 
+	@Override
+	public boolean GuardarCliente(Cliente cli) {
+		
+		boolean Resultado = cliDaoImpl.GuardarCliente(cli);
+		
+		return Resultado;
+	}
+
+	@Override
+	public Cliente ObtenerClientexNroCliente(int nroCliente) {
+		
+		Cliente cli = cliDaoImpl.ObtenerClientexNroCliente(nroCliente);
+		
+		return cli;
+	}
+
+	@Override
+	public Cliente ObtenerClientexDNI(int dni) {
+		
+		Cliente cli = cliDaoImpl.ObtenerClientexDNI(dni);
+		
+		return cli;
+	}
+
 }
