@@ -67,10 +67,10 @@ function EliminacioncionFallida(itemEliminar){
 		});
 }
 
-function InformarUsuarioCliente(usuario){
+function InformarUsuarioCliente(msgAlta){
 	swal({
-		  title: "Usuario Creado!",
-		  text: "Usuario: " + usuario + "- Contraseña: 123456.",
+		  title: "Usuario Cliente Creado Correctamente!",
+		  text: msgAlta,
 		  icon: "success",
 		  button: "Ok",
 		});

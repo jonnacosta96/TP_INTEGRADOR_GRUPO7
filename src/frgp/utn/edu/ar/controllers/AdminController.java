@@ -54,60 +54,6 @@ public class AdminController {
 		return mav;
 	}
 	
-	@RequestMapping(value="crearCliente.html")
-	public ModelAndView eventClickCrearCliente(HttpSession httpSession, HttpServletRequest request) {
-		
-		ModelAndView mav = new ModelAndView();
-		String viewName = ViewNameResolver.resolveViewName(
-			(UserSessionDto)httpSession.getAttribute("userSession"),
-			request.getServletPath()
-		);
-		
-		PaisNegImpl paisNegImpl = new PaisNegImpl();
-		ProvinciaNegImpl provNegImpl = new ProvinciaNegImpl();
-		LocalidadNegImpl locNegImpl = new LocalidadNegImpl();
-		
-		
-		mav.addObject("Cliente", new Cliente());
-		mav.addObject("ListaPaises", paisNegImpl.obtenerListadoPaises(true));
-		mav.addObject("ListaProvincias",provNegImpl.obtenerListadoProvincias(true));
-		mav.addObject("ListaLocalidades",locNegImpl.obtenerListadoLocalidades(true));
-	    
-	    mav.setViewName(viewName);
-		return mav;
-	}
-	
-	@RequestMapping(value="modificarCliente.html")
-	public ModelAndView eventClickModificarCliente(HttpSession httpSession, HttpServletRequest request) {
-		
-		ModelAndView mav = new ModelAndView();
-		String viewName = ViewNameResolver.resolveViewName(
-			(UserSessionDto)httpSession.getAttribute("userSession"),
-			request.getServletPath()
-		);
-	    
-	    mav.setViewName(viewName);
-		return mav;
-	}
-	
-	@RequestMapping(value="buscarCliente")
-	public ModelAndView eventBuscarClienteEnCreacionCuenta(
-			@RequestBody JSONObject usuario,
-			HttpSession httpSession,
-			HttpServletRequest request
-		
-	) {
-		
-		ModelAndView mav = new ModelAndView();
-		String viewName = ViewNameResolver.resolveViewName(
-			(UserSessionDto)httpSession.getAttribute("userSession"),
-			request.getServletPath()
-		);
-	    
-	    mav.setViewName(viewName);
-		return mav;
-	}
-	
 	@RequestMapping(value="adminCuentas.html")
 	public ModelAndView eventClickMenuCuentas(HttpSession httpSession, HttpServletRequest request) {
 		
