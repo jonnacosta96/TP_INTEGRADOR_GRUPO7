@@ -8,4 +8,7 @@ public interface UserDao {
 	void register(Usuario user);
 	
 	Usuario validateUser(Login login);
+	
+	public boolean eliminarUsuarioxName(Usuario usu);
+	
 }

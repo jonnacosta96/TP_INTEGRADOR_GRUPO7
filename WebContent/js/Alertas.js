@@ -43,25 +43,25 @@ function EliminacionExitosa(itemEliminar){
 function AltaFallida(itemAlta){
 	swal({
 		  title: "Error en el Alta!",
-		  text: "El " + itemAlta + " no pudo ser dado de Alta. Intente nuevamente en unos minutos.",
+		  text: "Intente nuevamente en unos minutos.",
 		  icon: "error",
 		  button: "Aceptar",
 		});
 }
 
-function ModificacionFallida(itemModif){
+function ModificacionFallida(){
 	swal({
 		  title: "Error en la Modificacion!",
-		  text: "El " + itemModif + " no pudo ser Modificado Correctamente. Intente nuevamente en unos minutos.",
+		  text: "Intente nuevamente en unos minutos.",
 		  icon: "error",
 		  button: "Aceptar",
 		});
 }
 
-function EliminacioncionFallida(itemEliminar){
+function EliminacioncionFallida(){
 	swal({
 		  title: "Error en la Eliminacion!",
-		  text: "El " + itemEliminar + " no pudo ser Eliminado Correctamente. Intente nuevamente en unos minutos.",
+		  text: "Intente nuevamente en unos minutos.",
 		  icon: "error",
 		  button: "Aceptar",
 		});

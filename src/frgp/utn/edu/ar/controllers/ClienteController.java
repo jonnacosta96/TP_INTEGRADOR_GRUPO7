@@ -25,6 +25,7 @@ import frgp.utn.edu.ar.negocioImpl.ClienteNegImpl;
 import frgp.utn.edu.ar.negocioImpl.LocalidadNegImpl;
 import frgp.utn.edu.ar.negocioImpl.PaisNegImpl;
 import frgp.utn.edu.ar.negocioImpl.ProvinciaNegImpl;
+import frgp.utn.edu.ar.negocioImpl.UserNegImpl;
 import helpers.ViewNameResolver;
 
 @Controller
@@ -69,6 +70,53 @@ public class ClienteController {
 		return mav;
 	}
 	
+	@RequestMapping("accionCliente.html")
+	public ModelAndView clickActionClient(int nroCliente, String btnModificarCli) {
+
+		ModelAndView mv = new ModelAndView();
+		ClienteNegImpl cliNegImpl = new ClienteNegImpl();
+		Cliente cli = cliNegImpl.ObtenerClientexNroCliente(nroCliente);
+		
+		
+		if(btnModificarCli != null) 
+		{
+			PaisNegImpl paisNegImpl = new PaisNegImpl();
+			ProvinciaNegImpl provNegImpl = new ProvinciaNegImpl();
+			LocalidadNegImpl locNegImpl = new LocalidadNegImpl();
+			
+			mv.addObject("ListaPaises", paisNegImpl.obtenerListadoPaises(true));
+			mv.addObject("ListaProvincias",provNegImpl.obtenerListadoProvincias(true));
+			mv.addObject("ListaLocalidades",locNegImpl.obtenerListadoLocalidades(true));
+			mv.addObject("fechaNacimiento", cli.getFechaNacimiento());
+			mv.addObject("email",cli.getUsuario().getEmail());
+			
+			mv.addObject("Cliente",cli);
+			mv.setViewName("modificarCliente");
+		}
+		else {
+			
+			cli.setEstadoCliente(false);
+			boolean resultado = false; //cliNegImpl.GuardarCliente(cli);
+			
+			if(resultado) {
+				String eliminacionExitosa = "correcto";
+				mv.addObject("eliminacionExitosa",eliminacionExitosa);
+			}
+			else {
+				String eliminacionFallida = "fallo";
+				mv.addObject("eliminacionFallida",eliminacionFallida);
+			}
+			
+			List<Cliente> lista = cliNegImpl.ObtenerListadoClientes(true);
+			
+			mv.addObject("ListaClientes", lista);
+			
+			mv.setViewName("adminClientes");
+		}
+		
+		return mv;
+	}
+	
 	@RequestMapping("altaCliente.html")
 	 public String createNewClient(@Validated @ModelAttribute("Cliente")Cliente cli, BindingResult result, ModelMap model, @RequestParam String cmbBoxLocalidades, @RequestParam String cmbBoxProvincias, @RequestParam String cmbBoxPaises, @RequestParam String fechaNac,@RequestParam String email) 
 	{
@@ -90,7 +138,7 @@ public class ClienteController {
 	    
 	    ClienteNegImpl cliNegImpl = new ClienteNegImpl();
 	    
-	    boolean resultadoGuardado = true;//cliNegImpl.GuardarCliente(cli);
+	    boolean resultadoGuardado = cliNegImpl.GuardarCliente(cli);
 	    
 	    if(resultadoGuardado) {
 		    List<Cliente> lista = cliNegImpl.ObtenerListadoClientes(true);
@@ -117,32 +165,56 @@ public class ClienteController {
 	    }
 	}
 	
-	@RequestMapping("accionCliente.html")
-	public ModelAndView clickActionClient(int nroCliente, String btnModificarCli) {
-		
-		ModelAndView mv = new ModelAndView();
-		
-		if(btnModificarCli != null) 
-		{
-			mv.setViewName("modificarCliente");;
-		}
-		else {
-			ClienteNegImpl cliNegImpl = new ClienteNegImpl();
+	@RequestMapping("modificarCliente.html")
+	 public String updateClient(@Validated @ModelAttribute("Cliente")Cliente cli, BindingResult result, ModelMap model, @RequestParam String cmbBoxLocalidades, @RequestParam String cmbBoxProvincias, @RequestParam String cmbBoxPaises, @RequestParam String fechaNac,@RequestParam String email) 
+	{
+	    if (result.hasErrors()) {
+	        return "error";
+	    }
+	    
+	    cli.setFechaNacimiento(LocalDate.parse(fechaNac));
+	    cli.setPais(new Pais(Integer.parseInt(cmbBoxPaises.split("-")[0]), cmbBoxPaises.split("-")[1], true));
+	    cli.setProv(new Provincia(Integer.parseInt(cmbBoxProvincias.split("-")[0]), cmbBoxProvincias.split("-")[1], true));
+	    cli.setLoc(new Localidad(Integer.parseInt(cmbBoxLocalidades.split("-")[0]), cmbBoxLocalidades.split("-")[1], true));
+	    cli.setEstadoCliente(true);
+	    
+	    UserNegImpl userNegImpl = new UserNegImpl();
+  
+	    cli.setUsuario(userNegImpl.obtenerUsuarioClientexNroCliente(cli.getNroCliente()));
+	    
+	    ClienteNegImpl cliNegImpl = new ClienteNegImpl();
+	    
+	    boolean resultadoGuardado = false; //cliNegImpl.GuardarCliente(cli);
+	    
+	    if(resultadoGuardado) {
+		    List<Cliente> lista = cliNegImpl.ObtenerListadoClientes(true);
+		    
+		    String modificacionExitosa = "correcto";
+	    	model.addAttribute("msgModificacion", modificacionExitosa);
+		    model.addAttribute("ListaClientes", lista);
+		    
+		    return "adminClientes";
+	    }
+	    else {
+	    	String errorEnModif = "error";
+	    	
+			PaisNegImpl paisNegImpl = new PaisNegImpl();
+			ProvinciaNegImpl provNegImpl = new ProvinciaNegImpl();
+			LocalidadNegImpl locNegImpl = new LocalidadNegImpl();
 			
-			Cliente cli = cliNegImpl.ObtenerClientexNroCliente(nroCliente);
-			cli.setEstadoCliente(false);
+			model.addAttribute("ListaPaises", paisNegImpl.obtenerListadoPaises(true));
+			model.addAttribute("ListaProvincias",provNegImpl.obtenerListadoProvincias(true));
+			model.addAttribute("ListaLocalidades",locNegImpl.obtenerListadoLocalidades(true));
+			model.addAttribute("fechaNacimiento", cli.getFechaNacimiento());
+			model.addAttribute("email",cli.getUsuario().getEmail());
 			
-			cliNegImpl.GuardarCliente(cli);
-			
-			List<Cliente> lista = cliNegImpl.ObtenerListadoClientes(true);
-			
-			mv.addObject("ListaClientes", lista);
-			
-			mv.setViewName("adminClientes");
-		}
-		
-		return mv;
+			model.addAttribute("Cliente",cli);
+	    	model.addAttribute("errorEnModif", errorEnModif);
+	    	
+	    	return "modificarCliente";
+	    }
 	}
+	
 	
 	
 }
