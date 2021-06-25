@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,6 +17,7 @@ public class TipoTransaccion implements Serializable{
 
 	@Id
 	@Column(name="IdTipoTransaccion")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idTipoTransaccion;
 	
 	@Column(name="Descripcion",nullable=false)
@@ -27,6 +30,11 @@ public class TipoTransaccion implements Serializable{
 	//CONSTRUCTORES
 	public TipoTransaccion() {
 		
+	}
+	
+	public TipoTransaccion(String descripcion, boolean estadoTipoTransaccion) {
+		this.descripcion = descripcion;
+		this.estadoTipoTransaccion = estadoTipoTransaccion;
 	}
 
 	public TipoTransaccion(int idTipoTransaccion, String descripcion, boolean estadoTipoTransaccion) {

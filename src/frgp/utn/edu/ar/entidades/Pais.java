@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,6 +17,7 @@ public class Pais implements Serializable{
 
 	@Id
 	@Column(name="IdPais")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idPais;
 	
 	@Column(name="Nombre")
@@ -27,6 +30,11 @@ public class Pais implements Serializable{
 	//CONSTRUCTORES
 	public Pais() {
 		
+	}
+	
+	public Pais(String nombre, boolean estadoPais) {
+		this.nombre = nombre;
+		this.estadoPais = estadoPais;
 	}
 
 	public Pais(int idPais, String nombre, boolean estadoPais) {
