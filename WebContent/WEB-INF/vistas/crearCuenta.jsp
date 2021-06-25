@@ -27,7 +27,7 @@
         <div class="container">
             <h2>Nueva Cuenta</h2>
             <br>
-            <form:form id="crearCuentaForm" action="crearCuenta.html" method="post" modelAttribute="cuentaCrear">
+            <form:form id="crearCuentaForm" action="guardarNuevaCuenta.html" method="post" modelAttribute="cuentaCrear">
               <div class="border border-dark mb-4 px-5 py-3 pb-5 rounded">
               	<div class="row">
                   <div class="col">
@@ -54,12 +54,12 @@
                 <div class="row">
                   <div class="col">
                     <h5><label for="exampleInputEmail1">Nombre de cuenta</label></h5>
-                    <input type="text" class="form-control" placeholder="Nombre" id="cuentaNombre">
+                    <input type="text" class="form-control" placeholder="Nombre" id="cuentaNombre" name="cuentaNombre" path="cuentaNombre" >
                     <p class="text-danger" id="cuentaNombreMessage"></p>
                   </div>
                   <div class="col">
                     <h5><label for="exampleInputEmail1">Tipo</label></h5>
-                    <select class="form-select form-control" aria-label="Default select example">
+                    <select class="form-select form-control" aria-label="Default select example" name="tipoCuenta" path="tipoCuenta" id="tipoCuenta">
                        <c:forEach items="${tiposCuenta}" var="tipoCuenta" varStatus="vs">
         					<option value="${tipoCuenta.code}">${tipoCuenta.nombre}</option>
     					</c:forEach>
