@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,6 +17,7 @@ public class Provincia implements Serializable{
 
 	@Id
 	@Column(name="IdProvincia")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idProvincia;
 	
 	@Column(name="Nombre")
@@ -26,6 +29,11 @@ public class Provincia implements Serializable{
 	//CONSTRUCTORES
 	public Provincia() {
 		
+	}
+	
+	public Provincia(String nombre, boolean estadoProvincia) {
+		this.nombre = nombre;
+		this.estadoProvincia = estadoProvincia;
 	}
 	
 	public Provincia(int idProvincia, String nombre, boolean estadoProvincia) {

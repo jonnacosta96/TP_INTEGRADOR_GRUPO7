@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -18,6 +20,7 @@ public class Empleado implements Serializable {
 	
 	@Id
 	@Column(name="NroEmpleado")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int nroEmpleado;
 	
 	@Column(name="Nombre")
@@ -32,6 +35,12 @@ public class Empleado implements Serializable {
 
 	public Empleado() {
 		
+	}
+	
+	public Empleado(String nombre, String apellido, Usuario usuario) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.usuario = usuario;
 	}
 	
 	public Empleado(int nroEmpleado, String nombre, String apellido, Usuario usuario) {

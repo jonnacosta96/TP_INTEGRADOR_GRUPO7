@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +22,7 @@ public class Transaccion implements Serializable{
 	
 	@Id
 	@Column(name="IdTransaccion")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idTransaccion;
 	
 	@ManyToOne(cascade={CascadeType.ALL})
@@ -45,6 +48,17 @@ public class Transaccion implements Serializable{
 	//CONSTRUCTORES
 	public Transaccion() {
 		
+	}
+	
+	public Transaccion(Cuenta cuentaAsoc, String descripcion, TipoTransaccion tipoTransaccion,
+			float saldo, LocalDate fechaTransaccion, boolean estadoTransaccion) {
+		
+		this.cuentaAsoc = cuentaAsoc;
+		this.descripcion = descripcion;
+		this.tipoTransaccion = tipoTransaccion;
+		this.saldo = saldo;
+		this.fechaTransaccion = fechaTransaccion;
+		this.estadoTransaccion = estadoTransaccion;
 	}
 	
 	public Transaccion(int idTransaccion, Cuenta cuentaAsoc, String descripcion, TipoTransaccion tipoTransaccion,

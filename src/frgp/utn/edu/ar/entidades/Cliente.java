@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -19,6 +21,7 @@ public class Cliente implements Serializable {
 	
 	@Id
 	@Column(name="NroCliente")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int nroCliente;
 	
 	@Column(name="Nombre")
@@ -61,6 +64,22 @@ public class Cliente implements Serializable {
 	//CONSTRUCTORES
 	public Cliente() {
 		
+	}
+	
+	public Cliente(int dni, String sexo, Pais pais, LocalDate fechaNacimiento, String direccion,
+			Provincia prov, Localidad loc, Usuario usuario, boolean estadoCliente, String nombre, String apellido) {
+
+		this.dni = dni;
+		this.sexo = sexo;
+		this.pais = pais;
+		this.fechaNacimiento = fechaNacimiento;
+		this.direccion = direccion;
+		this.prov = prov;
+		this.loc = loc;
+		this.usuario = usuario;
+		this.estadoCliente = estadoCliente;
+		this.nombre = nombre;
+		this.apellido = apellido;
 	}
 
 	public Cliente(int nroCliente, int dni, String sexo, Pais pais, LocalDate fechaNacimiento, String direccion,
