@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -104,9 +106,44 @@ public class CuentaController {
 	    		.setParameter("nroCliente", crearCuentaDto.getClienteId())
 	    		.uniqueResult();
 	    
+	    hql = "from TipoCuenta";
+	    List<TipoCuenta> tiposCuenta = (List<TipoCuenta>)session.createQuery(hql).list();
+	    JSONArray array = new JSONArray();
+	    
+	    for(TipoCuenta tipo: tiposCuenta)
+	    {
+	    	JSONObject obj = new JSONObject();
+	    	obj.put("code",tipo.getCodigo());
+	    	obj.put("nombre",tipo.getNombre());
+	    	array.add(obj);
+	    }
+	    
+	    
+	    
+	    if(
+	    	crearCuentaDto.getTipoCuenta().equals("") ||
+	    	crearCuentaDto.getClienteId() == null ||
+	    	crearCuentaDto.getClienteId().equals("") ||
+	    	crearCuentaDto.getCuentaNombre().equals("")
+		)
+	    {
+	    	modelAndView.setViewName("crearCuenta");
+	    	modelAndView.addObject("parameters", crearCuentaDto);
+	    	modelAndView.addObject("etiquetaCliente", crearCuentaDto.getClienteNombre());
+	    	modelAndView.addObject("nombreCuenta", crearCuentaDto.getCuentaNombre());
+	    	modelAndView.addObject("idCliente", crearCuentaDto.getClienteId());
+	    	modelAndView.addObject("idTipoCuenta", crearCuentaDto.getTipoCuenta());
+	    	modelAndView.addObject("error", "Por favor, complete todos los campos");
+	    	request.setAttribute("tiposCuenta", array);
+	    	return modelAndView;
+	    }
+	    
 	    if(cliente == null)
 	    {
-	    	// error cliente inexistente o inactivo
+	    	modelAndView.setViewName("crearCuenta");
+	    	modelAndView.addObject("parameters", crearCuentaDto);
+	    	modelAndView.addObject("error", "Cliente no existe");
+	    	return modelAndView;
 	    }
 	    
 	    hql = "SELECT COUNT(c) FROM Cuenta c WHERE c.cliente = :cliente";
@@ -116,7 +153,10 @@ public class CuentaController {
     	
     	if(cantidadCuentas >= 4)
     	{
-    		// return error mas de 4 cuentas
+    		modelAndView.setViewName("crearCuenta");
+	    	modelAndView.addObject("parameters", crearCuentaDto);
+	    	modelAndView.addObject("error", "El cliente tiene 4 o mas cuentas creadas");
+	    	return modelAndView;
     	}
 	    
     	hql = "FROM TipoCuenta tc WHERE tc.codigo = :codigo";
@@ -126,7 +166,10 @@ public class CuentaController {
     	
     	if(tipoCuenta == null)
     	{
-    		// return tipo cuenta esta para el orto
+    		modelAndView.setViewName("crearCuenta");
+	    	modelAndView.addObject("parameters", crearCuentaDto);
+	    	modelAndView.addObject("error", "Tipo de cuenta inexistente");
+	    	return modelAndView;
     	}
     	
     	hql = "FROM Parametro pm WHERE pm.id = 'LAST_CBU'";
@@ -149,11 +192,13 @@ public class CuentaController {
         	session.getTransaction().commit();
     	}
     	catch(Exception e) {
-    		
+    		modelAndView.setViewName("crearCuenta");
+	    	modelAndView.addObject("parameters", crearCuentaDto);
+	    	modelAndView.addObject("error", "Error al crear la cuenta");
+	    	return modelAndView;
     	}
 		
-	    modelAndView.addObject("error", "Error de prueba la puta que te pario");
-	    modelAndView.setViewName("/crearCuenta.html");
+	    modelAndView.setViewName("redirect:/adminCuentas.html");
 		return modelAndView;
 	}
     

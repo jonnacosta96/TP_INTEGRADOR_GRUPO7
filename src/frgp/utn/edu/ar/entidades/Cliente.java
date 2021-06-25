@@ -43,9 +43,8 @@ public class Cliente implements Serializable {
 	@JoinColumn(name="IdPais")
 	private Pais pais;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name="FechaNacimiento",nullable=false)
-	private Date fechaNacimiento;
+	private LocalDate fechaNacimiento;
 	
 	@Column(name="Direccion",nullable=true)
 	private String direccion;
@@ -70,7 +69,7 @@ public class Cliente implements Serializable {
 		
 	}
 	
-	public Cliente(int dni, String sexo, Pais pais, Date fechaNacimiento, String direccion,
+	public Cliente(int dni, String sexo, Pais pais, LocalDate fechaNacimiento, String direccion,
 			Provincia prov, Localidad loc, Usuario usuario, boolean estadoCliente, String nombre, String apellido) {
 
 		this.dni = dni;
@@ -86,7 +85,7 @@ public class Cliente implements Serializable {
 		this.apellido = apellido;
 	}
 
-	public Cliente(int nroCliente, int dni, String sexo, Pais pais, Date fechaNacimiento, String direccion,
+	public Cliente(int nroCliente, int dni, String sexo, Pais pais, LocalDate fechaNacimiento, String direccion,
 			Provincia prov, Localidad loc, Usuario usuario, boolean estadoCliente, String nombre, String apellido) {
 
 		this.nroCliente = nroCliente;
@@ -160,11 +159,11 @@ public class Cliente implements Serializable {
 		this.pais = pais;
 	}
 
-	public Date getFechaNacimiento() {
+	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

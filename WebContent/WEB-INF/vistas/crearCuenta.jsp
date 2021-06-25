@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page import="frgp.utn.edu.ar.dto.CrearCuentaDto"%>
   
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,6 +27,7 @@
 	<div style="background-color: #e9ecef; min-height:94vh!important" class="container-fluid py-3" >
         <div class="container">
             <h2>Nueva Cuenta</h2>
+            
             <br>
             <form:form id="crearCuentaForm" action="guardarNuevaCuenta.html" method="post" modelAttribute="cuentaCrear">
               <div class="border border-dark mb-4 px-5 py-3 pb-5 rounded">
@@ -46,15 +48,32 @@
                   </div>
                   <div class="col">
                   	<h5><label for="exampleInputEmail1">Cliente</label></h5>
-                    <input type="text" class="form-control d-inline disabled" readonly placeholder="Cliente" id="clienteNombre">
-                    <input type="hidden" class="form-control d-inline disabled" readonly placeholder="Cliente" id="clienteId" name="clienteId" path="clienteId" >
+                    <input type="text" class="form-control d-inline disabled" readonly 
+                    	placeholder="Cliente"
+                    	id="clienteNombre"
+                    	name="clienteNombre"
+                    	path="clienteNombre"
+                    	value="<c:out value="${etiquetaCliente}"/>"
+                   	>
+                    <input type="hidden" class="form-control d-inline disabled" readonly
+                    	placeholder="Cliente"
+                    	id="clienteId"
+                    	name="clienteId"
+                    	path="clienteId"
+                    	value="<c:out value="${idCliente}"/>"
+                   	>
                   </div>
                 </div>
                 <br>
                 <div class="row">
                   <div class="col">
                     <h5><label for="exampleInputEmail1">Nombre de cuenta</label></h5>
-                    <input type="text" class="form-control" placeholder="Nombre" id="cuentaNombre" name="cuentaNombre" path="cuentaNombre" >
+                    <input type="text" class="form-control" placeholder="Nombre"
+                    	id="cuentaNombre"
+                    	name="cuentaNombre"
+                    	path="cuentaNombre"
+                    	value="<c:out value="${nombreCuenta}"/>"
+                   	>
                     <p class="text-danger" id="cuentaNombreMessage"></p>
                   </div>
                   <div class="col">
@@ -65,17 +84,22 @@
     					</c:forEach>
                     </select>
                   </div>
-                </div>                
+                </div>
+                <div class="row">
+                  <div class="col">
+             			<center></center><p class="text-danger">${error}</td></center>       
+                  </div>
+                </div>               
               </div>
               	<button class="btn btn-success d-inline" href="${pageContext.servletContext.contextPath}/guardarCuenta">Guardar</button>
               	<a class="mx-3" href="${pageContext.servletContext.contextPath}/adminCuentas.html">Cancelar</a>
              </form:form>
-            
         </div>
     </div>
 
 </body>
 </html>
+
 
 <script type="text/javascript">
 $('#buscarCliente').on('click',
