@@ -2,6 +2,7 @@ package frgp.utn.edu.ar.entidades;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="TransaccionesxCuentas")
@@ -39,8 +42,9 @@ public class Transaccion implements Serializable{
 	@Column(name="Saldo",nullable=false)
 	private float saldo;
 	
+	@Temporal(TemporalType.DATE)
 	@Column(name="Fecha",nullable=false)
-	private LocalDate fechaTransaccion;
+	private Date fechaTransaccion;
 	
 	@Column(name="EstadoLinea")
 	private boolean estadoTransaccion;
@@ -51,7 +55,7 @@ public class Transaccion implements Serializable{
 	}
 	
 	public Transaccion(Cuenta cuentaAsoc, String descripcion, TipoTransaccion tipoTransaccion,
-			float saldo, LocalDate fechaTransaccion, boolean estadoTransaccion) {
+			float saldo, Date fechaTransaccion, boolean estadoTransaccion) {
 		
 		this.cuentaAsoc = cuentaAsoc;
 		this.descripcion = descripcion;
@@ -62,7 +66,7 @@ public class Transaccion implements Serializable{
 	}
 	
 	public Transaccion(int idTransaccion, Cuenta cuentaAsoc, String descripcion, TipoTransaccion tipoTransaccion,
-			float saldo, LocalDate fechaTransaccion, boolean estadoTransaccion) {
+			float saldo, Date fechaTransaccion, boolean estadoTransaccion) {
 		
 		this.idTransaccion = idTransaccion;
 		this.cuentaAsoc = cuentaAsoc;
@@ -115,11 +119,11 @@ public class Transaccion implements Serializable{
 		this.saldo = saldo;
 	}
 
-	public LocalDate getFechaTransaccion() {
+	public Date getFechaTransaccion() {
 		return fechaTransaccion;
 	}
 
-	public void setFechaTransaccion(LocalDate fechaTransaccion) {
+	public void setFechaTransaccion(Date fechaTransaccion) {
 		this.fechaTransaccion = fechaTransaccion;
 	}
 

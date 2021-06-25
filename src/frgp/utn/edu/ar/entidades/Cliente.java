@@ -2,6 +2,7 @@ package frgp.utn.edu.ar.entidades;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="Clientes")
@@ -40,8 +43,9 @@ public class Cliente implements Serializable {
 	@JoinColumn(name="IdPais")
 	private Pais pais;
 	
+	@Temporal(TemporalType.DATE)
 	@Column(name="FechaNacimiento",nullable=false)
-	private LocalDate fechaNacimiento;
+	private Date fechaNacimiento;
 	
 	@Column(name="Direccion",nullable=true)
 	private String direccion;
@@ -66,7 +70,7 @@ public class Cliente implements Serializable {
 		
 	}
 	
-	public Cliente(int dni, String sexo, Pais pais, LocalDate fechaNacimiento, String direccion,
+	public Cliente(int dni, String sexo, Pais pais, Date fechaNacimiento, String direccion,
 			Provincia prov, Localidad loc, Usuario usuario, boolean estadoCliente, String nombre, String apellido) {
 
 		this.dni = dni;
@@ -82,7 +86,7 @@ public class Cliente implements Serializable {
 		this.apellido = apellido;
 	}
 
-	public Cliente(int nroCliente, int dni, String sexo, Pais pais, LocalDate fechaNacimiento, String direccion,
+	public Cliente(int nroCliente, int dni, String sexo, Pais pais, Date fechaNacimiento, String direccion,
 			Provincia prov, Localidad loc, Usuario usuario, boolean estadoCliente, String nombre, String apellido) {
 
 		this.nroCliente = nroCliente;
@@ -156,11 +160,11 @@ public class Cliente implements Serializable {
 		this.pais = pais;
 	}
 
-	public LocalDate getFechaNacimiento() {
+	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
