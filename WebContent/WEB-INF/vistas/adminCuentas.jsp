@@ -35,6 +35,11 @@
 	        	AltaCuentaExitosa("${msgAlta}")
 	         </script>
 	     </c:when>
+	     <c:when test="${not empty msgModificacion}">
+	         <script type="text/javascript">
+	         	ModificacionCuentaExitosa("${msgModificacion}")
+	         </script>
+	     </c:when>
 	 </c:choose>	
     
     <div style="background-color: #e9ecef; min-height:94vh!important" class="container-fluid py-3" >
@@ -58,25 +63,30 @@
 							<th>Tipo</th>
 							<th>Fecha de creacion</th>
 							<th>Saldo</th>
+							<th>Cliente</th>
 							<th>#</th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="6">
+							<td colspan="7">
 							</td>
 						</tr>
 					</tfoot>
 					<tbody>
 						<c:forEach items="${ListaCuentas}" var="objCuenta">
 							<tr>
-								<form action="${pageContext.servletContext.contextPath}/accionCliente.html" method="get">
-									<td>${objCuenta.nroCuenta}<input type="hidden" name="nroCliente" value="${objCuenta.nroCliente}"></td>
+								<form action="${pageContext.servletContext.contextPath}/accionCuenta.html" method="get">
+									<td>${objCuenta.nroCuenta}<input type="hidden" name="nroCuenta" value="${objCuenta.nroCuenta}"></td>
 									<td>${objCuenta.nombre}</td>
 									<td>${objCuenta.tipoCuenta.nombre}</td>
 									<td>${objCuenta.fechaCreacion}</td>
 									<td>${objCuenta.saldo}</td>
-									<td><button type="submit" name="btnModificarCli" class="btn btn-secondary btn-sm">Modificar</button><button type="submit" name="btnEliminarCli" class="btn btn-danger btn-sm">Eliminar</button></td>
+									<td>${objCuenta.cliente.nombre} &nbsp; ${objCuenta.cliente.apellido}</td>
+									<td>
+										<button type="submit" name="modificarCuenta" class="btn btn-secondary btn-sm">Modificar</button>
+										<button type="submit" name="eliminarCuenta" class="btn btn-danger btn-sm">Eliminar</button>
+									</td>
 								</form>
 							</tr>
 						</c:forEach>

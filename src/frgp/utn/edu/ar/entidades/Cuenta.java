@@ -88,11 +88,11 @@ public class Cuenta implements Serializable {
 		this.nroCuenta = nroCuenta;
 	}
 
-	public Cliente getNroCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
 
-	public void setNroCliente(Cliente cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 
