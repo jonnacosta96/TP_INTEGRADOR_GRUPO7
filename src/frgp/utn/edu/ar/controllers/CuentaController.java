@@ -12,6 +12,8 @@ import org.hibernate.Session;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -42,7 +44,9 @@ import helpers.ViewNameResolver;
 
 @Controller
 public class CuentaController {
-		
+	
+	static ApplicationContext appContext = new ClassPathXmlApplicationContext("frgp/utn/edu/ar/resources/Beans.xml");
+	
 	@RequestMapping("/buscarCliente.html")
     @ResponseBody
     public String buscarCliente(@RequestParam Integer dni, Model model)
@@ -160,7 +164,13 @@ public class CuentaController {
     	Integer cbu = parametro.getIntegerParamValue() + 1;
     	parametro.setIntegerParamValue(cbu);
     	
-    	Cuenta cuenta = new Cuenta(
+    	Cuenta cuenta = (Cuenta)appContext.getBean("cuentaBase");
+    	
+    	cuenta.setCliente(cliente);
+    	cuenta.setNombre(crearCuentaDto.getCuentaNombre());
+    	cuenta.setTipoCuenta(tipoCuenta);
+    	
+    	/*Cuenta cuenta = new Cuenta(
 			cliente,
 			crearCuentaDto.getCuentaNombre(),
 			tipoCuenta,
@@ -168,7 +178,7 @@ public class CuentaController {
 			Calendar.getInstance().getTime(),
 			10000,
 			true
-		);
+		);*/
     	
     	Boolean resultado = cuentaNegImpl.GuardarCuenta(cuenta);
     	

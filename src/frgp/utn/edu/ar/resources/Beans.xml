@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- ESTO ES INYECCION POR SET -->
+    <bean id="cuentaBase" class="frgp.utn.edu.ar.entidades.Cuenta" init-method="initCuenta" scope="prototype">
+        <property name="saldo" value="10000"></property>
+        <property name="activo" value="1"></property>
+    </bean>
+
+    <!-- ESTO ES INYECCION POR CONSTRUCTOR 
+    <bean id="cuentaBase" class="frgp.utn.edu.ar.entidades.Cuenta" init-method="initCuenta">
+        <constructor-arg index="0" type="float" value="10000"></constructor-arg>
+        <constructor-arg index="1" type="Boolean" value="1"></constructor-arg>
+    </bean> -->
+    
+    <bean id="parametroNegImpl" class="frgp.utn.edu.ar.negocioImpl.ParametroNegImpl" >
+    </bean>
+
+
+</beans>
