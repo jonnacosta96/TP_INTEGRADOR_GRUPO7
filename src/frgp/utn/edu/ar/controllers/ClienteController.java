@@ -85,7 +85,7 @@ public class ClienteController {
 		
 		if(btnModificarCli != null) 
 		{
-			PaisNegImpl paisNegImpl = (PaisNegImpl)appContext.getBean("pasiNegImpl");
+			PaisNegImpl paisNegImpl = (PaisNegImpl)appContext.getBean("paisNegImpl");
 			ProvinciaNegImpl provNegImpl = (ProvinciaNegImpl)appContext.getBean("provinciaNegImpl");
 			LocalidadNegImpl locNegImpl = (LocalidadNegImpl)appContext.getBean("localidadNegImpl");
 			TipoCuentaNegImpl tcNegImpl = (TipoCuentaNegImpl)appContext.getBean("tipoCuentaNegImpl");

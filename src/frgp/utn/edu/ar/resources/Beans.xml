@@ -59,9 +59,11 @@
     </bean>
     <bean id="clienteDaoImpl" class="frgp.utn.edu.ar.daoImpl.ClienteDaoImpl" >
     </bean>
+    <bean id="parametroDaoImpl" class="frgp.utn.edu.ar.daoImpl.ParametroDaoImpl" >
+    </bean>
 
 	<!-- Misc -->
-	<bean id="conexion" class="frgp.utn.edu.ar.dao.Conexion" >
+	<bean id="conexion" class="frgp.utn.edu.ar.dao.Conexion" scope="prototype">
     </bean>
     
     <!-- Dtos -->
