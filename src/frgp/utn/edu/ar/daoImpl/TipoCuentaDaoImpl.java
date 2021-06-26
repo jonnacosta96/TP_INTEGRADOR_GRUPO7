@@ -5,22 +5,23 @@ import java.util.List;
 import org.hibernate.Session;
 
 import frgp.utn.edu.ar.dao.Conexion;
-import frgp.utn.edu.ar.dao.PaisDao;
+import frgp.utn.edu.ar.dao.TipoCuentaDao;
 import frgp.utn.edu.ar.entidades.Pais;
+import frgp.utn.edu.ar.entidades.TipoCuenta;
 
-public class PaisDaoImpl implements PaisDao{
+public class TipoCuentaDaoImpl implements TipoCuentaDao{
 
 	@Override
-	public List<Pais> obtenerListadoPaises(boolean estado) {
+	public List<TipoCuenta> obtenerListadoTipoCuentas(boolean estado) {
 		
 		try {
 			Conexion cn = new Conexion();
 			
 			Session session = cn.abrirConexion();
 			
-			String query = "FROM Pais p WHERE p.estadoPais = 1";
+			String query = "FROM TipoCuenta tc WHERE tc.estadoTipoCuenta = 1";
 			
-			List<Pais> lista = (List<Pais>) session.createQuery(query).list();
+			List<TipoCuenta> lista = (List<TipoCuenta>) session.createQuery(query).list();
 					
 			cn.cerrarSession();
 			
@@ -29,7 +30,6 @@ public class PaisDaoImpl implements PaisDao{
 		catch(Exception ex) {
 			return null;
 		}
-
 	}
 	
 	

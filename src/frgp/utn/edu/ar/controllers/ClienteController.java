@@ -25,6 +25,7 @@ import frgp.utn.edu.ar.negocioImpl.ClienteNegImpl;
 import frgp.utn.edu.ar.negocioImpl.LocalidadNegImpl;
 import frgp.utn.edu.ar.negocioImpl.PaisNegImpl;
 import frgp.utn.edu.ar.negocioImpl.ProvinciaNegImpl;
+import frgp.utn.edu.ar.negocioImpl.TipoCuentaNegImpl;
 import frgp.utn.edu.ar.negocioImpl.UserNegImpl;
 import helpers.ViewNameResolver;
 
@@ -83,12 +84,17 @@ public class ClienteController {
 			PaisNegImpl paisNegImpl = new PaisNegImpl();
 			ProvinciaNegImpl provNegImpl = new ProvinciaNegImpl();
 			LocalidadNegImpl locNegImpl = new LocalidadNegImpl();
+			TipoCuentaNegImpl tcNegImpl = new TipoCuentaNegImpl();
 			
 			mv.addObject("ListaPaises", paisNegImpl.obtenerListadoPaises(true));
 			mv.addObject("ListaProvincias",provNegImpl.obtenerListadoProvincias(true));
 			mv.addObject("ListaLocalidades",locNegImpl.obtenerListadoLocalidades(true));
+			
+			//aca va
+			mv.addObject("ListaTipoCuentas",tcNegImpl.obtenerListadoTipoCuentas(true));
 			mv.addObject("fechaNacimiento", cli.getFechaNacimiento());
 			mv.addObject("email",cli.getUsuario().getEmail());
+			
 			
 			mv.addObject("Cliente",cli);
 			mv.setViewName("modificarCliente");
@@ -138,7 +144,7 @@ public class ClienteController {
 	    
 	    ClienteNegImpl cliNegImpl = new ClienteNegImpl();
 	    
-	    boolean resultadoGuardado = cliNegImpl.GuardarCliente(cli);
+	    boolean resultadoGuardado = true; //cliNegImpl.GuardarCliente(cli);
 	    
 	    if(resultadoGuardado) {
 		    List<Cliente> lista = cliNegImpl.ObtenerListadoClientes(true);
