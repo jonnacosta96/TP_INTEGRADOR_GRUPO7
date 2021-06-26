@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -31,13 +33,15 @@ import helpers.ViewNameResolver;
 
 @Controller
 public class ClienteController {
+	
+	static ApplicationContext appContext = new ClassPathXmlApplicationContext("frgp/utn/edu/ar/resources/Beans.xml");
 
 	@RequestMapping("listadoClientes.html")
 	public ModelAndView LoadListClients() {
 		
 		ModelAndView mv = new ModelAndView();
 		
-		ClienteNegImpl cliNegImpl = new ClienteNegImpl();
+		ClienteNegImpl cliNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
 		
 		List<Cliente> lista = cliNegImpl.ObtenerListadoClientes(true);
 		
@@ -57,12 +61,13 @@ public class ClienteController {
 			request.getServletPath()
 		);
 		
-		PaisNegImpl paisNegImpl = new PaisNegImpl();
-		ProvinciaNegImpl provNegImpl = new ProvinciaNegImpl();
-		LocalidadNegImpl locNegImpl = new LocalidadNegImpl();
+		PaisNegImpl paisNegImpl = (PaisNegImpl)appContext.getBean("paisNegImpl");
+		ProvinciaNegImpl provNegImpl = (ProvinciaNegImpl)appContext.getBean("provinciaNegImpl");
+		LocalidadNegImpl locNegImpl = (LocalidadNegImpl)appContext.getBean("localidadNegImpl");
 		
+		Cliente cliente = (Cliente)appContext.getBean("cliente");
 		
-		mav.addObject("Cliente", new Cliente());
+		mav.addObject("Cliente", cliente);
 		mav.addObject("ListaPaises", paisNegImpl.obtenerListadoPaises(true));
 		mav.addObject("ListaProvincias",provNegImpl.obtenerListadoProvincias(true));
 		mav.addObject("ListaLocalidades",locNegImpl.obtenerListadoLocalidades(true));
@@ -75,16 +80,15 @@ public class ClienteController {
 	public ModelAndView clickActionClient(int nroCliente, String btnModificarCli) {
 
 		ModelAndView mv = new ModelAndView();
-		ClienteNegImpl cliNegImpl = new ClienteNegImpl();
+		ClienteNegImpl cliNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
 		Cliente cli = cliNegImpl.ObtenerClientexNroCliente(nroCliente);
-		
 		
 		if(btnModificarCli != null) 
 		{
-			PaisNegImpl paisNegImpl = new PaisNegImpl();
-			ProvinciaNegImpl provNegImpl = new ProvinciaNegImpl();
-			LocalidadNegImpl locNegImpl = new LocalidadNegImpl();
-			TipoCuentaNegImpl tcNegImpl = new TipoCuentaNegImpl();
+			PaisNegImpl paisNegImpl = (PaisNegImpl)appContext.getBean("paisNegImpl");
+			ProvinciaNegImpl provNegImpl = (ProvinciaNegImpl)appContext.getBean("provinciaNegImpl");
+			LocalidadNegImpl locNegImpl = (LocalidadNegImpl)appContext.getBean("localidadNegImpl");
+			TipoCuentaNegImpl tcNegImpl = (TipoCuentaNegImpl)appContext.getBean("tipoCuentaNegImpl");
 			
 			mv.addObject("ListaPaises", paisNegImpl.obtenerListadoPaises(true));
 			mv.addObject("ListaProvincias",provNegImpl.obtenerListadoProvincias(true));
@@ -130,19 +134,40 @@ public class ClienteController {
 	        return "error";
 	    }
 	    
+	    Pais pais = (Pais)appContext.getBean("pais");
+	    pais.setIdPais(Integer.parseInt(cmbBoxPaises.split("-")[0]));
+	    pais.setNombre(cmbBoxPaises.split("-")[1]);
+	    pais.setEstadoPais(true);
+	    
+	    Provincia provincia = (Provincia)appContext.getBean("provincia");
+	    provincia.setIdProvincia(Integer.parseInt(cmbBoxProvincias.split("-")[0]));
+	    provincia.setNombre(cmbBoxProvincias.split("-")[1]);
+	    provincia.setEstadoProvincia(true);
+	    
+	    Localidad localidad = (Localidad)appContext.getBean("localidad");
+	    localidad.setIdLocalidad(Integer.parseInt(cmbBoxLocalidades.split("-")[0]));
+	    localidad.setNombre(cmbBoxLocalidades.split("-")[1]);
+	    localidad.setEstadoLocalidad(true);
+	    
 	    cli.setFechaNacimiento(LocalDate.parse(fechaNac));
-	    cli.setPais(new Pais(Integer.parseInt(cmbBoxPaises.split("-")[0]), cmbBoxPaises.split("-")[1], true));
-	    cli.setProv(new Provincia(Integer.parseInt(cmbBoxProvincias.split("-")[0]), cmbBoxProvincias.split("-")[1], true));
-	    cli.setLoc(new Localidad(Integer.parseInt(cmbBoxLocalidades.split("-")[0]), cmbBoxLocalidades.split("-")[1], true));
+	    cli.setPais(pais);
+	    cli.setProv(provincia);
+	    cli.setLoc(localidad);
 	    cli.setEstadoCliente(true);
 	    
 	    String name = cli.getNombre().substring(0, 1) + cli.getApellido() + String.valueOf(cli.getDni()).substring(0, 3);
 	    String pass = String.valueOf(cli.getDni());
-	    Usuario usu = new Usuario(name, pass, email, "Customer", true);
+	    
+	    Usuario usu = (Usuario)appContext.getBean("usuario");
+	    usu.setUsername(name);
+	    usu.setPassword(pass);
+	    usu.setEmail(email);
+	    usu.setTipo("Customer");
+	    usu.setActivo(true);
 	    
 	    cli.setUsuario(usu);
 	    
-	    ClienteNegImpl cliNegImpl = new ClienteNegImpl();
+	    ClienteNegImpl cliNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
 	    
 	    boolean resultadoGuardado = cliNegImpl.GuardarCliente(cli);
 	    
@@ -158,9 +183,9 @@ public class ClienteController {
 	    else {
 	    	String errorEnAlta = "error";
 	    	
-			PaisNegImpl paisNegImpl = new PaisNegImpl();
-			ProvinciaNegImpl provNegImpl = new ProvinciaNegImpl();
-			LocalidadNegImpl locNegImpl = new LocalidadNegImpl();
+	    	PaisNegImpl paisNegImpl = (PaisNegImpl)appContext.getBean("paisNegImpl");
+			ProvinciaNegImpl provNegImpl = (ProvinciaNegImpl)appContext.getBean("provinciaNegImpl");
+			LocalidadNegImpl locNegImpl = (LocalidadNegImpl)appContext.getBean("localidadNegImpl");
 			
 			model.addAttribute("ListaPaises", paisNegImpl.obtenerListadoPaises(true));
 			model.addAttribute("ListaProvincias",provNegImpl.obtenerListadoProvincias(true));
@@ -178,17 +203,32 @@ public class ClienteController {
 	        return "error";
 	    }
 	    
+	    Pais pais = (Pais)appContext.getBean("pais");
+	    pais.setIdPais(Integer.parseInt(cmbBoxPaises.split("-")[0]));
+	    pais.setNombre(cmbBoxPaises.split("-")[1]);
+	    pais.setEstadoPais(true);
+	    
+	    Provincia provincia = (Provincia)appContext.getBean("provincia");
+	    provincia.setIdProvincia(Integer.parseInt(cmbBoxProvincias.split("-")[0]));
+	    provincia.setNombre(cmbBoxProvincias.split("-")[1]);
+	    provincia.setEstadoProvincia(true);
+	    
+	    Localidad localidad = (Localidad)appContext.getBean("localidad");
+	    localidad.setIdLocalidad(Integer.parseInt(cmbBoxLocalidades.split("-")[0]));
+	    localidad.setNombre(cmbBoxLocalidades.split("-")[1]);
+	    localidad.setEstadoLocalidad(true);
+	    
 	    cli.setFechaNacimiento(LocalDate.parse(fechaNac));
-	    cli.setPais(new Pais(Integer.parseInt(cmbBoxPaises.split("-")[0]), cmbBoxPaises.split("-")[1], true));
-	    cli.setProv(new Provincia(Integer.parseInt(cmbBoxProvincias.split("-")[0]), cmbBoxProvincias.split("-")[1], true));
-	    cli.setLoc(new Localidad(Integer.parseInt(cmbBoxLocalidades.split("-")[0]), cmbBoxLocalidades.split("-")[1], true));
+	    cli.setPais(pais);
+	    cli.setProv(provincia);
+	    cli.setLoc(localidad);
 	    cli.setEstadoCliente(true);
 	    
-	    UserNegImpl userNegImpl = new UserNegImpl();
+	    UserNegImpl userNegImpl = (UserNegImpl)appContext.getBean("userNegImpl");
   
 	    cli.setUsuario(userNegImpl.obtenerUsuarioClientexNroCliente(cli.getNroCliente()));
 	    
-	    ClienteNegImpl cliNegImpl = new ClienteNegImpl();
+	    ClienteNegImpl cliNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
 	    
 	    boolean resultadoGuardado = false; //cliNegImpl.GuardarCliente(cli);
 	    
@@ -204,9 +244,9 @@ public class ClienteController {
 	    else {
 	    	String errorEnModif = "error";
 	    	
-			PaisNegImpl paisNegImpl = new PaisNegImpl();
-			ProvinciaNegImpl provNegImpl = new ProvinciaNegImpl();
-			LocalidadNegImpl locNegImpl = new LocalidadNegImpl();
+			PaisNegImpl paisNegImpl = (PaisNegImpl)appContext.getBean("paisNegImpl");
+			ProvinciaNegImpl provNegImpl = (ProvinciaNegImpl)appContext.getBean("provinciaNegImpl");
+			LocalidadNegImpl locNegImpl = (LocalidadNegImpl)appContext.getBean("localidadNegImpl");
 			
 			model.addAttribute("ListaPaises", paisNegImpl.obtenerListadoPaises(true));
 			model.addAttribute("ListaProvincias",provNegImpl.obtenerListadoProvincias(true));

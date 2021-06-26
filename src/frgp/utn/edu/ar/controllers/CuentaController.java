@@ -51,8 +51,8 @@ public class CuentaController {
     @ResponseBody
     public String buscarCliente(@RequestParam Integer dni, Model model)
 	{    	    
-		ClienteNegImpl clienteNegImpl = new ClienteNegImpl();
-	    CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
+		ClienteNegImpl clienteNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
+	    CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 	    
 	    Cliente cliente = clienteNegImpl.ObtenerClientexDNI(dni);
 	    
@@ -103,10 +103,10 @@ public class CuentaController {
 		  Model model
 	  ) {
 	    
-	    ClienteNegImpl clienteNegImpl = new ClienteNegImpl();
-	    CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
-	    TipoCuentaNegImpl tipoCuentaNegImpl = new TipoCuentaNegImpl();
-	    ParametroNegImpl parametroNegImpl = new ParametroNegImpl();
+		ClienteNegImpl clienteNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
+		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
+	    TipoCuentaNegImpl tipoCuentaNegImpl = (TipoCuentaNegImpl)appContext.getBean("tipoCuentaNegImpl");
+	    ParametroNegImpl parametroNegImpl = (ParametroNegImpl)appContext.getBean("parametroNegImpl");
 	    Boolean flag = true; 
 	    
 	    List<TipoCuenta> tiposCuenta = tipoCuentaNegImpl.ObtenerListadoTiposCuenta(true);
@@ -164,21 +164,11 @@ public class CuentaController {
     	Integer cbu = parametro.getIntegerParamValue() + 1;
     	parametro.setIntegerParamValue(cbu);
     	
-    	Cuenta cuenta = (Cuenta)appContext.getBean("cuentaBase");
+    	Cuenta cuenta = (Cuenta)appContext.getBean("cuenta");
     	
     	cuenta.setCliente(cliente);
     	cuenta.setNombre(crearCuentaDto.getCuentaNombre());
     	cuenta.setTipoCuenta(tipoCuenta);
-    	
-    	/*Cuenta cuenta = new Cuenta(
-			cliente,
-			crearCuentaDto.getCuentaNombre(),
-			tipoCuenta,
-			cbu,
-			Calendar.getInstance().getTime(),
-			10000,
-			true
-		);*/
     	
     	Boolean resultado = cuentaNegImpl.GuardarCuenta(cuenta);
     	
@@ -209,7 +199,7 @@ public class CuentaController {
 		);
 		
 		mav.setViewName(viewName);
-		TipoCuentaNegImpl tipoCuentaNegImpl = new TipoCuentaNegImpl();
+	    TipoCuentaNegImpl tipoCuentaNegImpl = (TipoCuentaNegImpl)appContext.getBean("tipoCuentaNegImpl");
 		
 		if(!viewName.contains("login")) {
 					
@@ -229,7 +219,7 @@ public class CuentaController {
 		Model model
 	) {
 		
-		CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
+		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 		Boolean flag = true;
 		ModelAndView mav = new ModelAndView();
 		
@@ -286,7 +276,7 @@ public class CuentaController {
 	public ModelAndView accionCuenta(int nroCuenta, String modificarCuenta)
 	{
 		ModelAndView mv = new ModelAndView();
-		CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
+		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 		Cuenta cuenta = cuentaNegImpl.ObtenerCuentaxNroCuenta(nroCuenta);
 		
 		if(modificarCuenta != null)

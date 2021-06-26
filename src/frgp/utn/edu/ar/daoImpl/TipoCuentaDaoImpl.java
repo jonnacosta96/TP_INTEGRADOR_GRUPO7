@@ -3,6 +3,8 @@ package frgp.utn.edu.ar.daoImpl;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import frgp.utn.edu.ar.dao.Conexion;
 import frgp.utn.edu.ar.dao.TipoCuentaDao;
@@ -12,9 +14,11 @@ import frgp.utn.edu.ar.entidades.TipoCuenta;
 
 public class TipoCuentaDaoImpl implements TipoCuentaDao {
 
+	static ApplicationContext appContext = new ClassPathXmlApplicationContext("frgp/utn/edu/ar/resources/Beans.xml");
+
 	@Override
 	public List<TipoCuenta> ObtenerListadoTiposCuenta(boolean estado) {
-		Conexion cn = new Conexion();
+		Conexion cn = (Conexion)appContext.getBean("conexion");
 		
 		Session session = cn.abrirConexion();
 		
@@ -29,10 +33,10 @@ public class TipoCuentaDaoImpl implements TipoCuentaDao {
 
 	@Override
 	public TipoCuenta ObtenerTipoCuenta(String codigo) {
-		TipoCuenta tipoCuenta = new TipoCuenta();
+		TipoCuenta tipoCuenta = (TipoCuenta)appContext.getBean("tipoCuenta");
 		
 		try {
-			Conexion cn = new Conexion();
+			Conexion cn = (Conexion)appContext.getBean("conexion");
 			Session session = cn.abrirConexion();
 			
 			session.beginTransaction();

@@ -15,7 +15,7 @@ public class Conexion {
 	
 	public Conexion()
 	{
-		//Este new configuration no se puede sacar a un bean po
+		//Este new configuration no se puede sacar a un bean
 		configuration = new Configuration();
         configuration.configure();
         ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();

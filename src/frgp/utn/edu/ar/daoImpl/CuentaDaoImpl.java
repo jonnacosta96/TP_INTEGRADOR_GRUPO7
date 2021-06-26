@@ -3,6 +3,8 @@ package frgp.utn.edu.ar.daoImpl;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import frgp.utn.edu.ar.dao.Conexion;
 import frgp.utn.edu.ar.dao.CuentaDao;
@@ -10,11 +12,13 @@ import frgp.utn.edu.ar.entidades.Cliente;
 import frgp.utn.edu.ar.entidades.Cuenta;
 
 public class CuentaDaoImpl implements CuentaDao {
+	
+	static ApplicationContext appContext = new ClassPathXmlApplicationContext("frgp/utn/edu/ar/resources/Beans.xml");
 
 	@Override
 	public List<Cuenta> ObtenerListadoCuentas(boolean estado) {
 		try {
-			Conexion cn = new Conexion();
+			Conexion cn = (Conexion)appContext.getBean("conexion");
 			Session session = cn.abrirConexion();
 			
 			String query = "FROM Cuenta cue WHERE cue.activo = 1";
@@ -31,35 +35,36 @@ public class CuentaDaoImpl implements CuentaDao {
 
 	@Override
 	public Cuenta ObtenerCuentaxNroCuenta(int nroCuenta) {
-		Cuenta cuenta = new Cuenta();
 		
 		try {
-			Conexion cn = new Conexion();
+			Conexion cn = (Conexion)appContext.getBean("conexion");
 			Session session = cn.abrirConexion();
 			
 			session.beginTransaction();
 			
 			String query = "FROM Cuenta cue WHERE cue.nroCuenta = :nrocuenta";
 		
-			cuenta = (Cuenta) session.createQuery(query)
+			Cuenta cuenta = (Cuenta) session.createQuery(query)
 						.setParameter("nrocuenta", nroCuenta)
 						.uniqueResult();
 			
 			session.getTransaction().commit();
 			
 			cn.cerrarSession();
+			
+			return cuenta;
 		}
 		catch(Exception ex) {
 			return null;
 		}
 		
-		return cuenta;
+		
 	}
 
 	@Override
 	public boolean GuardarCuenta(Cuenta cuenta) {
 		try {
-			Conexion cn = new Conexion();
+			Conexion cn = (Conexion)appContext.getBean("conexion");
 			Session session = cn.abrirConexion();
 			
 			session.beginTransaction();
@@ -83,7 +88,7 @@ public class CuentaDaoImpl implements CuentaDao {
 		Long cantidadCuentas;
 		
 		try {
-			Conexion cn = new Conexion();
+			Conexion cn = (Conexion)appContext.getBean("conexion");
 			Session session = cn.abrirConexion();
 			
 			session.beginTransaction();

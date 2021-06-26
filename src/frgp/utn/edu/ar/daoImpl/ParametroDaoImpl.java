@@ -3,6 +3,8 @@ package frgp.utn.edu.ar.daoImpl;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import frgp.utn.edu.ar.dao.Conexion;
 import frgp.utn.edu.ar.dao.ParametroDao;
@@ -11,13 +13,15 @@ import frgp.utn.edu.ar.entidades.Parametro;
 
 public class ParametroDaoImpl implements ParametroDao {
 
+	static ApplicationContext appContext = new ClassPathXmlApplicationContext("frgp/utn/edu/ar/resources/Beans.xml");
+	
 	@Override
 	public Parametro ObtenerParametroxCodigo(String codigo) {
 		
-		Parametro parametro = new Parametro();
+		Parametro parametro = (Parametro)appContext.getBean("parametro");
 		
 		try {
-			Conexion cn = new Conexion();
+			Conexion cn = (Conexion)appContext.getBean("conexion");
 			Session session = cn.abrirConexion();
 			
 			session.beginTransaction();
@@ -42,7 +46,7 @@ public class ParametroDaoImpl implements ParametroDao {
 	@Override
 	public Boolean GuardarParametro(Parametro parametro) {
 		try {
-			Conexion cn = new Conexion();
+			Conexion cn = (Conexion)appContext.getBean("conexion");
 			Session session = cn.abrirConexion();
 			
 			session.beginTransaction();

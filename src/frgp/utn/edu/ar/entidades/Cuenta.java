@@ -164,7 +164,7 @@ public class Cuenta implements Serializable {
 	public void initCuenta()
 	{
 		this.fechaCreacion = Calendar.getInstance().getTime();
-		this.CBU = CBUHelper.getNewCbu();
+		this.CBU = CBUHelper.getNextCbu();
 	}
 
 }
