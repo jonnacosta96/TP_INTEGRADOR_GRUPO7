@@ -13,17 +13,23 @@ public class PaisDaoImpl implements PaisDao{
 	@Override
 	public List<Pais> obtenerListadoPaises(boolean estado) {
 		
-		Conexion cn = new Conexion();
-		
-		Session session = cn.abrirConexion();
-		
-		String query = "FROM Pais p WHERE p.estadoPais = 1";
-		
-		List<Pais> lista = (List<Pais>) session.createQuery(query).list();
-				
-		cn.cerrarSession();
-		
-		return lista;
+		try {
+			Conexion cn = new Conexion();
+			
+			Session session = cn.abrirConexion();
+			
+			String query = "FROM Pais p WHERE p.estadoPais = 1";
+			
+			List<Pais> lista = (List<Pais>) session.createQuery(query).list();
+					
+			cn.cerrarSession();
+			
+			return lista;
+		}
+		catch(Exception ex) {
+			return null;
+		}
+
 	}
 	
 	

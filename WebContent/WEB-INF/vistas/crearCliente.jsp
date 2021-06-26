@@ -8,12 +8,13 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript" src="./js/Alertas.js"></script>
 
+ 	<script src="jquery-3.5.1.min.js"></script>
     <title>UTN Banking 2021</title>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,7 +24,7 @@
     
        <c:choose>
             <c:when test="${not empty msgError}">
-                <script type="text/javascript">AltaFallida("Cliente")</script>
+                <script type="text/javascript">AltaFallida()</script>
             </c:when>
         </c:choose>
         
@@ -32,7 +33,6 @@
             <h2>Nuevo Cliente</h2>
             <br>
             <form:form method="POST" action="${pageContext.servletContext.contextPath}/altaCliente.html" modelAttribute="Cliente">
-            <%--<form action="${pageContext.servletContext.contextPath}/altaCliente.html" method="get">--%>
               <div class="border border-dark mb-4 px-5 py-3 pb-5 rounded">
               <div class="row">
                 <div class="col">
@@ -49,9 +49,11 @@
               <div class="row">
                 <div class="col">
                   <h5><form:label path="dni">DNI</form:label></h5>
-                  <form:input class="form-control" path="dni" value="" placeholder="DNI" pattern="[0-9]{1,10}" title="Solo se admiten Números. Tamaño mínimo: 1. Tamaño máximo: 10"/>  
+                  <form:input class="form-control" id="txtdni" path="dni" value="" placeholder="DNI" pattern="[0-9]{1,10}" title="Solo se admiten Números. Tamaño mínimo: 1. Tamaño máximo: 10"/>  
+                  <p class="text-danger" id="dniMessage"></p>
                 </div>
                 
+                <input  type="button" id="buscarCliente" class="btn btn-dark" value="Buscar" class="form-control d-inline">
                 <div class="col">
                 	<h5><form:label path="sexo">Genero</form:label></h5>
                     <form:radiobutton path="sexo" value="Femenino"/>
@@ -125,7 +127,7 @@
                 <div class="row">
                   <div class="col">
                     <h5><label for="NombreCuenta">Nombre de cuenta</label></h5>
-                    <input type="text" class="form-control" placeholder="NombreCuenta" name="txtNombreCta" pattern="[A-Za-z]*{1,30}" title="Solo se admiten Números. Tamaño mínimo: 1. Tamaño máximo: 20" required >
+                    <input type="text" class="form-control" placeholder="NombreCuenta" name="txtNombreCta" pattern="[A-Za-z]*{1,30}" title="Solo se admiten Números. Tamaño mínimo: 1. Tamaño máximo: 20">
                   </div>
                   <div class="col">
                     <h5><label for="cmbBoxTiposCtas">Tipo</label></h5>
@@ -138,11 +140,83 @@
               </div>
               <div>
               	<button type="submit" class="btn btn-success d-inline">Guardar</button>
-              	<button type="submit" class="btn btn-primary d-inline">Volver</button>
               </div>
             </form:form>  
-            <%--</form>--%>
         </div>
     </div>
+    
+   
 </body>
 </html>
+
+ <script type="text/javascript">
+    	$('#buscarCliente').on('click',
+    		function()
+    		{
+    			var regExp = new RegExp("[0-9]{7,8}")
+    			if(!regExp.test($("#txtdni").val())){
+    				$('#dniMessage').text("Por favor, ingrese un numero de 7 u 8 digitos");
+    				return;
+    			}
+    				
+    		
+    			$.ajax({
+    			    type : "GET",
+    			    url : "buscarCliente.html",
+    			    data : {
+    			    	"dni" : $("#txtdni").val()
+    			    },
+    			    success: function(data){
+    			    	debugger;
+    			    	var json = JSON.parse(data);
+    			    	if(json.result == "error")
+    		    		{
+    			    		$('#dniMessage').text(json.error);
+    		    		}
+    			    	else
+    		    		{
+    			    		$('#dniMessage').text("El dni ingresado ya existe en el sistema.");
+    		    		}
+    			    }
+    			})
+    		}   
+    	);
+    	
+    	$( "#txtdni" ).focusout(function() {
+
+    		var cantDigitos = $("#txtdni").val().length;
+    		
+    		if(cantDigitos > 0)
+    		{
+    			alert(cantDigitos);
+    			var regExp = new RegExp("[0-9]{7,8}")
+    			if(!regExp.test($("#txtdni").val())){
+    				$('#dniMessage').text("Por favor, ingrese un numero de 7 u 8 digitos");
+    				return;
+    			}
+    				
+    		
+    			$.ajax({
+    			    type : "GET",
+    			    url : "buscarCliente.html",
+    			    data : {
+    			    	"dni" : $("#txtdni").val()
+    			    },
+    			    success: function(data){
+    			    	debugger;
+    			    	var json = JSON.parse(data);
+    			    	if(json.result == "error")
+    		    		{
+    			    		$('#dniMessage').text(json.error);
+    		    		}
+    			    	else
+    		    		{
+    			    		$('#dniMessage').text("El dni ingresado ya existe en el sistema.");
+    		    		}
+    			    }
+    			})
+    		}
+    		
+    		
+    		});
+    </script>

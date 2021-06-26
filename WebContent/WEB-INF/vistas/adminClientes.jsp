@@ -37,7 +37,22 @@
 	         <script type="text/javascript">InformarUsuarioCliente("${msgAlta}")</script>
 	     </c:when>
 	 </c:choose>
-        
+ 	 <c:choose>
+	     <c:when test="${not empty eliminacionExitosa}">
+	         <script type="text/javascript">EliminacionExitosa("Cliente")</script>
+	     </c:when>
+	 </c:choose>
+   	 <c:choose>
+	     <c:when test="${not empty eliminacionFallida}">
+	         <script type="text/javascript">EliminacioncionFallida()</script>
+	     </c:when>
+	 </c:choose>   
+   	 <c:choose>
+	     <c:when test="${not empty msgModificacion}">
+	         <script type="text/javascript">ModificacionExitosa("Cliente")</script>
+	     </c:when>
+	 </c:choose>  
+
     <div style="background-color: #e9ecef; min-height:94vh!important" class="container-fluid py-3" >
         <div class="container">
         	<div>
@@ -81,12 +96,12 @@
 									<td>${objcli.nombre}</td>
 									<td>${objcli.apellido}</td>
 									<td>${objcli.dni}</td>
+									<td>${objcli.fechaNacimiento}</td>
 									<td>${objcli.sexo}</td>
-									<td>${objcli.sexo}</td>
+									<td>${objcli.direccion}</td>
 									<td>${objcli.pais.nombre}</td>
 									<td>${objcli.prov.nombre}</td>
 									<td>${objcli.loc.nombre}</td>
-									<td>${objcli.direccion}</td>
 									<td><button type="submit" name="btnModificarCli" class="btn btn-secondary btn-sm">Modificar</button><button type="submit" name="btnEliminarCli" class="btn btn-danger btn-sm">Eliminar</button></td>
 								</form>
 							</tr>
