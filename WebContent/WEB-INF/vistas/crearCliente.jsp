@@ -7,6 +7,8 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/glyphicon.css" type="text/css"/>
+	<link rel="stylesheet" href="./css/table.css" type="text/css"/>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -50,10 +52,10 @@
                 <div class="col">
                   <h5><form:label path="dni">DNI</form:label></h5>
                   <form:input class="form-control" id="txtdni" path="dni" value="" placeholder="DNI" pattern="[0-9]{1,10}" title="Solo se admiten Números. Tamaño mínimo: 1. Tamaño máximo: 10"/>  
-                  <p class="text-danger" id="dniMessage"></p>
+                  <p class="text-danger" id="dniMessage">${dniMessage}</p>
                 </div>
                 
-                <input  type="button" id="buscarCliente" class="btn btn-dark" value="Buscar" class="form-control d-inline">
+                
                 <div class="col">
                 	<h5><form:label path="sexo">Genero</form:label></h5>
                     <form:radiobutton path="sexo" value="Femenino"/>
@@ -104,6 +106,7 @@
 			 		 </select>	
 				</div>
               </div>
+              <br>
               <div class="row">
                 <div class="col">        
                   <h5><form:label path="direccion">Direccion</form:label></h5>
@@ -127,13 +130,18 @@
                 <div class="row">
                   <div class="col">
                     <h5><label for="NombreCuenta">Nombre de cuenta</label></h5>
-                    <input type="text" class="form-control" placeholder="NombreCuenta" name="txtNombreCta" pattern="[A-Za-z]*{1,30}" title="Solo se admiten Números. Tamaño mínimo: 1. Tamaño máximo: 20">
+                    <input type="text" class="form-control"
+                    	placeholder="NombreCuenta"
+                    	id="cuentaNombre"
+                    	name="cuentaNombre"
+                    	path="cuentaNombre">
                   </div>
                   <div class="col">
                     <h5><label for="cmbBoxTiposCtas">Tipo</label></h5>
-                    <select class="form-select form-control" name="cmbBoxTiposCtas" aria-label="Default select example">
-                      <option selected>Caja de ahorro ARS</option>
-                      <option value="1">Caja de ahorro USD</option>
+                    <select class="form-select form-control" name="tipoCuenta" path="tipoCuenta" id="tipoCuenta">
+                      <c:forEach items="${ListaTiposCuenta}" var="tipoCuenta">
+				 		<option value="${tipoCuenta.codigo}">${tipoCuenta.nombre}</option>
+			 			</c:forEach>
                     </select>
                   </div>
                 </div>
@@ -182,8 +190,8 @@
     		}   
     	);
     	
-    	$( "#txtdni" ).focusout(function() {
-
+    	$( "#txtdni" ).blur(function() {
+			debugger;
     		var cantDigitos = $("#txtdni").val().length;
     		
     		if(cantDigitos > 0)
@@ -216,7 +224,5 @@
     			    }
     			})
     		}
-    		
-    		
-    		});
+    	);
     </script>
