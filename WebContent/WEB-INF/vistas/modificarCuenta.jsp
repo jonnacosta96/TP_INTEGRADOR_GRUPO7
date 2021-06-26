@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,9 +13,11 @@
 	<link rel="stylesheet" href="./css/glyphicon.css" type="text/css"/>
 	<link rel="stylesheet" href="./css/table.css" type="text/css"/>
 	
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    <script src="jquery-3.5.1.min.js"></script>
 
 <title>UTN Banking 2021</title>
 </head>
@@ -24,35 +29,77 @@
         <div class="container">
             <h2>Editar Cuenta</h2>
             <br>
+            <form:form id="modificarCuentaForm" action="editarCuenta.html" method="post" modelAttribute="cuentaEditar">
               <div class="border border-dark mb-4 px-5 py-3 pb-5 rounded">
                 <div class="row">
                   <div class="col">
                     <h5><label for="exampleInputEmail1">Cliente</label></h5>
-                    <input type="text" class="form-control" placeholder="Nombre" >
+                    <input type="text" class="form-control d-inline disabled" readonly 
+                    	placeholder="Cliente"
+                    	id="nombreCliente"
+                    	name="nombreCliente"
+                    	path="nombreCliente"
+                    	value="<c:out value="${nombreCliente}"/>"
+                   	>
                   </div>
                   <div class="col">
                     <h5><label for="exampleInputEmail1">Tipo</label></h5>
-                    <select class="form-select form-control" aria-label="Default select example">
-                      <option selected>Caja de ahorro ARS</option>
-                      <option value="1">Caja de ahorro USD</option>
-                    </select>
+                    <input type="text" class="form-control d-inline disabled" readonly
+                    	placeholder="Cliente"
+                    	id="nroCuenta"
+                    	name="nroCuenta"
+                    	path="nroCuenta"
+                    	value="<c:out value="${nroCuenta}"/>"
+                   	>
                   </div>
                 </div>
                 <br>
                 <div class="row">
+                	<div class="col">
+                	<h5><label for="exampleInputEmail1">Tipo</label></h5>
+                    <input type="text" class="form-control d-inline disabled" readonly 
+                    	placeholder="Tipo de cuenta"
+                    	id="tipoCuenta"
+                    	name="tipoCuenta"
+                    	path="tipoCuenta"
+                    	value="<c:out value="${tipoCuenta}"/>"
+                   	>
+                	</div>
                   <div class="col">
                     <h5><label for="exampleInputEmail1">Nombre</label></h5>
-                    <input type="text" class="form-control d-inline" placeholder="Cliente" >
-                  </div>
-                  <div class="col">
+                    <input type="text" class="form-control d-inline" 
+                    	placeholder="Nombre de cuenta"
+                    	id="nombreCuenta"
+                    	name="nombreCuenta"
+                    	path="nombreCuenta"
+                    	value="<c:out value="${nombreCuenta}"/>"
+                   	>
+                   	<p class="text-danger" id="cuentaNombreMessage">${errorNombreCuenta}</p>
                   </div>
                 </div>
               </div>
-              <button class="btn btn-success d-inline" href="${pageContext.servletContext.contextPath}/guardarModificacionesCuenta">Guardar</button>
-              <button class="btn btn-danger d-inline" href="${pageContext.servletContext.contextPath}/cancelarModificacionCuenta">Volver</button>
+              <p class="text-danger" id="cuentaNombreMessage">${error}</p>
+              <button class="btn btn-success d-inline" href="${pageContext.servletContext.contextPath}/guardarCuenta">Guardar</button>
+              	<a class="mx-3" href="${pageContext.servletContext.contextPath}/adminCuentas.html">Cancelar</a>
+              </form:form>
             
         </div>
     </div>
 
 </body>
 </html>
+
+<script type="text/javascript">
+	$('#nombreCuenta').keydown(function(){
+			
+			if($("#nombreCuenta").val().length >= 50 ){
+				$('#cuentaNombreMessage').text("Ingrese un nombre de menos de 50 caracteres.");
+				return;
+			}
+			else{
+				$('#cuentaNombreMessage').text("");
+			}
+		}
+		
+	);
+</script>

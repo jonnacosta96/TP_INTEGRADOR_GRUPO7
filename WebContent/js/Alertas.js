@@ -124,6 +124,22 @@ function validar(formulario){
         });
 }
 
+function AltaCuentaExitosa(itemAlta){
+	swal({
+		  title: "Alta exitosa",
+		  text: "La cuenta " + itemAlta + " fue dada de alta correctamente.",
+		  icon: "success",
+		  button: "Aceptar",
+		});
+}
 
+function ModificacionCuentaExitosa(itemModificado){
+	swal({
+		  title: "Modificacion exitosa",
+		  text: "La cuenta " + itemModificado + " fue modificada correctamente.",
+		  icon: "success",
+		  button: "Aceptar",
+		});
+}
 
 

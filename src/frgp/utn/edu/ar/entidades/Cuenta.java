@@ -2,6 +2,7 @@ package frgp.utn.edu.ar.entidades;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -18,6 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import frgp.utn.edu.ar.entidades.Cliente;
+import helpers.CBUHelper;
 
 @Entity
 @Table(name="Cuentas")
@@ -79,6 +81,14 @@ public class Cuenta implements Serializable {
 		this.saldo = saldo;
 		this.activo = activo;
 	}
+	
+	
+
+	public Cuenta(float saldo, Boolean activo) {
+		super();
+		this.saldo = saldo;
+		this.activo = activo;
+	}
 
 	public int getNroCuenta() {
 		return nroCuenta;
@@ -88,11 +98,11 @@ public class Cuenta implements Serializable {
 		this.nroCuenta = nroCuenta;
 	}
 
-	public Cliente getNroCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
 
-	public void setNroCliente(Cliente cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 
@@ -151,6 +161,10 @@ public class Cuenta implements Serializable {
 				+ activo;
 	}
 
-	
+	public void initCuenta()
+	{
+		this.fechaCreacion = Calendar.getInstance().getTime();
+		this.CBU = CBUHelper.getNewCbu();
+	}
 
 }
