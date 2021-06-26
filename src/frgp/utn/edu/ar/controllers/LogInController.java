@@ -1,6 +1,8 @@
-	package frgp.utn.edu.ar.controllers;
+package frgp.utn.edu.ar.controllers;
 
 import org.hibernate.Session;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,11 +29,13 @@ import frgp.utn.edu.ar.dto.UserSessionDto;
 
 @Controller
 public class LogInController {
+	
+	static ApplicationContext appContext = new ClassPathXmlApplicationContext("frgp/utn/edu/ar/resources/Beans.xml");
 
   @RequestMapping("login.html")
   public ModelAndView eventLoadPage(Model model, HttpSession httpSession, HttpServletRequest request) {
     
-	model.addAttribute("login", new Login());
+	model.addAttribute("login", (Login)appContext.getBean("login"));
 	
     ModelAndView mav = new ModelAndView();
 	String viewName = ViewNameResolver.resolveViewName(
@@ -55,7 +59,7 @@ public class LogInController {
 		  ) {
     ModelAndView mav = null;
     
-    Conexion cn = new Conexion();
+    Conexion cn = (Conexion)appContext.getBean("conexion");
     Session session = cn.abrirConexion();
     
     String hql = "from Usuario u where u.username = :username and u.password = :password and u.activo = 1";

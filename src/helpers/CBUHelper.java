@@ -10,7 +10,7 @@ public class CBUHelper {
 
 	static ApplicationContext appContext = new ClassPathXmlApplicationContext("frgp/utn/edu/ar/resources/Beans.xml");
 	
-	public static Integer getNewCbu()
+	public static Integer getNextCbu()
 	{
 		ParametroNegImpl parametroNegImpl = (ParametroNegImpl)appContext.getBean("parametroNegImpl");
 		

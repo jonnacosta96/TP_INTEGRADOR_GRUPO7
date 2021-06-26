@@ -2,6 +2,9 @@ package frgp.utn.edu.ar.negocioImpl;
 
 import java.util.List;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import frgp.utn.edu.ar.daoImpl.ClienteDaoImpl;
 import frgp.utn.edu.ar.daoImpl.CuentaDaoImpl;
 import frgp.utn.edu.ar.entidades.Cliente;
@@ -10,7 +13,8 @@ import frgp.utn.edu.ar.negocio.CuentaNeg;
 
 public class CuentaNegImpl implements CuentaNeg {
 	
-	private CuentaDaoImpl cuentaDaoImpl = new CuentaDaoImpl();
+	static ApplicationContext appContext = new ClassPathXmlApplicationContext("frgp/utn/edu/ar/resources/Beans.xml");
+	private CuentaDaoImpl cuentaDaoImpl = (CuentaDaoImpl)appContext.getBean("cuentaDaoImpl");
 
 	@Override
 	public List<Cuenta> ObtenerListadoCuentas(boolean estado) {

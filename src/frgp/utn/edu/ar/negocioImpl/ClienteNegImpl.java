@@ -2,13 +2,18 @@ package frgp.utn.edu.ar.negocioImpl;
 
 import java.util.List;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import frgp.utn.edu.ar.daoImpl.ClienteDaoImpl;
+import frgp.utn.edu.ar.daoImpl.ProvinciaDaoImpl;
 import frgp.utn.edu.ar.entidades.Cliente;
 import frgp.utn.edu.ar.negocio.ClienteNeg;
 
 public class ClienteNegImpl implements ClienteNeg {
-
-	private ClienteDaoImpl cliDaoImpl = new ClienteDaoImpl();
+	
+	static ApplicationContext appContext = new ClassPathXmlApplicationContext("frgp/utn/edu/ar/resources/Beans.xml");
+	private ClienteDaoImpl cliDaoImpl = (ClienteDaoImpl)appContext.getBean("clienteDaoImpl");
 	
 	@Override
 	public List<Cliente> ObtenerListadoClientes(boolean estado) {
