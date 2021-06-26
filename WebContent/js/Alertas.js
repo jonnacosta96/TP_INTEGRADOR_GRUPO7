@@ -133,4 +133,13 @@ function AltaCuentaExitosa(itemAlta){
 		});
 }
 
+function ModificacionCuentaExitosa(itemModificado){
+	swal({
+		  title: "Modificacion exitosa",
+		  text: "La cuenta " + itemModificado + " fue modificada correctamente.",
+		  icon: "success",
+		  button: "Aceptar",
+		});
+}
+
 

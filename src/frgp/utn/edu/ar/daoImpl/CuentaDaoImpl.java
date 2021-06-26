@@ -88,7 +88,7 @@ public class CuentaDaoImpl implements CuentaDao {
 			
 			session.beginTransaction();
 			
-			String hql = "SELECT COUNT(c) FROM Cuenta c WHERE c.cliente = :cliente";
+			String hql = "SELECT COUNT(c) FROM Cuenta c WHERE c.cliente = :cliente and c.activo = 1";
 			
 			cantidadCuentas = (Long)session.createQuery(hql)
 	    			.setParameter("cliente", cliente)

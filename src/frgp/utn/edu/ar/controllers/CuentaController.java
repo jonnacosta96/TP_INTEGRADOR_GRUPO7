@@ -25,6 +25,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import frgp.utn.edu.ar.dao.Conexion;
 import frgp.utn.edu.ar.dto.CrearCuentaDto;
+import frgp.utn.edu.ar.dto.EditarCuentaDto;
+import frgp.utn.edu.ar.dto.UserSessionDto;
 import frgp.utn.edu.ar.entidades.Cliente;
 import frgp.utn.edu.ar.entidades.Cuenta;
 import frgp.utn.edu.ar.entidades.Login;
@@ -36,6 +38,7 @@ import frgp.utn.edu.ar.negocioImpl.CuentaNegImpl;
 import frgp.utn.edu.ar.negocioImpl.ParametroNegImpl;
 import frgp.utn.edu.ar.negocioImpl.TipoCuentaNegImpl;
 import helpers.JSONResponseFormatter;
+import helpers.ViewNameResolver;
 
 @Controller
 public class CuentaController {
@@ -184,6 +187,126 @@ public class CuentaController {
     	}
 	    
 		return modelAndView;
+	}
+	
+	@RequestMapping(value="crearCuenta.html")
+	public ModelAndView eventClickCrearCuenta(HttpSession httpSession, HttpServletRequest request) {
+		
+		ModelAndView mav = new ModelAndView();
+		String viewName = ViewNameResolver.resolveViewName(
+			(UserSessionDto)httpSession.getAttribute("userSession"),
+			request.getServletPath()
+		);
+		
+		mav.setViewName(viewName);
+		TipoCuentaNegImpl tipoCuentaNegImpl = new TipoCuentaNegImpl();
+		
+		if(!viewName.contains("login")) {
+					
+			List<TipoCuenta> tiposCuenta = tipoCuentaNegImpl.ObtenerListadoTiposCuenta(true);
+			mav.addObject("tiposCuenta", tiposCuenta);
+			
+		}
+	    
+		return mav;
+	}
+	
+	@RequestMapping(value="editarCuenta.html")
+	public ModelAndView editarCuenta(
+		HttpSession httpSession,
+		HttpServletRequest request,
+		@ModelAttribute("cuentaEditar") EditarCuentaDto editarCuentaDto,
+		Model model
+	) {
+		
+		CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
+		Boolean flag = true;
+		ModelAndView mav = new ModelAndView();
+		
+		Cuenta cuenta = cuentaNegImpl.ObtenerCuentaxNroCuenta(editarCuentaDto.getNroCuenta());
+		
+		mav.setViewName("modificarCuenta");
+		
+		if(editarCuentaDto.getNroCuenta() == null || editarCuentaDto.getNroCuenta().equals("")) flag = false;
+		if(editarCuentaDto.getNombreCuenta() == null || editarCuentaDto.getNombreCuenta().equals("")) flag = false;
+		
+		if(!flag)
+	    {
+			mav.addObject("nroCuenta", editarCuentaDto.getNroCuenta());
+			mav.addObject("nombreCuenta", editarCuentaDto.getNombreCuenta());
+			mav.addObject("nombreCliente", editarCuentaDto.getNombreCliente());
+			mav.addObject("tipoCuenta", editarCuentaDto.getTipoCuenta());
+			mav.addObject("errorNombreCuenta", "Por favor, ingrese un nombre");
+	    	return mav;
+	    }
+		
+		if(editarCuentaDto.getNombreCuenta().length() > 50)
+	    {
+			mav.addObject("nroCuenta", editarCuentaDto.getNroCuenta());
+			mav.addObject("nombreCuenta", editarCuentaDto.getNombreCuenta());
+			mav.addObject("nombreCliente", editarCuentaDto.getNombreCliente());
+			mav.addObject("tipoCuenta", editarCuentaDto.getTipoCuenta());
+			mav.addObject("errorNombreCuenta", "Ingrese un nombre de menos de 50 caracteres.");
+	    	return mav;
+	    }
+		
+		cuenta.setNombre(editarCuentaDto.getNombreCuenta());
+		
+		Boolean resultado = cuentaNegImpl.GuardarCuenta(cuenta);
+		
+		if(resultado)
+    	{
+    		model.addAttribute("msgModificacion", cuenta.getNroCuenta());
+    		mav.setViewName("redirect:/adminCuentas.html");
+    	}
+    	else
+    	{
+    		mav.addObject("nroCuenta", editarCuentaDto.getNroCuenta());
+			mav.addObject("nombreCuenta", editarCuentaDto.getNombreCuenta());
+			mav.addObject("nombreCliente", editarCuentaDto.getNombreCliente());
+			mav.addObject("tipoCuenta", editarCuentaDto.getTipoCuenta());
+    		mav.addObject("error", "Error al modificar la cuenta");
+	    	return mav;
+    	}
+	    
+		return mav;
+	}
+	
+	@RequestMapping("accionCuenta.html")
+	public ModelAndView accionCuenta(int nroCuenta, String modificarCuenta)
+	{
+		ModelAndView mv = new ModelAndView();
+		CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
+		Cuenta cuenta = cuentaNegImpl.ObtenerCuentaxNroCuenta(nroCuenta);
+		
+		if(modificarCuenta != null)
+		{
+			mv.addObject("nroCuenta", cuenta.getNroCuenta());
+			mv.addObject("nombreCuenta", cuenta.getNombre());
+			mv.addObject("nombreCliente", cuenta.getCliente().getNombre() + " " + cuenta.getCliente().getApellido());
+			mv.addObject("tipoCuenta", cuenta.getTipoCuenta().getNombre());
+			mv.setViewName("modificarCuenta");
+		}
+		else
+		{
+			cuenta.setActivo(false);
+			Boolean resultado = cuentaNegImpl.GuardarCuenta(cuenta);
+			
+			if(resultado) {
+				mv.addObject("eliminacionExitosa", "correcto");
+			}
+			else {
+				mv.addObject("eliminacionFallida", "fallo");
+			}
+			
+			List<Cuenta> cuentas = cuentaNegImpl.ObtenerListadoCuentas(true);
+			
+			mv.addObject("ListaCuentas", cuentas);
+			mv.setViewName("adminCuentas");
+				
+		}
+		
+		return mv;
 	}
     
 }

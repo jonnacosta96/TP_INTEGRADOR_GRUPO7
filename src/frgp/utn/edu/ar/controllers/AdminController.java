@@ -64,7 +64,8 @@ public class AdminController {
 	public ModelAndView eventClickMenuCuentas(
 			HttpSession httpSession,
 			HttpServletRequest request,
-			@ModelAttribute("msgAlta") final String msgAlta
+			@ModelAttribute("msgAlta") final String msgAlta,
+			@ModelAttribute("msgModificacion") final String msgModificacion
 	) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -79,94 +80,10 @@ public class AdminController {
 		
 		mav.addObject("ListaCuentas", lista);
 		mav.addObject("msgAlta", msgAlta);
+		mav.addObject("msgModificacion", msgModificacion);
 	    
 	    mav.setViewName(viewName);
 		return mav;
-	}
-	
-	@RequestMapping(value="crearCuenta.html")
-	public ModelAndView eventClickCrearCuenta(HttpSession httpSession, HttpServletRequest request) {
-		
-		ModelAndView mav = new ModelAndView();
-		String viewName = ViewNameResolver.resolveViewName(
-			(UserSessionDto)httpSession.getAttribute("userSession"),
-			request.getServletPath()
-		);
-		
-		mav.setViewName(viewName);
-		TipoCuentaNegImpl tipoCuentaNegImpl = new TipoCuentaNegImpl();
-		
-		if(!viewName.contains("login")) {
-					
-			List<TipoCuenta> tiposCuenta = tipoCuentaNegImpl.ObtenerListadoTiposCuenta(true);
-			mav.addObject("tiposCuenta", tiposCuenta);
-			
-		}
-	    
-		return mav;
-	}
-	
-	@RequestMapping(value="guardarCuenta")
-	public ModelAndView eventClickGuardarNuevaCuenta() {
-		
-		ModelAndView mv = new ModelAndView();
-		
-		mv.setViewName("adminCuentas");
-		
-		return mv;
-	}
-	
-	@RequestMapping(value="cancelarCreacionCuenta")
-	public ModelAndView eventClickCancelarCreacionDeCuenta() {
-		
-		ModelAndView mv = new ModelAndView();
-		
-		mv.setViewName("adminCuentas");
-		
-		return mv;
-	}
-	
-	@RequestMapping(value="modificarCuenta.html")
-	public ModelAndView eventClickModificarCuenta(HttpSession httpSession, HttpServletRequest request) {
-		
-		ModelAndView mav = new ModelAndView();
-		String viewName = ViewNameResolver.resolveViewName(
-			(UserSessionDto)httpSession.getAttribute("userSession"),
-			request.getServletPath()
-		);
-	    
-	    mav.setViewName(viewName);
-		return mav;
-	}
-	
-	@RequestMapping(value="eliminarCuenta")
-	public ModelAndView eventClickEliminarCuenta() {
-		
-		ModelAndView mv = new ModelAndView();
-		
-		mv.setViewName("modificarCuenta");
-		
-		return mv;
-	}
-	
-	@RequestMapping(value="guardarModificacionesCuenta")
-	public ModelAndView eventClickGuardarModificacionesCuenta() {
-		
-		ModelAndView mv = new ModelAndView();
-		
-		mv.setViewName("adminCuentas");
-		
-		return mv;
-	}
-	
-	@RequestMapping(value="cancelarModificacionCuenta")
-	public ModelAndView eventClickCancelarModificacionDeCuenta() {
-		
-		ModelAndView mv = new ModelAndView();
-		
-		mv.setViewName("adminCuentas");
-		
-		return mv;
 	}
 	
 }
