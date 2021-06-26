@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,10 +16,14 @@ import org.springframework.web.servlet.ModelAndView;
 import frgp.utn.edu.ar.dao.Conexion;
 import frgp.utn.edu.ar.dto.UserSessionDto;
 import frgp.utn.edu.ar.entidades.Cliente;
+import frgp.utn.edu.ar.entidades.Cuenta;
 import frgp.utn.edu.ar.entidades.TipoCuenta;
+import frgp.utn.edu.ar.negocioImpl.ClienteNegImpl;
+import frgp.utn.edu.ar.negocioImpl.CuentaNegImpl;
 import frgp.utn.edu.ar.negocioImpl.LocalidadNegImpl;
 import frgp.utn.edu.ar.negocioImpl.PaisNegImpl;
 import frgp.utn.edu.ar.negocioImpl.ProvinciaNegImpl;
+import frgp.utn.edu.ar.negocioImpl.TipoCuentaNegImpl;
 import helpers.ViewNameResolver;
 
 import org.json.simple.JSONArray;
@@ -55,13 +61,24 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="adminCuentas.html")
-	public ModelAndView eventClickMenuCuentas(HttpSession httpSession, HttpServletRequest request) {
+	public ModelAndView eventClickMenuCuentas(
+			HttpSession httpSession,
+			HttpServletRequest request,
+			@ModelAttribute("msgAlta") final String msgAlta
+	) {
 		
 		ModelAndView mav = new ModelAndView();
 		String viewName = ViewNameResolver.resolveViewName(
 			(UserSessionDto)httpSession.getAttribute("userSession"),
 			request.getServletPath()
 		);
+		
+		CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
+		
+		List<Cuenta> lista = cuentaNegImpl.ObtenerListadoCuentas(true);
+		
+		mav.addObject("ListaCuentas", lista);
+		mav.addObject("msgAlta", msgAlta);
 	    
 	    mav.setViewName(viewName);
 		return mav;
@@ -77,27 +94,13 @@ public class AdminController {
 		);
 		
 		mav.setViewName(viewName);
+		TipoCuentaNegImpl tipoCuentaNegImpl = new TipoCuentaNegImpl();
 		
 		if(!viewName.contains("login")) {
 					
-			Conexion cn = new Conexion();
-		    Session session = cn.abrirConexion();
-		    
-		    String hql = "from TipoCuenta";
-		    List<TipoCuenta> tiposCuenta = (List<TipoCuenta>)session.createQuery(hql).list();
-		    JSONArray array = new JSONArray();
-		    
-		    for(TipoCuenta tipo: tiposCuenta)
-		    {
-		    	JSONObject obj = new JSONObject();
-		    	obj.put("code",tipo.getCodigo());
-		    	obj.put("nombre",tipo.getNombre());
-		    	array.add(obj);
-		    }
-		    
-		    request.setAttribute("tiposCuenta", array);
-		    
-		    cn.cerrarSession();
+			List<TipoCuenta> tiposCuenta = tipoCuentaNegImpl.ObtenerListadoTiposCuenta(true);
+			mav.addObject("tiposCuenta", tiposCuenta);
+			
 		}
 	    
 		return mav;

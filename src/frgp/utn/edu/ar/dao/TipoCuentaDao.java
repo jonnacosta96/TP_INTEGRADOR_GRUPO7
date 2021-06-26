@@ -6,6 +6,7 @@ import frgp.utn.edu.ar.entidades.TipoCuenta;
 
 public interface TipoCuentaDao {
 	
-	public List<TipoCuenta> obtenerListadoTipoCuentas(boolean estado);
+	public List<TipoCuenta> ObtenerListadoTiposCuenta(boolean estado);
+	public TipoCuenta ObtenerTipoCuenta(String codigo);
 
 }

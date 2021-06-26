@@ -91,7 +91,7 @@ public class ClienteController {
 			mv.addObject("ListaLocalidades",locNegImpl.obtenerListadoLocalidades(true));
 			
 			//aca va
-			mv.addObject("ListaTipoCuentas",tcNegImpl.obtenerListadoTipoCuentas(true));
+			mv.addObject("ListaTipoCuentas",tcNegImpl.ObtenerListadoTiposCuenta(true));
 			mv.addObject("fechaNacimiento", cli.getFechaNacimiento());
 			mv.addObject("email",cli.getUsuario().getEmail());
 			
@@ -144,12 +144,12 @@ public class ClienteController {
 	    
 	    ClienteNegImpl cliNegImpl = new ClienteNegImpl();
 	    
-	    boolean resultadoGuardado = true; //cliNegImpl.GuardarCliente(cli);
+	    boolean resultadoGuardado = cliNegImpl.GuardarCliente(cli);
 	    
 	    if(resultadoGuardado) {
 		    List<Cliente> lista = cliNegImpl.ObtenerListadoClientes(true);
 		    
-		    String altaExitosa = "Usuario: " + usu.getUsername() + " - Contraseña: "+ usu.getPassword();
+		    String altaExitosa = "Usuario: " + usu.getUsername() + " - Contraseï¿½a: "+ usu.getPassword();
 	    	model.addAttribute("msgAlta", altaExitosa);
 		    model.addAttribute("ListaClientes", lista);
 		    

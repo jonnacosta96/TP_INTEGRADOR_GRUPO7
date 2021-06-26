@@ -124,6 +124,13 @@ function validar(formulario){
         });
 }
 
-
+function AltaCuentaExitosa(itemAlta){
+	swal({
+		  title: "Alta exitosa",
+		  text: "La cuenta " + itemAlta + " fue dada de alta correctamente.",
+		  icon: "success",
+		  button: "Aceptar",
+		});
+}
 
 

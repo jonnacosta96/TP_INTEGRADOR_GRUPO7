@@ -53,14 +53,14 @@
                     	id="clienteNombre"
                     	name="clienteNombre"
                     	path="clienteNombre"
-                    	value="<c:out value="${etiquetaCliente}"/>"
+                    	value="<c:out value="${parameters.clienteNombre}"/>"
                    	>
                     <input type="hidden" class="form-control d-inline disabled" readonly
                     	placeholder="Cliente"
                     	id="clienteId"
                     	name="clienteId"
                     	path="clienteId"
-                    	value="<c:out value="${idCliente}"/>"
+                    	value="<c:out value="${parameters.clienteId}"/>"
                    	>
                   </div>
                 </div>
@@ -72,16 +72,16 @@
                     	id="cuentaNombre"
                     	name="cuentaNombre"
                     	path="cuentaNombre"
-                    	value="<c:out value="${nombreCuenta}"/>"
+                    	value="<c:out value="${parameters.cuentaNombre}"/>"
                    	>
-                    <p class="text-danger" id="cuentaNombreMessage"></p>
+                    <p class="text-danger" id="cuentaNombreMessage">${errorNombreCuenta}</p>
                   </div>
                   <div class="col">
                     <h5><label for="exampleInputEmail1">Tipo</label></h5>
                     <select class="form-select form-control" aria-label="Default select example" name="tipoCuenta" path="tipoCuenta" id="tipoCuenta">
-                       <c:forEach items="${tiposCuenta}" var="tipoCuenta" varStatus="vs">
-        					<option value="${tipoCuenta.code}">${tipoCuenta.nombre}</option>
-    					</c:forEach>
+    					<c:forEach items="${tiposCuenta}" var="tipoCuenta">
+					 		<option value="${tipoCuenta.codigo}">${tipoCuenta.nombre}</option>
+				 		</c:forEach>
                     </select>
                   </div>
                 </div>
@@ -119,7 +119,6 @@ $('#buscarCliente').on('click',
 		    	"dni" : $("#dni").val()
 		    },
 		    success: function(data){
-		    	debugger;
 		    	var json = JSON.parse(data);
 		    	if(json.result == "error")
 	    		{
