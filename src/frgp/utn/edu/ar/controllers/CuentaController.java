@@ -14,12 +14,14 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import frgp.utn.edu.ar.dao.Conexion;
 import frgp.utn.edu.ar.dto.CrearCuentaDto;
@@ -90,7 +92,8 @@ public class CuentaController {
 		  HttpServletResponse response,
 		  @ModelAttribute("cuentaCrear") CrearCuentaDto crearCuentaDto,
 		  HttpSession httpSession,
-		  ModelAndView modelAndView
+		  ModelAndView modelAndView,
+		  Model model
 	  ) {
 	    
 	    ClienteNegImpl clienteNegImpl = new ClienteNegImpl();
@@ -168,6 +171,7 @@ public class CuentaController {
     	
     	if(resultado)
     	{
+    		model.addAttribute("msgAlta", cuenta.getNroCuenta());
     		modelAndView.setViewName("redirect:/adminCuentas.html");
     	}
     	else

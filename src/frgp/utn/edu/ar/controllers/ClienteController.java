@@ -90,7 +90,7 @@ public class ClienteController {
 	    
 	    ClienteNegImpl cliNegImpl = new ClienteNegImpl();
 	    
-	    boolean resultadoGuardado = true;//cliNegImpl.GuardarCliente(cli);
+	    boolean resultadoGuardado = cliNegImpl.GuardarCliente(cli);
 	    
 	    if(resultadoGuardado) {
 		    List<Cliente> lista = cliNegImpl.ObtenerListadoClientes(true);

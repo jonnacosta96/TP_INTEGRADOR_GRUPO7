@@ -14,6 +14,11 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script type="text/javascript" src="./js/Alertas.js"></script>
+    
+    <script type="text/javascript" src="./js/jquery.configTables.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready( function () {
 		$("#TablaCuentas").DataTable();
@@ -22,7 +27,15 @@
 <title>UTN Banking 2021</title>
 </head>
 <body>
-    <jsp:include page="header.jsp"></jsp:include>	
+    <jsp:include page="header.jsp"></jsp:include>
+    
+    <c:choose>
+	     <c:when test="${not empty msgAlta}">
+	         <script type="text/javascript">
+	        	AltaCuentaExitosa("${msgAlta}")
+	         </script>
+	     </c:when>
+	 </c:choose>	
     
     <div style="background-color: #e9ecef; min-height:94vh!important" class="container-fluid py-3" >
         <div class="container">
@@ -50,7 +63,7 @@
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="11">
+							<td colspan="6">
 							</td>
 						</tr>
 					</tfoot>

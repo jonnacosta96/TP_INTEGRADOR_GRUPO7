@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -59,7 +61,11 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="adminCuentas.html")
-	public ModelAndView eventClickMenuCuentas(HttpSession httpSession, HttpServletRequest request) {
+	public ModelAndView eventClickMenuCuentas(
+			HttpSession httpSession,
+			HttpServletRequest request,
+			@ModelAttribute("msgAlta") final String msgAlta
+	) {
 		
 		ModelAndView mav = new ModelAndView();
 		String viewName = ViewNameResolver.resolveViewName(
@@ -72,6 +78,7 @@ public class AdminController {
 		List<Cuenta> lista = cuentaNegImpl.ObtenerListadoCuentas(true);
 		
 		mav.addObject("ListaCuentas", lista);
+		mav.addObject("msgAlta", msgAlta);
 	    
 	    mav.setViewName(viewName);
 		return mav;

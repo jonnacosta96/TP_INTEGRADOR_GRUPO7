@@ -119,7 +119,6 @@ $('#buscarCliente').on('click',
 		    	"dni" : $("#dni").val()
 		    },
 		    success: function(data){
-		    	debugger;
 		    	var json = JSON.parse(data);
 		    	if(json.result == "error")
 	    		{
