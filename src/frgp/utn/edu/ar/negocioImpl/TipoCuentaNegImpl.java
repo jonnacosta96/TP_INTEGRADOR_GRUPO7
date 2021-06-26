@@ -13,13 +13,13 @@ public class TipoCuentaNegImpl implements TipoCuentaNeg {
 	@Override
 	public List<TipoCuenta> ObtenerListadoTiposCuenta(boolean estado) {
 		List<TipoCuenta> lista = tipoCuentaDaoImpl.ObtenerListadoTiposCuenta(estado);
-		return null;
+		return lista;
 	}
 
 	@Override
 	public TipoCuenta ObtenerTipoCuenta(String codigo) {
-		// TODO Auto-generated method stub
-		return null;
+		TipoCuenta tipoCuenta = tipoCuentaDaoImpl.ObtenerTipoCuenta(codigo);
+		return tipoCuenta;
 	}
 
 }

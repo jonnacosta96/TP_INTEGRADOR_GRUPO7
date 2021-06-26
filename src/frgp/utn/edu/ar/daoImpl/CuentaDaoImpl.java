@@ -77,4 +77,32 @@ public class CuentaDaoImpl implements CuentaDao {
 		return true;
 	}
 
+	@Override
+	public Long CantidadCuentasxNroCliente(Cliente cliente) {
+		
+		Long cantidadCuentas;
+		
+		try {
+			Conexion cn = new Conexion();
+			Session session = cn.abrirConexion();
+			
+			session.beginTransaction();
+			
+			String hql = "SELECT COUNT(c) FROM Cuenta c WHERE c.cliente = :cliente";
+			
+			cantidadCuentas = (Long)session.createQuery(hql)
+	    			.setParameter("cliente", cliente)
+	    			.uniqueResult();
+			
+			session.getTransaction().commit();
+			
+			cn.cerrarSession();
+		}
+		catch(Exception ex) {
+			return null;
+		}
+		
+		return cantidadCuentas;
+	}
+
 }

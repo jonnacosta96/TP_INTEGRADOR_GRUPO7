@@ -29,8 +29,29 @@ public class TipoCuentaDaoImpl implements TipoCuentaDao {
 
 	@Override
 	public TipoCuenta ObtenerTipoCuenta(String codigo) {
-		// TODO Auto-generated method stub
-		return null;
+		TipoCuenta tipoCuenta = new TipoCuenta();
+		
+		try {
+			Conexion cn = new Conexion();
+			Session session = cn.abrirConexion();
+			
+			session.beginTransaction();
+			
+			String query = "FROM TipoCuenta tc WHERE tc.codigo = :codigo";
+		
+			tipoCuenta = (TipoCuenta) session.createQuery(query)
+						.setParameter("codigo", codigo)
+						.uniqueResult();
+			
+			session.getTransaction().commit();
+			
+			cn.cerrarSession();
+		}
+		catch(Exception ex) {
+			return null;
+		}
+		
+		return tipoCuenta;
 	}
 
 }

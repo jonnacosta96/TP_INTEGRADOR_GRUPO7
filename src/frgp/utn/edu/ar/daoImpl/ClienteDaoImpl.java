@@ -90,7 +90,7 @@ public class ClienteDaoImpl implements ClienteDao {
 			
 			session.beginTransaction();
 			
-			String query = "FROM Cliente cli WHERE cli.nroCliente = :dni";
+			String query = "FROM Cliente cli WHERE cli.dni = :dni";
 		
 			cli = (Cliente) session.createQuery(query).setParameter("dni", dni).uniqueResult();
 			

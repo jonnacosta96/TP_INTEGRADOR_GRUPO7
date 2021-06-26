@@ -37,4 +37,11 @@ public class CuentaNegImpl implements CuentaNeg {
 		return Resultado;
 	}
 
+	@Override
+	public Long CantidadCuentasxNroCliente(Cliente cliente) {
+		
+		Long cantidadCuentas = cuentaDaoImpl.CantidadCuentasxNroCliente(cliente);
+		return cantidadCuentas;
+	}
+
 }
