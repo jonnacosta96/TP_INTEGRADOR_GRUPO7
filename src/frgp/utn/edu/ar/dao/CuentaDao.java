@@ -9,6 +9,9 @@ public interface CuentaDao {
 
 	public List<Cuenta> ObtenerListadoCuentas(boolean estado);
 	public Cuenta ObtenerCuentaxNroCuenta(int nroCuenta);
+	public Cuenta ObtenerCuentaxCBU(int cbu);
+	public List<Cuenta> ObtenerListadoCuentasxCliente(Cliente cli);
 	public boolean GuardarCuenta(Cuenta cuenta);
 	public Long CantidadCuentasxNroCliente(Cliente cliente);
+
 }

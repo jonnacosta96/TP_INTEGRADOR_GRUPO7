@@ -12,6 +12,7 @@ import frgp.utn.edu.ar.daoImpl.ClienteDaoImpl;
 import frgp.utn.edu.ar.daoImpl.ParametroDaoImpl;
 import frgp.utn.edu.ar.daoImpl.ProvinciaDaoImpl;
 import frgp.utn.edu.ar.entidades.Cliente;
+import frgp.utn.edu.ar.entidades.Usuario;
 import frgp.utn.edu.ar.negocio.ClienteNeg;
 
 public class ClienteNegImpl implements ClienteNeg {
@@ -62,6 +63,14 @@ public class ClienteNegImpl implements ClienteNeg {
 			cliDaoImpl = (ClienteDaoImpl)appContext.getBean("clienteDaoImpl");
 		
 		Cliente cli = cliDaoImpl.ObtenerClientexDNI(dni);
+		
+		return cli;
+	}
+
+	@Override
+	public Cliente ObtenerClientexUsuario(Usuario usuario)  {
+
+		Cliente cli = cliDaoImpl.ObtenerClientexUsuario(usuario);
 		
 		return cli;
 	}

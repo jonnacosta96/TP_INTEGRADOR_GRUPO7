@@ -50,7 +50,7 @@ public class Cuenta implements Serializable {
 	@Column(name="FechaCreacion")
     private Date fechaCreacion;
 	
-	@Column(name="Saldo")
+	@Column(name ="Saldo", precision=10, scale=2)
     private float saldo;
 	
 	@Column(name="Activo")

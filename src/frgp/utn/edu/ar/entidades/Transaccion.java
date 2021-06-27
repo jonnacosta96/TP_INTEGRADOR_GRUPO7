@@ -42,9 +42,8 @@ public class Transaccion implements Serializable{
 	@Column(name="Saldo",nullable=false)
 	private float saldo;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name="Fecha",nullable=false)
-	private Date fechaTransaccion;
+	private LocalDate fechaTransaccion;
 	
 	@Column(name="EstadoLinea")
 	private boolean estadoTransaccion;
@@ -55,7 +54,7 @@ public class Transaccion implements Serializable{
 	}
 	
 	public Transaccion(Cuenta cuentaAsoc, String descripcion, TipoTransaccion tipoTransaccion,
-			float saldo, Date fechaTransaccion, boolean estadoTransaccion) {
+			float saldo, LocalDate fechaTransaccion, boolean estadoTransaccion) {
 		
 		this.cuentaAsoc = cuentaAsoc;
 		this.descripcion = descripcion;
@@ -66,7 +65,7 @@ public class Transaccion implements Serializable{
 	}
 	
 	public Transaccion(int idTransaccion, Cuenta cuentaAsoc, String descripcion, TipoTransaccion tipoTransaccion,
-			float saldo, Date fechaTransaccion, boolean estadoTransaccion) {
+			float saldo, LocalDate fechaTransaccion, boolean estadoTransaccion) {
 		
 		this.idTransaccion = idTransaccion;
 		this.cuentaAsoc = cuentaAsoc;
@@ -119,11 +118,11 @@ public class Transaccion implements Serializable{
 		this.saldo = saldo;
 	}
 
-	public Date getFechaTransaccion() {
+	public LocalDate getFechaTransaccion() {
 		return fechaTransaccion;
 	}
 
-	public void setFechaTransaccion(Date fechaTransaccion) {
+	public void setFechaTransaccion(LocalDate fechaTransaccion) {
 		this.fechaTransaccion = fechaTransaccion;
 	}
 

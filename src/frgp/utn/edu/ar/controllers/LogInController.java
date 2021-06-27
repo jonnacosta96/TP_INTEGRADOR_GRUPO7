@@ -96,6 +96,7 @@ public class LogInController {
 			mav.setViewName("redirect:/clienteHome.html");
 		}
 		
+		httpSession.setAttribute("userLogeado", user);
 		httpSession.setAttribute("userSession", new UserSessionDto(
 			userName,
 			LocalDateTime.now(),
