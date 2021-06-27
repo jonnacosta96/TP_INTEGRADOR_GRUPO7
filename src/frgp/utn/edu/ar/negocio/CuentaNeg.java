@@ -9,8 +9,8 @@ public interface CuentaNeg {
 
 	public List<Cuenta> ObtenerListadoCuentas(boolean estado);
 	public Cuenta ObtenerCuentaxNroCuenta(int nroCuenta);
-	public List<Cuenta> ObtenerListadoCuentasxCliente(Cliente cli);
 	public boolean GuardarCuenta(Cuenta cuenta);
 	public Long CantidadCuentasxNroCliente(Cliente cliente);
 	public List<Cuenta> ObtenerListadoCuentasxCliente(Cliente cliente);
+	public Cuenta ObtenerCuentaxCBU(int cbu);
 }

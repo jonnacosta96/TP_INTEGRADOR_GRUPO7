@@ -149,6 +149,17 @@ public class CuentaController {
     	{
 	    	modelAndView.addObject("error", "El cliente tiene 4 o mas cuentas creadas");
 	    	modelAndView.addObject("tiposCuenta", tiposCuenta);
+    		if(returnUrl != null)
+    		{
+    			if(returnUrl.equals("modificarCliente"))
+    				modelAndView.setViewName("redirect:/accionCliente.html?nroCliente=" + crearCuentaDto.getClienteId() +"&btnModificarCli=");
+    			else
+    				modelAndView.setViewName("redirect:/adminCuentas.html");
+    		}
+    		else
+    		{
+    			modelAndView.setViewName("redirect:/adminCuentas.html");
+    		}
 	    	return modelAndView;
     	}
 	    
