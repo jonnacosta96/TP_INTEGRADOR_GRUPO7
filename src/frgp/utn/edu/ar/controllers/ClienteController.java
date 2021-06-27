@@ -86,7 +86,10 @@ public class ClienteController {
 
 		ModelAndView mv = new ModelAndView();
 		ClienteNegImpl cliNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
+		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
+		TipoCuentaNegImpl tipoCuentaNegImpl = (TipoCuentaNegImpl)appContext.getBean("tipoCuentaNegImpl");
 		Cliente cli = cliNegImpl.ObtenerClientexNroCliente(nroCliente);
+		
 		
 		if(btnModificarCli != null) 
 		{
@@ -104,6 +107,11 @@ public class ClienteController {
 			mv.addObject("fechaNacimiento", cli.getFechaNacimiento());
 			mv.addObject("email",cli.getUsuario().getEmail());
 			
+			List<Cuenta> cuentas = cuentaNegImpl.ObtenerListadoCuentasxCliente(cli);
+			mv.addObject("ListaCuentas", cuentas);
+			
+			List<TipoCuenta> tiposCuenta = tipoCuentaNegImpl.ObtenerListadoTiposCuenta(true);
+			mv.addObject("tiposCuenta", tiposCuenta);
 			
 			mv.addObject("Cliente",cli);
 			mv.setViewName("modificarCliente");

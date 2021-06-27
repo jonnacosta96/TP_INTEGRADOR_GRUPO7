@@ -12,5 +12,5 @@ public interface CuentaNeg {
 	public List<Cuenta> ObtenerListadoCuentasxCliente(Cliente cli);
 	public boolean GuardarCuenta(Cuenta cuenta);
 	public Long CantidadCuentasxNroCliente(Cliente cliente);
-	public Cuenta ObtenerCuentaxCBU(int cbu);
+	public List<Cuenta> ObtenerListadoCuentasxCliente(Cliente cliente);
 }

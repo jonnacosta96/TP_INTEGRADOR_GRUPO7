@@ -100,7 +100,8 @@ public class CuentaController {
 		  @ModelAttribute("cuentaCrear") CrearCuentaDto crearCuentaDto,
 		  HttpSession httpSession,
 		  ModelAndView modelAndView,
-		  Model model
+		  Model model,
+		  @RequestParam String returnUrl
 	  ) {
 	    
 		ClienteNegImpl clienteNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
@@ -175,7 +176,17 @@ public class CuentaController {
     	if(resultado)
     	{
     		model.addAttribute("msgAlta", cuenta.getNroCuenta());
-    		modelAndView.setViewName("redirect:/adminCuentas.html");
+    		if(returnUrl != null)
+    		{
+    			if(returnUrl.equals("modificarCliente"))
+    				modelAndView.setViewName("redirect:/accionCliente.html?nroCliente=" + cuenta.getCliente().getNroCliente() +"&btnModificarCli=");
+    			else
+    				modelAndView.setViewName("redirect:/adminCuentas.html");
+    		}
+    		else
+    		{
+    			modelAndView.setViewName("redirect:/adminCuentas.html");
+    		}
     	}
     	else
     	{
@@ -216,7 +227,8 @@ public class CuentaController {
 		HttpSession httpSession,
 		HttpServletRequest request,
 		@ModelAttribute("cuentaEditar") EditarCuentaDto editarCuentaDto,
-		Model model
+		Model model,
+		@RequestParam String returnUrl
 	) {
 		
 		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
@@ -257,7 +269,18 @@ public class CuentaController {
 		if(resultado)
     	{
     		model.addAttribute("msgModificacion", cuenta.getNroCuenta());
-    		mav.setViewName("redirect:/adminCuentas.html");
+    		if(returnUrl != null)
+    		{
+    			if(returnUrl.equals("modificarCliente"))
+    				mav.setViewName("redirect:/accionCliente.html?nroCliente=" + cuenta.getCliente().getNroCliente() +"&btnModificarCli=");
+    			if(returnUrl.equals("adminCuentas"))
+    				mav.setViewName("redirect:/adminCuentas.html");
+    		}
+    		else
+    		{
+    			mav.setViewName("redirect:/adminCuentas.html");
+    		}
+    		
     	}
     	else
     	{
@@ -273,7 +296,7 @@ public class CuentaController {
 	}
 	
 	@RequestMapping("accionCuenta.html")
-	public ModelAndView accionCuenta(int nroCuenta, String modificarCuenta)
+	public ModelAndView accionCuenta(int nroCuenta, String modificarCuenta, String origin)
 	{
 		ModelAndView mv = new ModelAndView();
 		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
@@ -285,6 +308,8 @@ public class CuentaController {
 			mv.addObject("nombreCuenta", cuenta.getNombre());
 			mv.addObject("nombreCliente", cuenta.getCliente().getNombre() + " " + cuenta.getCliente().getApellido());
 			mv.addObject("tipoCuenta", cuenta.getTipoCuenta().getNombre());
+			mv.addObject("returnUrl", origin);
+			
 			mv.setViewName("modificarCuenta");
 		}
 		else
@@ -302,7 +327,17 @@ public class CuentaController {
 			List<Cuenta> cuentas = cuentaNegImpl.ObtenerListadoCuentas(true);
 			
 			mv.addObject("ListaCuentas", cuentas);
-			mv.setViewName("adminCuentas");
+			if(origin != null)
+    		{
+    			if(origin.equals("modificarCliente"))
+    				mv.setViewName("redirect:/accionCliente.html?nroCliente=" + cuenta.getCliente().getNroCliente() +"&btnModificarCli=");
+    			if(origin.equals("adminCuentas"))
+    				mv.setViewName("redirect:/adminCuentas.html");
+    		}
+    		else
+    		{
+    			mv.setViewName("redirect:/adminCuentas.html");
+    		}
 				
 		}
 		

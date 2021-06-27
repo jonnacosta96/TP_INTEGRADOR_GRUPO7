@@ -93,6 +93,8 @@
               </div>
               	<button class="btn btn-success d-inline" href="${pageContext.servletContext.contextPath}/guardarCuenta">Guardar</button>
               	<a class="btn btn-primary d-inline" href="${pageContext.servletContext.contextPath}/adminCuentas.html">Cancelar</a>
+              	<button class="btn btn-dark d-inline">Guardar</button>
+              	<a class="mx-3" href="javascript:history.back()">Cancelar</a>
              </form:form>
         </div>
     </div>

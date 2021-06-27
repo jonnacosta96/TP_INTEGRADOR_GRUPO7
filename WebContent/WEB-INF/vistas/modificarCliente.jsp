@@ -9,6 +9,7 @@
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	    <link rel="stylesheet" href="./css/glyphicon.css" type="text/css"/>
 		<link rel="stylesheet" href="./css/table.css" type="text/css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		
 	    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -140,7 +141,8 @@
               </div>
               <br>
               <br>
-              <button type="submit" class="btn btn-primary d-inline">Actualizar cliente</button>
+              <button type="submit" class="btn btn-dark d-inline">Actualizar cliente</button>
+              <a class="mx-3" href="javascript:history.back()">Cancelar</a>
               </form:form> 
             </div>
               <br>
@@ -153,7 +155,7 @@
                 </p>
                 <br>
                 <table class="table my-3">
-                  <thead>
+                  <thead class="thead-dark">
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Fecha Creacion</th>
@@ -162,45 +164,83 @@
                       <th scope="col">Tipo</th>
                       <th scope="col">Saldo</th>
                       <th scope="col">CBU</th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>12/05/1997</td>
-                      <td>CA1 - User Prueba</td>
-                      <td>1000123</td>
-                      <td>Caja Ahorro ARS</td>
-                      <td>85.468,26</td>
-                      <td>1234567891234567891234</td>
-                    </tr>
-                  </tbody>
+                  	
+						<c:forEach items="${ListaCuentas}" var="cuentaObj">
+						<form action="${pageContext.servletContext.contextPath}/accionCuenta.html" method="get">
+							<tr>
+								<th scope="col">${cuentaObj.nroCuenta}<input type="hidden" name="nroCuenta" value="${cuentaObj.nroCuenta}"></th>
+								<th scope="col">${cuentaObj.fechaCreacion}</th>
+								<th scope="col">${cuentaObj.nombre}</th>
+								<th scope="col">${cuentaObj.cliente.nombre} ${cuentaObj.cliente.apellido}</th>
+								<th scope="col">${cuentaObj.tipoCuenta.nombre}</th>
+								<th scope="col">${cuentaObj.saldo}</th>
+								<th scope="col">${cuentaObj.CBU}</th>
+								<td>
+									<input type="hidden" name="origin" value="modificarCliente">
+									<button type="submit" name="modificarCuenta" class="btn btn-outline-secondary btn-sm"><i class="fa fa-edit"></i></button>
+									<button type="submit" name="eliminarCuenta" class="btn btn-outline-secondary btn-sm"><i class="fa fa-trash"></i></button>
+								</td>
+							</tr>
+						</form>
+						</c:forEach>
+					
+				</tbody>
                 </table>
+              
               <br>
-                <p>
                   <h3>
                     Crear cuenta
                   </h3>
-                </p>
                 <br>
+                <form:form id="crearCuentaForm" action="${pageContext.servletContext.contextPath}/guardarNuevaCuenta.html" method="post" modelAttribute="cuentaCrear">
                 <div class="row">
                   <div class="col">
-                    <h5><label for="NombreCuenta">Nombre de cuenta</label></h5>
-                    <input type="text" class="form-control" placeholder="NombreCuenta" name="txtNombreCta" pattern="[0-9]{1,20}" title="Solo se admiten Números. Tamaño mínimo: 1. Tamaño máximo: 20" required >
+                  <input type="hidden" class="form-control d-inline disabled" readonly
+                    	placeholder="Cliente"
+                    	id="clienteId"
+                    	name="clienteId"
+                    	path="clienteId"
+                    	value="<c:out value="${Cliente.nroCliente}"/>"
+                   	>
+                   	<input type="hidden" class="form-control d-inline disabled" readonly
+                    	placeholder="Cliente"
+                    	id="returnUrl"
+                    	name="returnUrl"
+                    	path="returnUrl"
+                    	value="modificarCliente"
+                   	>
+                    <h5><label for="exampleInputEmail1">Nombre de cuenta</label></h5>
+                    <input type="text" class="form-control" placeholder="Nombre"
+                    	id="cuentaNombre"
+                    	name="cuentaNombre"
+                    	path="cuentaNombre"
+                    	value="<c:out value="${parameters.cuentaNombre}"/>"
+                   	>
+                    <p class="text-danger" id="cuentaNombreMessage">${errorNombreCuenta}</p>
                   </div>
                   <div class="col">
-                    <h5><label for="cmbBoxTiposCtas">Tipo</label></h5>
-                    <select class="form-select form-control" name="cmbBoxTiposCtas" aria-label="Default select example">
-                      <option selected>Caja de ahorro ARS</option>
-                      <option value="1">Caja de ahorro USD</option>
+                    <h5><label for="exampleInputEmail1">Tipo</label></h5>
+                    <select class="form-select form-control" aria-label="Default select example" name="tipoCuenta" path="tipoCuenta" id="tipoCuenta">
+    					<c:forEach items="${tiposCuenta}" var="tipoCuenta">
+					 		<option value="${tipoCuenta.codigo}">${tipoCuenta.nombre}</option>
+				 		</c:forEach>
                     </select>
                   </div>
                 </div>
                 <br>
-                <button type="submit" class="btn btn-dark d-inline">Guardar Cuenta</button>
+                <button class="btn btn-dark d-inline">Guardar</button>
+              	<a class="mx-3" href="${pageContext.servletContext.contextPath}/adminCuentas.html">Cancelar</a>
+                </form:form>
               </div>
-            </form>
+              
         </div>
     </div>
 </body>
 </html>
+
+

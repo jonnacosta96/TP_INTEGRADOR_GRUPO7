@@ -147,7 +147,7 @@
                 </div>
               </div>
               <div>
-              	<button type="submit" class="btn btn-success d-inline">Guardar</button>
+              	<button type="submit" class="btn btn-dark d-inline">Guardar</button>
               </div>
             </form:form>  
         </div>
