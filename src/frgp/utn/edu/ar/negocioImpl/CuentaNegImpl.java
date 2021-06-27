@@ -66,4 +66,13 @@ public class CuentaNegImpl implements CuentaNeg {
 		return cantidadCuentas;
 	}
 
+	@Override
+	public List<Cuenta> ObtenerListadoCuentasxCliente(Cliente cliente) {
+		if(cuentaDaoImpl == null)
+			cuentaDaoImpl = (CuentaDaoImpl)appContext.getBean("cuentaDaoImpl");
+		List<Cuenta> lista  = cuentaDaoImpl.ObtenerListadoCuentasxCliente(cliente);
+		
+		return lista;
+	}
+
 }

@@ -110,4 +110,24 @@ public class CuentaDaoImpl implements CuentaDao {
 		return cantidadCuentas;
 	}
 
+	@Override
+	public List<Cuenta> ObtenerListadoCuentasxCliente(Cliente cliente) {
+		try {
+			Conexion cn = (Conexion)appContext.getBean("conexion");
+			Session session = cn.abrirConexion();
+			
+			String query = "FROM Cuenta cue WHERE cue.cliente = :cliente and cue.activo = 1 ";
+			List<Cuenta> lista = (List<Cuenta>)session.createQuery(query)
+									.setParameter("cliente", cliente)
+									.list();
+			cn.cerrarSession();
+			
+			return lista;
+		}
+		catch (Exception ex)
+		{
+			return null;
+		}
+	}
+
 }

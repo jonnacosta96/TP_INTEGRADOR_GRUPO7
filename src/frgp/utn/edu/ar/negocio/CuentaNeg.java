@@ -11,4 +11,5 @@ public interface CuentaNeg {
 	public Cuenta ObtenerCuentaxNroCuenta(int nroCuenta);
 	public boolean GuardarCuenta(Cuenta cuenta);
 	public Long CantidadCuentasxNroCliente(Cliente cliente);
+	public List<Cuenta> ObtenerListadoCuentasxCliente(Cliente cliente);
 }
