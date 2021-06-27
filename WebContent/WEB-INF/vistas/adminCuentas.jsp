@@ -51,7 +51,7 @@
 		    <div class="row">
 		        <div class="col-md-12">                                
 		            <br/>
-		            <p><a href="${pageContext.servletContext.contextPath}/crearCuenta.html" style="color: #337ab7"><i class="glyphicon glyphicon-list-alt" style="color: #337ab7"></i>Crear Cuenta</a></p>
+		            <p><a href="${pageContext.servletContext.contextPath}/crearCuenta.html?returnUrl=adminCuentas" style="color: #337ab7"><i class="glyphicon glyphicon-list-alt" style="color: #337ab7"></i>Crear Cuenta</a></p>
 		        </div>
 		    </div>
 			<br>
@@ -85,7 +85,7 @@
 									<td>${objCuenta.saldo}</td>
 									<td>${objCuenta.cliente.nombre} &nbsp; ${objCuenta.cliente.apellido}</td>
 									<td>
-										<input type="hidden" name="origin" value="adminCuentas">
+										<input type="hidden" name="returnUrl" value="adminCuentas">
 										<button type="submit" name="modificarCuenta" class="btn btn-outline-secondary btn-sm"><i class="fa fa-edit"></i></button>
 										<button type="submit" name="eliminarCuenta" class="btn btn-outline-secondary btn-sm"><i class="fa fa-trash"></i></button>
 									</td>

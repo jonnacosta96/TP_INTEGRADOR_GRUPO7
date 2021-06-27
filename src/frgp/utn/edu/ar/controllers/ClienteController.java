@@ -119,7 +119,7 @@ public class ClienteController {
 		else {
 			
 			cli.setEstadoCliente(false);
-			boolean resultado = false; //cliNegImpl.GuardarCliente(cli);
+			boolean resultado = cliNegImpl.GuardarCliente(cli);
 			
 			if(resultado) {
 				String eliminacionExitosa = "correcto";

@@ -9,6 +9,7 @@ import frgp.utn.edu.ar.entidades.Transaccion;
 public interface TransaccionNeg{
 	
 	public boolean GenerarTransferencia(Cuenta ctaOrigen, Cuenta ctaDestino,float monto);
+	public boolean GenerarTransferenciaInicial(Cuenta ctaDestino,float monto);
 	public List<Transaccion> ObtenerListadoTransaccionesxCuenta(Cuenta cuenta);
 	public List<Transaccion> ObtenerListadoTransaccionesxCliente(Cliente cli);
 }

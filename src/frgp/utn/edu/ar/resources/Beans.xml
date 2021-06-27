@@ -6,7 +6,6 @@
 	
 	<!--  Entidades -->
     <bean id="cuenta" class="frgp.utn.edu.ar.entidades.Cuenta" init-method="initCuenta" scope="prototype">
-        <property name="saldo" value="10000"></property>
         <property name="activo" value="1"></property>
     </bean>
     <bean id="tipoCuenta" class="frgp.utn.edu.ar.entidades.TipoCuenta" >
@@ -25,6 +24,8 @@
     </bean>
     <bean id="usuario" class="frgp.utn.edu.ar.entidades.Usuario" >
     </bean>
+    <bean id="transaccion" class="frgp.utn.edu.ar.entidades.Transaccion" >
+    </bean>
     
     <!-- NegImpl -->
     <bean id="parametroNegImpl" class="frgp.utn.edu.ar.negocioImpl.ParametroNegImpl" >
@@ -42,6 +43,8 @@
     <bean id="localidadNegImpl" class="frgp.utn.edu.ar.negocioImpl.LocalidadNegImpl" >
     </bean>
     <bean id="userNegImpl" class="frgp.utn.edu.ar.negocioImpl.UserNegImpl" >
+    </bean>
+    <bean id="transaccionNegImpl" class="frgp.utn.edu.ar.negocioImpl.TransaccionNegImpl" >
     </bean>
     
     <!-- DaoImpl -->

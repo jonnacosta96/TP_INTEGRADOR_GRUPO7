@@ -38,7 +38,7 @@
 					    <div class="input-group">
 						    <div id="buscarClienteForm" action="#">
 						        <span class="input-group-btn">
-						        	<input type="text" class="form-control" placeholder="DNI Cliente" id="dni" class="form-control d-inline" style="width: 90%;">
+						        	<input type="number" class="form-control" placeholder="DNI Cliente" id="dni" class="form-control d-inline" style="width: 90%;">
 									<input  type="button" id="buscarCliente" class="btn btn-dark" value="Buscar" class="form-control d-inline">
 							    </span>
 							    <p class="text-danger" id="dniMessage"></p>
@@ -60,6 +60,13 @@
                     	id="clienteId"
                     	name="clienteId"
                     	path="clienteId"
+                    	value="<c:out value="${parameters.clienteId}"/>"
+                   	>
+                   	<input type="hidden" class="form-control d-inline disabled" readonly
+                    	placeholder="Cliente"
+                    	id="returnUrl"
+                    	name="returnUrl"
+                    	path="returUrl"
                     	value="<c:out value="${parameters.clienteId}"/>"
                    	>
                   </div>
@@ -91,10 +98,8 @@
                   </div>
                 </div>               
               </div>
-              	<button class="btn btn-success d-inline" href="${pageContext.servletContext.contextPath}/guardarCuenta">Guardar</button>
-              	<a class="btn btn-primary d-inline" href="${pageContext.servletContext.contextPath}/adminCuentas.html">Cancelar</a>
-              	<button class="btn btn-dark d-inline">Guardar</button>
-              	<a class="mx-3" href="javascript:history.back()">Cancelar</a>
+              	<button class="btn btn-dark d-inline" href="${pageContext.servletContext.contextPath}/guardarCuenta">Guardar</button>
+              	<a class="btn btn-secondary d-inline" href="${pageContext.servletContext.contextPath}/adminCuentas.html">Cancelar</a>
              </form:form>
         </div>
     </div>
@@ -107,13 +112,12 @@
 $('#buscarCliente').on('click',
 	function()
 	{
-		var regExp = new RegExp("[0-9]{7,8}")
+		var regExp = new RegExp("\\b[0-9]{7,8}\\b")
 		if(!regExp.test($("#dni").val())){
 			$('#dniMessage').text("Por favor, ingrese un numero de 7 u 8 digitos");
 			return;
 		}
 			
-	
 		$.ajax({
 		    type : "GET",
 		    url : "buscarCliente.html",
@@ -136,13 +140,13 @@ $('#buscarCliente').on('click',
 		})
 	}   
 );
-$('#cuentaNombre').keydown(function(){
+$('#cuentaNombre').keyup(function(){
 		
-		if($("#cuentaNombre").val().length >= 50 ){
-			$('#cuentaNombreMessage').text("Ingrese un nombre de menos de 50 caracteres.");
+		if($("#cuentaNombre").val().length == 51 ){
+			$('#cuentaNombreMessage').text("Ingrese un nombre de hasta 50 caracteres.");
 			return;
 		}
-		else{
+		if($("#cuentaNombre").val().length <= 50 ){
 			$('#cuentaNombreMessage').text("");
 		}
 	}

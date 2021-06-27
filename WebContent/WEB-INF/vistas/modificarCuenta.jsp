@@ -81,8 +81,15 @@
               </div>
               <p class="text-danger" id="cuentaNombreMessage">${error}</p>
               	<input type="hidden" name="returnUrl" value="${returnUrl}">
-              	<button class="btn btn-success d-inline" href="${pageContext.servletContext.contextPath}/guardarCuenta">Guardar</button>
-              	<a class="mx-3" href="javascript:history.back()">Cancelar</a>
+              	<button class="btn btn-dark d-inline" href="${pageContext.servletContext.contextPath}/guardarCuenta">Guardar</button>
+              	<c:choose>
+				    <c:when test="${returnUrl=='adminCuentas'}">
+				        <a class="mx-3" href="${pageContext.servletContext.contextPath}/adminCuentas.html">Cancelar</a>
+				    </c:when>    
+				    <c:when test="${returnUrl=='modificarCliente'}">
+				        <a class="mx-3" href="${pageContext.servletContext.contextPath}/accionCliente.html?nroCliente=${nroCliente}&btnModificarCli=">Cancelar</a>
+				    </c:when>
+				</c:choose>
               </form:form>
             
         </div>
