@@ -97,4 +97,36 @@ public class TransaccionNegImpl implements TransaccionNeg{
 		return lista;
 	}
 
+	@Override
+	public boolean GenerarTransferenciaInicial(Cuenta ctaDestino, float monto) {
+		
+		boolean estadoTransaccion = false;
+		String descripcion = "";
+		
+		//GENERO LAS TRANSACCIONES.
+		Transaccion transacCtaDestino = new Transaccion();
+		
+		descripcion = "Regalo de bienvenida";
+		transacCtaDestino.setCuentaAsoc(ctaDestino);
+		transacCtaDestino.setDescripcion(descripcion);
+		transacCtaDestino.setSaldo(monto);
+		transacCtaDestino.setFechaTransaccion(LocalDate.now());
+		transacCtaDestino.setTipoTransaccion(new TipoTransaccion(1, "Credito", true));
+		transacCtaDestino.setEstadoTransaccion(true);
+		
+		estadoTransaccion = transacDaoImpl.GenerarTransaccion(transacCtaDestino);
+		
+		ctaDestino.setSaldo(ctaDestino.getSaldo() + monto);
+		
+		boolean estadoCuentaDestino = cuentaNegImpl.GuardarCuenta(ctaDestino);
+		
+		if(estadoTransaccion == true &&estadoCuentaDestino == true) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+	}
+
 }

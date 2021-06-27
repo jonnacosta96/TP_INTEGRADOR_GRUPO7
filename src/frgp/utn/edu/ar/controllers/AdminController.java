@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,6 +35,8 @@ import org.json.simple.JSONValue;
 
 @Controller
 public class AdminController {
+	
+	static ApplicationContext appContext = new ClassPathXmlApplicationContext("frgp/utn/edu/ar/resources/Beans.xml");
 
 	@RequestMapping(value="adminHome.html")
 	public ModelAndView eventClickAdminHome(HttpSession httpSession, HttpServletRequest request) {
@@ -74,7 +78,7 @@ public class AdminController {
 			request.getServletPath()
 		);
 		
-		CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
+		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 		
 		List<Cuenta> lista = cuentaNegImpl.ObtenerListadoCuentas(true);
 		

@@ -3,21 +3,74 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-    <!-- ESTO ES INYECCION POR SET -->
-    <bean id="cuentaBase" class="frgp.utn.edu.ar.entidades.Cuenta" init-method="initCuenta" scope="prototype">
-        <property name="saldo" value="10000"></property>
+	
+	<!--  Entidades -->
+    <bean id="cuenta" class="frgp.utn.edu.ar.entidades.Cuenta" init-method="initCuenta" scope="prototype">
         <property name="activo" value="1"></property>
     </bean>
-
-    <!-- ESTO ES INYECCION POR CONSTRUCTOR 
-    <bean id="cuentaBase" class="frgp.utn.edu.ar.entidades.Cuenta" init-method="initCuenta">
-        <constructor-arg index="0" type="float" value="10000"></constructor-arg>
-        <constructor-arg index="1" type="Boolean" value="1"></constructor-arg>
-    </bean> -->
+    <bean id="tipoCuenta" class="frgp.utn.edu.ar.entidades.TipoCuenta" >
+    </bean>
+    <bean id="parametro" class="frgp.utn.edu.ar.entidades.Parametro" >
+    </bean>
+    <bean id="login" class="frgp.utn.edu.ar.entidades.Login" >
+    </bean>
+    <bean id="cliente" class="frgp.utn.edu.ar.entidades.Cliente" >
+    </bean>
+    <bean id="pais" class="frgp.utn.edu.ar.entidades.Pais" >
+    </bean>
+    <bean id="provincia" class="frgp.utn.edu.ar.entidades.Provincia" >
+    </bean>
+    <bean id="localidad" class="frgp.utn.edu.ar.entidades.Localidad" >
+    </bean>
+    <bean id="usuario" class="frgp.utn.edu.ar.entidades.Usuario" >
+    </bean>
+    <bean id="transaccion" class="frgp.utn.edu.ar.entidades.Transaccion" >
+    </bean>
     
+    <!-- NegImpl -->
     <bean id="parametroNegImpl" class="frgp.utn.edu.ar.negocioImpl.ParametroNegImpl" >
     </bean>
+    <bean id="clienteNegImpl" class="frgp.utn.edu.ar.negocioImpl.ClienteNegImpl" >
+    </bean>
+    <bean id="cuentaNegImpl" class="frgp.utn.edu.ar.negocioImpl.CuentaNegImpl" >
+    </bean>
+    <bean id="tipoCuentaNegImpl" class="frgp.utn.edu.ar.negocioImpl.TipoCuentaNegImpl" >
+    </bean>
+    <bean id="paisNegImpl" class="frgp.utn.edu.ar.negocioImpl.PaisNegImpl" >
+    </bean>
+    <bean id="provinciaNegImpl" class="frgp.utn.edu.ar.negocioImpl.ProvinciaNegImpl" >
+    </bean>
+    <bean id="localidadNegImpl" class="frgp.utn.edu.ar.negocioImpl.LocalidadNegImpl" >
+    </bean>
+    <bean id="userNegImpl" class="frgp.utn.edu.ar.negocioImpl.UserNegImpl" >
+    </bean>
+    <bean id="transaccionNegImpl" class="frgp.utn.edu.ar.negocioImpl.TransaccionNegImpl" >
+    </bean>
+    
+    <!-- DaoImpl -->
+    <bean id="userDaoImpl" class="frgp.utn.edu.ar.daoImpl.UserDaoImpl" >
+    </bean>
+    <bean id="tipoCuentaDaoImpl" class="frgp.utn.edu.ar.daoImpl.TipoCuentaDaoImpl" >
+    </bean>
+    <bean id="provinciaDaoImpl" class="frgp.utn.edu.ar.daoImpl.ProvinciaDaoImpl" >
+    </bean>
+    <bean id="paisDaoImpl" class="frgp.utn.edu.ar.daoImpl.PaisDaoImpl" >
+    </bean>
+    <bean id="localidadDaoImpl" class="frgp.utn.edu.ar.daoImpl.LocalidadDaoImpl" >
+    </bean>
+    <bean id="cuentaDaoImpl" class="frgp.utn.edu.ar.daoImpl.CuentaDaoImpl" >
+    </bean>
+    <bean id="clienteDaoImpl" class="frgp.utn.edu.ar.daoImpl.ClienteDaoImpl" >
+    </bean>
+    <bean id="parametroDaoImpl" class="frgp.utn.edu.ar.daoImpl.ParametroDaoImpl" >
+    </bean>
 
+	<!-- Misc -->
+	<bean id="conexion" class="frgp.utn.edu.ar.dao.Conexion" scope="prototype">
+    </bean>
+    
+    <!-- Dtos -->
+    <bean id="userSessionDto" class="frgp.utn.edu.ar.dto.UserSessionDto" >
+    </bean>
 
 </beans>

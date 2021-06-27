@@ -7,6 +7,8 @@ import javax.sql.DataSource;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import frgp.utn.edu.ar.dao.Conexion;
 import frgp.utn.edu.ar.dao.UserDao;
@@ -16,6 +18,8 @@ import frgp.utn.edu.ar.entidades.Usuario;
 import frgp.utn.edu.ar.entidades.Usuario;
 
 public class UserDaoImpl implements UserDao {
+	
+	static ApplicationContext appContext = new ClassPathXmlApplicationContext("frgp/utn/edu/ar/resources/Beans.xml");
 
 	@Override
 	public void register(Usuario user) {
@@ -33,7 +37,7 @@ public class UserDaoImpl implements UserDao {
 	public boolean eliminarUsuarioxName(Usuario usu) {
 		
 		try {
-			Conexion cn = new Conexion();
+			Conexion cn = (Conexion)appContext.getBean("conexion");
 			Session session = cn.abrirConexion();
 			
 			String query = "Delete Usuario users WHERE users.username = :name";

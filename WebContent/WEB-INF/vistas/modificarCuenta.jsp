@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="./css/glyphicon.css" type="text/css"/>
 	<link rel="stylesheet" href="./css/table.css" type="text/css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -79,8 +80,16 @@
                 </div>
               </div>
               <p class="text-danger" id="cuentaNombreMessage">${error}</p>
-              <button class="btn btn-success d-inline" href="${pageContext.servletContext.contextPath}/guardarCuenta">Guardar</button>
-              	<a class="mx-3" href="${pageContext.servletContext.contextPath}/adminCuentas.html">Cancelar</a>
+              	<input type="hidden" name="returnUrl" value="${returnUrl}">
+              	<button class="btn btn-dark d-inline" href="${pageContext.servletContext.contextPath}/guardarCuenta">Guardar</button>
+              	<c:choose>
+				    <c:when test="${returnUrl=='adminCuentas'}">
+				        <a class="mx-3" href="${pageContext.servletContext.contextPath}/adminCuentas.html">Cancelar</a>
+				    </c:when>    
+				    <c:when test="${returnUrl=='modificarCliente'}">
+				        <a class="mx-3" href="${pageContext.servletContext.contextPath}/accionCliente.html?nroCliente=${nroCliente}&btnModificarCli=">Cancelar</a>
+				    </c:when>
+				</c:choose>
               </form:form>
             
         </div>

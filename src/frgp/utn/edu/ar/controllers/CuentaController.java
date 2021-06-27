@@ -39,6 +39,7 @@ import frgp.utn.edu.ar.negocioImpl.ClienteNegImpl;
 import frgp.utn.edu.ar.negocioImpl.CuentaNegImpl;
 import frgp.utn.edu.ar.negocioImpl.ParametroNegImpl;
 import frgp.utn.edu.ar.negocioImpl.TipoCuentaNegImpl;
+import frgp.utn.edu.ar.negocioImpl.TransaccionNegImpl;
 import helpers.JSONResponseFormatter;
 import helpers.ViewNameResolver;
 
@@ -51,8 +52,8 @@ public class CuentaController {
     @ResponseBody
     public String buscarCliente(@RequestParam Integer dni, Model model)
 	{    	    
-		ClienteNegImpl clienteNegImpl = new ClienteNegImpl();
-	    CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
+		ClienteNegImpl clienteNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
+	    CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 	    
 	    Cliente cliente = clienteNegImpl.ObtenerClientexDNI(dni);
 	    
@@ -100,14 +101,28 @@ public class CuentaController {
 		  @ModelAttribute("cuentaCrear") CrearCuentaDto crearCuentaDto,
 		  HttpSession httpSession,
 		  ModelAndView modelAndView,
-		  Model model
+		  Model model,
+		  @RequestParam String returnUrl
 	  ) {
 	    
-	    ClienteNegImpl clienteNegImpl = new ClienteNegImpl();
-	    CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
-	    TipoCuentaNegImpl tipoCuentaNegImpl = new TipoCuentaNegImpl();
-	    ParametroNegImpl parametroNegImpl = new ParametroNegImpl();
+		ClienteNegImpl clienteNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
+		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
+	    TipoCuentaNegImpl tipoCuentaNegImpl = (TipoCuentaNegImpl)appContext.getBean("tipoCuentaNegImpl");
+	    ParametroNegImpl parametroNegImpl = (ParametroNegImpl)appContext.getBean("parametroNegImpl");
+	    TransaccionNegImpl transaccionNegImpl = (TransaccionNegImpl)appContext.getBean("transaccionNegImpl");
 	    Boolean flag = true; 
+	    
+	    if(returnUrl != null)
+		{
+			if(returnUrl.equals("modificarCliente"))
+				modelAndView.setViewName("redirect:/accionCliente.html?nroCliente=" + crearCuentaDto.getClienteId() +"&btnModificarCli=");
+			else
+				modelAndView.setViewName("redirect:/adminCuentas.html");
+		}
+		else
+		{
+			modelAndView.setViewName("redirect:/adminCuentas.html");
+		}
 	    
 	    List<TipoCuenta> tiposCuenta = tipoCuentaNegImpl.ObtenerListadoTiposCuenta(true);
 	    
@@ -116,13 +131,14 @@ public class CuentaController {
 	    if(crearCuentaDto.getClienteId() != null && crearCuentaDto.getClienteId().equals("")) flag = false;
 	    if(crearCuentaDto.getCuentaNombre().equals("")) flag = false;
 	    
-	    modelAndView.setViewName("crearCuenta");
+	    //modelAndView.setViewName("crearCuenta");
     	modelAndView.addObject("parameters", crearCuentaDto);
 	    
 	    if(!flag)
 	    {
 	    	modelAndView.addObject("error", "Por favor, complete todos los campos");
 	    	modelAndView.addObject("tiposCuenta", tiposCuenta);
+	    	modelAndView.setViewName("crearCuenta");
 	    	return modelAndView;
 	    }
 	    
@@ -132,13 +148,15 @@ public class CuentaController {
 	    {
 	    	modelAndView.addObject("error", "Cliente no existe");
 	    	modelAndView.addObject("tiposCuenta", tiposCuenta);
+	    	modelAndView.setViewName("crearCuenta");
 	    	return modelAndView;
 	    }
 	    
 	    if(crearCuentaDto.getCuentaNombre().length() > 50)
 	    {
-	    	modelAndView.addObject("errorNombreCuenta", "Ingrese un nombre de menos de 50 caracteres.");
+	    	modelAndView.addObject("errorNombreCuenta", "Ingrese un nombre de hasta 50 caracteres.");
 	    	modelAndView.addObject("tiposCuenta", tiposCuenta);
+	    	modelAndView.setViewName("crearCuenta");
 	    	return modelAndView;
 	    }
 	    
@@ -148,6 +166,17 @@ public class CuentaController {
     	{
 	    	modelAndView.addObject("error", "El cliente tiene 4 o mas cuentas creadas");
 	    	modelAndView.addObject("tiposCuenta", tiposCuenta);
+    		if(returnUrl != null)
+    		{
+    			if(returnUrl.equals("modificarCliente"))
+    				modelAndView.setViewName("redirect:/accionCliente.html?nroCliente=" + crearCuentaDto.getClienteId() +"&btnModificarCli=");
+    			else
+    				modelAndView.setViewName("redirect:/crearCuenta");
+    		}
+    		else
+    		{
+    			modelAndView.setViewName("redirect:/adminCuentas.html");
+    		}
 	    	return modelAndView;
     	}
 	    
@@ -157,6 +186,7 @@ public class CuentaController {
     	{
 	    	modelAndView.addObject("error", "Tipo de cuenta inexistente");
 	    	modelAndView.addObject("tiposCuenta", tiposCuenta);
+	    	modelAndView.setViewName("crearCuenta");
 	    	return modelAndView;
     	}
     	
@@ -164,28 +194,18 @@ public class CuentaController {
     	Integer cbu = parametro.getIntegerParamValue() + 1;
     	parametro.setIntegerParamValue(cbu);
     	
-    	Cuenta cuenta = (Cuenta)appContext.getBean("cuentaBase");
+    	Cuenta cuenta = (Cuenta)appContext.getBean("cuenta");
     	
     	cuenta.setCliente(cliente);
     	cuenta.setNombre(crearCuentaDto.getCuentaNombre());
     	cuenta.setTipoCuenta(tipoCuenta);
     	
-    	/*Cuenta cuenta = new Cuenta(
-			cliente,
-			crearCuentaDto.getCuentaNombre(),
-			tipoCuenta,
-			cbu,
-			Calendar.getInstance().getTime(),
-			10000,
-			true
-		);*/
-    	
     	Boolean resultado = cuentaNegImpl.GuardarCuenta(cuenta);
     	
     	if(resultado)
     	{
+    		resultado = transaccionNegImpl.GenerarTransferenciaInicial(cuenta, 10000);
     		model.addAttribute("msgAlta", cuenta.getNroCuenta());
-    		modelAndView.setViewName("redirect:/adminCuentas.html");
     	}
     	else
     	{
@@ -200,7 +220,11 @@ public class CuentaController {
 	}
 	
 	@RequestMapping(value="crearCuenta.html")
-	public ModelAndView eventClickCrearCuenta(HttpSession httpSession, HttpServletRequest request) {
+	public ModelAndView eventClickCrearCuenta(
+			HttpSession httpSession,
+			HttpServletRequest request,
+			@RequestParam String returnUrl
+	) {
 		
 		ModelAndView mav = new ModelAndView();
 		String viewName = ViewNameResolver.resolveViewName(
@@ -209,12 +233,13 @@ public class CuentaController {
 		);
 		
 		mav.setViewName(viewName);
-		TipoCuentaNegImpl tipoCuentaNegImpl = new TipoCuentaNegImpl();
+	    TipoCuentaNegImpl tipoCuentaNegImpl = (TipoCuentaNegImpl)appContext.getBean("tipoCuentaNegImpl");
 		
 		if(!viewName.contains("login")) {
 					
 			List<TipoCuenta> tiposCuenta = tipoCuentaNegImpl.ObtenerListadoTiposCuenta(true);
 			mav.addObject("tiposCuenta", tiposCuenta);
+			mav.addObject("returnUrl", returnUrl);
 			
 		}
 	    
@@ -226,10 +251,11 @@ public class CuentaController {
 		HttpSession httpSession,
 		HttpServletRequest request,
 		@ModelAttribute("cuentaEditar") EditarCuentaDto editarCuentaDto,
-		Model model
+		Model model,
+		@RequestParam String returnUrl
 	) {
 		
-		CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
+		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 		Boolean flag = true;
 		ModelAndView mav = new ModelAndView();
 		
@@ -266,8 +292,21 @@ public class CuentaController {
 		
 		if(resultado)
     	{
+			
+			
     		model.addAttribute("msgModificacion", cuenta.getNroCuenta());
-    		mav.setViewName("redirect:/adminCuentas.html");
+    		if(returnUrl != null)
+    		{
+    			if(returnUrl.equals("modificarCliente"))
+    				mav.setViewName("redirect:/accionCliente.html?nroCliente=" + cuenta.getCliente().getNroCliente() +"&btnModificarCli=");
+    			if(returnUrl.equals("adminCuentas"))
+    				mav.setViewName("redirect:/adminCuentas.html");
+    		}
+    		else
+    		{
+    			mav.setViewName("redirect:/adminCuentas.html");
+    		}
+    		
     	}
     	else
     	{
@@ -283,18 +322,21 @@ public class CuentaController {
 	}
 	
 	@RequestMapping("accionCuenta.html")
-	public ModelAndView accionCuenta(int nroCuenta, String modificarCuenta)
+	public ModelAndView accionCuenta(int nroCuenta, String modificarCuenta, String returnUrl)
 	{
 		ModelAndView mv = new ModelAndView();
-		CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
+		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 		Cuenta cuenta = cuentaNegImpl.ObtenerCuentaxNroCuenta(nroCuenta);
 		
 		if(modificarCuenta != null)
 		{
 			mv.addObject("nroCuenta", cuenta.getNroCuenta());
 			mv.addObject("nombreCuenta", cuenta.getNombre());
+			mv.addObject("nroCliente", cuenta.getCliente().getNroCliente());
 			mv.addObject("nombreCliente", cuenta.getCliente().getNombre() + " " + cuenta.getCliente().getApellido());
 			mv.addObject("tipoCuenta", cuenta.getTipoCuenta().getNombre());
+			mv.addObject("returnUrl", returnUrl);
+			
 			mv.setViewName("modificarCuenta");
 		}
 		else
@@ -312,7 +354,17 @@ public class CuentaController {
 			List<Cuenta> cuentas = cuentaNegImpl.ObtenerListadoCuentas(true);
 			
 			mv.addObject("ListaCuentas", cuentas);
-			mv.setViewName("adminCuentas");
+			if(returnUrl != null)
+    		{
+    			if(returnUrl.equals("modificarCliente"))
+    				mv.setViewName("redirect:/accionCliente.html?nroCliente=" + cuenta.getCliente().getNroCliente() +"&btnModificarCli=");
+    			if(returnUrl.equals("adminCuentas"))
+    				mv.setViewName("redirect:/adminCuentas.html");
+    		}
+    		else
+    		{
+    			mv.setViewName("redirect:/adminCuentas.html");
+    		}
 				
 		}
 		
