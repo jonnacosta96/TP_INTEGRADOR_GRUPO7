@@ -105,4 +105,50 @@ public class CuentaDaoImpl implements CuentaDao {
 		return cantidadCuentas;
 	}
 
+	@Override
+	public List<Cuenta> ObtenerListadoCuentasxCliente(Cliente cli) {
+		try {
+			Conexion cn = new Conexion();
+			Session session = cn.abrirConexion();
+			
+			String query = "FROM Cuenta cue WHERE cue.cliente = :cliente AND cue.activo = 1";
+			List<Cuenta> lista = (List<Cuenta>)session.createQuery(query).setParameter("cliente", cli).list();
+			cn.cerrarSession();
+			
+			return lista;
+		}
+		catch (Exception ex)
+		{
+			return null;
+		}
+	}
+
+	@Override
+	public Cuenta ObtenerCuentaxCBU(int cbu) {
+		
+		try {
+			Conexion cn = new Conexion();
+			Session session = cn.abrirConexion();
+			
+			session.beginTransaction();
+			
+			String query = "FROM Cuenta cue WHERE cue.CBU = :cbu AND cue.activo = 1";
+		
+			Cuenta cuenta = (Cuenta) session.createQuery(query)
+						.setParameter("cbu", cbu)
+						.uniqueResult();
+			
+			session.getTransaction().commit();
+			
+			cn.cerrarSession();
+			
+			return cuenta;
+		}
+		catch(Exception ex) {
+			return null;
+		}
+		
+		
+	}
+
 }

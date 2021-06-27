@@ -44,4 +44,20 @@ public class CuentaNegImpl implements CuentaNeg {
 		return cantidadCuentas;
 	}
 
+	@Override
+	public List<Cuenta> ObtenerListadoCuentasxCliente(Cliente cli) {
+		
+		List<Cuenta> lista  = cuentaDaoImpl.ObtenerListadoCuentasxCliente(cli);
+		
+		return lista;
+	}
+
+	@Override
+	public Cuenta ObtenerCuentaxCBU(int cbu) {
+		
+		Cuenta cuenta = cuentaDaoImpl.ObtenerCuentaxCBU(cbu);
+		
+		return cuenta;
+	}
+
 }

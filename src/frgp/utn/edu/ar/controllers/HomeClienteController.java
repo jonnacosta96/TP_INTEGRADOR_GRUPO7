@@ -1,13 +1,25 @@
 package frgp.utn.edu.ar.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import frgp.utn.edu.ar.dto.UserSessionDto;
+import frgp.utn.edu.ar.entidades.Cliente;
+import frgp.utn.edu.ar.entidades.Cuenta;
+import frgp.utn.edu.ar.entidades.Transaccion;
+import frgp.utn.edu.ar.entidades.Usuario;
+import frgp.utn.edu.ar.negocioImpl.ClienteNegImpl;
+import frgp.utn.edu.ar.negocioImpl.CuentaNegImpl;
+import frgp.utn.edu.ar.negocioImpl.TransaccionNegImpl;
 import helpers.ViewNameResolver;
 
 @Controller
@@ -23,20 +35,64 @@ public class HomeClienteController {
 			request.getServletPath()
 		);
 	    
+		ClienteNegImpl cliNegImpl = new ClienteNegImpl();
+		CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
+		TransaccionNegImpl transacNegImpl = new TransaccionNegImpl();
+		
+		Usuario user = (Usuario)httpSession.getAttribute("userLogeado");
+		Cliente cli = cliNegImpl.ObtenerClientexUsuario(user);
+		List<Cuenta> lista = cuentaNegImpl.ObtenerListadoCuentasxCliente(cli);
+		List<Transaccion> listaTransacciones = transacNegImpl.ObtenerListadoTransaccionesxCliente(cli);
+
+		mav.addObject("Cliente", cli);
+		mav.addObject("listaCuentasCliente",lista);
+		mav.addObject("ListaTransaccionesCliente", listaTransacciones);
 	    mav.setViewName(viewName);
+	    
 		return mav;
 	}
-	
-	@RequestMapping("transferir.html")
-	public ModelAndView transferir(HttpSession httpSession, HttpServletRequest request) {
+		
+	@RequestMapping(value = { "/transferir.html" }, method = RequestMethod.GET)
+	public ModelAndView transferir(HttpSession httpSession, HttpServletRequest request,@RequestParam("nroCliente") int nroCliente) {
 		
 		ModelAndView mav = new ModelAndView();
 		String viewName = ViewNameResolver.resolveViewName(
 			(UserSessionDto)httpSession.getAttribute("userSession"),
 			request.getServletPath()
 		);
+		
+		ClienteNegImpl cliNegImpl = new ClienteNegImpl();
+		CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
+		
+		Cliente cli = cliNegImpl.ObtenerClientexNroCliente(nroCliente);
+	    List<Cuenta> lista = cuentaNegImpl.ObtenerListadoCuentasxCliente(cli);
+	    
+	    mav.addObject("ListaCuentasCliente", lista);
+	    mav.addObject("Cliente",cli);
 	    
 	    mav.setViewName(viewName);
 		return mav;
 	}
+	
+	@RequestMapping(value = { "/TransaccionesxCuenta.html" }, method = RequestMethod.GET)
+	public ModelAndView listaTransaccioenesCuenta(HttpSession httpSession, HttpServletRequest request,@RequestParam("nroCuenta") int nroCuenta) {
+		
+		ModelAndView mav = new ModelAndView();
+		String viewName = ViewNameResolver.resolveViewName(
+			(UserSessionDto)httpSession.getAttribute("userSession"),
+			request.getServletPath()
+		);
+		
+		CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
+		TransaccionNegImpl transacNegImpl = new TransaccionNegImpl();
+		
+		Cuenta cuenta = cuentaNegImpl.ObtenerCuentaxNroCuenta(nroCuenta);
+		List<Transaccion> lista = transacNegImpl.ObtenerListadoTransaccionesxCuenta(cuenta);
+	    
+	    mav.addObject("ListaTransaccionesCuenta", lista);
+	    
+	    mav.setViewName("TransaccionesxCuenta");
+		return mav;
+	}
+	
 }

@@ -74,16 +74,16 @@ public class main {
 		TipoTransaccion tipotransac1 = new TipoTransaccion("Credito", true);
 		TipoTransaccion tipotransac2 = new TipoTransaccion("Debito", true);
 		
-		Transaccion transaccion1 = new Transaccion(cuenta1, "Pago de Haberes", tipotransac1, 50000, Calendar.getInstance().getTime(), true);
-		Transaccion transaccion2 = new Transaccion(cuenta1, "Alquiler", tipotransac2, 1000, Calendar.getInstance().getTime(), true);
-		Transaccion transaccion3 = new Transaccion(cuenta4, "Cobro de Prestaciones", tipotransac1, 50000, Calendar.getInstance().getTime(), true);
-		Transaccion transaccion4 = new Transaccion(cuenta4, "Pago de Aguinaldo", tipotransac1, 1000, Calendar.getInstance().getTime(), true);
-		Transaccion transaccion5 = new Transaccion(cuenta4, "Pago de Haberes", tipotransac1, 50000, Calendar.getInstance().getTime(), true);
-		Transaccion transaccion6 = new Transaccion(cuenta7, "Pago de prestamo", tipotransac2, 1000, Calendar.getInstance().getTime(), true);
-		Transaccion transaccion7 = new Transaccion(cuenta8, "Transferencia Recibida", tipotransac1, 50000, Calendar.getInstance().getTime(), true);
-		Transaccion transaccion8 = new Transaccion(cuenta10, "Transferencia Realizada", tipotransac2, 5680, Calendar.getInstance().getTime(), true);
-		Transaccion transaccion9 = new Transaccion(cuenta2, "Deposito Bancario", tipotransac1, 50000, Calendar.getInstance().getTime(), true);
-		Transaccion transaccion10 = new Transaccion(cuenta2, "Servicio Luz Edenor", tipotransac2, 1870, Calendar.getInstance().getTime(), true);
+		Transaccion transaccion1 = new Transaccion(cuenta1, "Pago de Haberes", tipotransac1, 50000, LocalDate.now(), true);
+		Transaccion transaccion2 = new Transaccion(cuenta1, "Alquiler", tipotransac2, 1000, LocalDate.now(), true);
+		Transaccion transaccion3 = new Transaccion(cuenta4, "Cobro de Prestaciones", tipotransac1, 50000, LocalDate.now(), true);
+		Transaccion transaccion4 = new Transaccion(cuenta4, "Pago de Aguinaldo", tipotransac1, 1000, LocalDate.now(), true);
+		Transaccion transaccion5 = new Transaccion(cuenta4, "Pago de Haberes", tipotransac1, 50000, LocalDate.now(), true);
+		Transaccion transaccion6 = new Transaccion(cuenta7, "Pago de prestamo", tipotransac2, 1000, LocalDate.now(), true);
+		Transaccion transaccion7 = new Transaccion(cuenta8, "Transferencia Recibida", tipotransac1, 50000, LocalDate.now(), true);
+		Transaccion transaccion8 = new Transaccion(cuenta10, "Transferencia Realizada", tipotransac2, 5680, LocalDate.now(), true);
+		Transaccion transaccion9 = new Transaccion(cuenta2, "Deposito Bancario", tipotransac1, 50000, LocalDate.now(), true);
+		Transaccion transaccion10 = new Transaccion(cuenta2, "Servicio Luz Edenor", tipotransac2, 1870, LocalDate.now(), true);
 		
 		Conexion cn = new Conexion();
 

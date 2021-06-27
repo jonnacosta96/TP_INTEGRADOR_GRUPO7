@@ -92,7 +92,7 @@
                 </div>               
               </div>
               	<button class="btn btn-success d-inline" href="${pageContext.servletContext.contextPath}/guardarCuenta">Guardar</button>
-              	<a class="mx-3" href="${pageContext.servletContext.contextPath}/adminCuentas.html">Cancelar</a>
+              	<a class="btn btn-primary d-inline" href="${pageContext.servletContext.contextPath}/adminCuentas.html">Cancelar</a>
              </form:form>
         </div>
     </div>

@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import frgp.utn.edu.ar.dao.ClienteDao;
 import frgp.utn.edu.ar.dao.Conexion;
 import frgp.utn.edu.ar.entidades.Cliente;
+import frgp.utn.edu.ar.entidades.Usuario;
 
 public class ClienteDaoImpl implements ClienteDao {
 
@@ -93,6 +94,32 @@ public class ClienteDaoImpl implements ClienteDao {
 			String query = "FROM Cliente cli WHERE cli.dni = :dni";
 		
 			cli = (Cliente) session.createQuery(query).setParameter("dni", dni).uniqueResult();
+			
+			session.getTransaction().commit();
+			
+			cn.cerrarSession();
+		}
+		catch(Exception ex) {
+			return null;
+		}
+		
+		return cli;
+	}
+
+	@Override
+	public Cliente ObtenerClientexUsuario(Usuario usuario) {
+		
+		Cliente cli = new Cliente();
+		
+		try {
+			Conexion cn = new Conexion();
+			Session session = cn.abrirConexion();
+			
+			session.beginTransaction();
+			
+			String query = "FROM Cliente cli WHERE cli.usuario= :user";
+		
+			cli = (Cliente) session.createQuery(query).setParameter("user", usuario).uniqueResult();
 			
 			session.getTransaction().commit();
 			
