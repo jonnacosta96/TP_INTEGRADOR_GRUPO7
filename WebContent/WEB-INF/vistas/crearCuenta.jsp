@@ -69,6 +69,7 @@
                     	path="returUrl"
                     	value="<c:out value="${parameters.clienteId}"/>"
                    	>
+                   	<center></center><p id="clienteMessage" class="text-danger">${error}</td></center>
                   </div>
                 </div>
                 <br>
@@ -94,7 +95,7 @@
                 </div>
                 <div class="row">
                   <div class="col">
-             			<center></center><p class="text-danger">${error}</td></center>       
+             			<center></center><p id="errorMessage" class="text-danger">${error}</td></center>       
                   </div>
                 </div>               
               </div>
@@ -152,4 +153,25 @@ $('#cuentaNombre').keyup(function(){
 	}
 	
 );
+$('#crearCuentaForm').submit(function(event)
+		{
+			if($("#cuentaNombre").val().length > 50 ){
+				$('#cuentaNombreMessage').text("Ingrese un nombre de hasta 50 caracteres");
+				event.preventDefault();
+				return;
+			}
+			if($("#cuentaNombre").val().length == 0 )
+			{
+				$('#cuentaNombreMessage').text("Ingrese un nombre");
+				event.preventDefault();
+				return;
+			}
+			if($("#clienteId").val().length == 0 )
+			{
+				$('#clienteMessage').text("Seleccione un cliente");
+				event.preventDefault();
+				return;
+			}
+		}   
+	);
 </script>

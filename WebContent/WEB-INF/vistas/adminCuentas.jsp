@@ -66,7 +66,7 @@
 							<th>Fecha de creacion</th>
 							<th>Saldo</th>
 							<th>Cliente</th>
-							<th>#</th>
+							<th style="width:200px">#</th>
 						</tr>
 					</thead>
 					<tfoot>
@@ -87,8 +87,50 @@
 									<td>${objCuenta.cliente.nombre} &nbsp; ${objCuenta.cliente.apellido}</td>
 									<td>
 										<input type="hidden" name="returnUrl" value="adminCuentas">
-										<button type="submit" name="modificarCuenta" class="btn btn-outline-secondary btn-sm"><i class="fa fa-edit"></i></button>
-										<button type="submit" name="eliminarCuenta" class="btn btn-outline-secondary btn-sm"><i class="fa fa-trash"></i></button>
+										<button
+											id="edit${objCuenta.nroCuenta}"
+											type="submit"
+											name="modificarCuenta"
+											class="btn btn-outline-secondary btn-sm"
+										>
+												<i class="fa fa-edit"></i>
+										</button>
+										<a
+											id="delete${objCuenta.nroCuenta}"
+											name="eliminarCuenta"
+											class="btn btn-outline-secondary btn-sm"
+											onclick="
+												document.getElementById('confirmDelete${objCuenta.nroCuenta}').style.display = 'inline';
+												document.getElementById('undoDelete${objCuenta.nroCuenta}').style.display = 'inline';
+												document.getElementById('delete${objCuenta.nroCuenta}').style.display = 'none';
+												document.getElementById('edit${objCuenta.nroCuenta}').style.display = 'none';
+											"
+										>
+												<i class="fa fa-trash"></i>
+										</a>
+										<button
+											id="confirmDelete${objCuenta.nroCuenta}"
+											type="submit"
+											style="display: none;"
+											name="eliminarCuenta"
+											class="btn btn-outline-secondary btn-sm"
+										>
+											Confirmar
+										</button>
+										<a
+											id="undoDelete${objCuenta.nroCuenta}"
+											name="eliminarCuenta"
+											style="display: none;"
+											class="btn btn-outline-secondary btn-sm"
+											onclick="
+												document.getElementById('confirmDelete${objCuenta.nroCuenta}').style.display = 'none';
+												document.getElementById('undoDelete${objCuenta.nroCuenta}').style.display = 'none';
+												document.getElementById('delete${objCuenta.nroCuenta}').style.display = 'inline';
+												document.getElementById('edit${objCuenta.nroCuenta}').style.display = 'inline';
+											"
+										>
+											<i class="fa fa-undo"></i>
+										</a>
 									</td>
 								</form>
 							</tr>

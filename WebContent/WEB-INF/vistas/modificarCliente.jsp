@@ -54,18 +54,18 @@
               <div class="row">
                 <div class="col">
                   <h5><form:label path="nombre">Nombre</form:label></h5>
-                  <form:input class="form-control" path="nombre" placeholder="Nombre" pattern="[A-Za-z]*{1,30}" title="Solo se admiten Letras sin caracteres especiales. Tamaño mínimo: 1. Tamaño máximo: 30"/>      
+                  <form:input class="form-control" path="nombre" placeholder="Nombre" pattern="[A-Za-z]*{1,30}" title="Solo se admiten Letras sin caracteres especiales. Tamaï¿½o mï¿½nimo: 1. Tamaï¿½o mï¿½ximo: 30"/>      
                 </div>
                 <div class="col">
                   <h5><form:label path="apellido">Apellido</form:label></h5>
-                  <form:input class="form-control" path="apellido" placeholder="Apellido" pattern="[A-Za-z]*{1,30}" title="Solo se admiten Letras sin caracteres especiales. Tamaño mínimo: 1. Tamaño máximo: 30"/>    
+                  <form:input class="form-control" path="apellido" placeholder="Apellido" pattern="[A-Za-z]*{1,30}" title="Solo se admiten Letras sin caracteres especiales. Tamaï¿½o mï¿½nimo: 1. Tamaï¿½o mï¿½ximo: 30"/>    
                 </div>
               </div>
               <br>
               <div class="row">
                 <div class="col">
                   <h5><form:label path="dni">DNI</form:label></h5>
-                  <form:input class="form-control" path="dni" value="" placeholder="DNI" pattern="[0-9]{1,10}" title="Solo se admiten Números. Tamaño mínimo: 1. Tamaño máximo: 10"/>  
+                  <form:input class="form-control" path="dni" value="" placeholder="DNI" pattern="[0-9]{1,10}" title="Solo se admiten Nï¿½meros. Tamaï¿½o mï¿½nimo: 1. Tamaï¿½o mï¿½ximo: 10"/>  
                   <p class="text-danger" id="dniMessage">${dniMessage}</p>
                 </div>
                 
@@ -146,7 +146,7 @@
               <div class="row">
                 <div class="col">        
                   <h5><form:label path="direccion">Direccion</form:label></h5>
-                  <form:input class="form-control" path="direccion" placeholder="Direccion" pattern="[A-Za-z]*{1,30}" title="Solo se admiten Letras sin caracteres especiales. Tamaño mínimo: 1. Tamaño máximo: 30"/>      
+                  <form:input class="form-control" path="direccion" placeholder="Direccion" pattern="[A-Za-z]*{1,30}" title="Solo se admiten Letras sin caracteres especiales. Tamaï¿½o mï¿½nimo: 1. Tamaï¿½o mï¿½ximo: 30"/>      
                 </div>
                 <div class="col">
             		<h5><label for="txtEmail">Email:</label></h5>
@@ -177,8 +177,7 @@
                       <th scope="col">Tipo</th>
                       <th scope="col">Saldo</th>
                       <th scope="col">CBU</th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
+                      <th scope="col" stlye="width:200px">Accion</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -194,8 +193,50 @@
 								<th scope="col">${cuentaObj.CBU}</th>
 								<td>
 									<input type="hidden" name="returnUrl" value="modificarCliente">
-									<button type="submit" name="modificarCuenta" class="btn btn-outline-secondary btn-sm"><i class="fa fa-edit"></i></button>
-									<button type="submit" name="eliminarCuenta" class="btn btn-outline-secondary btn-sm"><i class="fa fa-trash"></i></button>
+									<button
+											id="edit${cuentaObj.nroCuenta}"
+											type="submit"
+											name="modificarCuenta"
+											class="btn btn-outline-secondary btn-sm"
+										>
+												<i class="fa fa-edit"></i>
+										</button>
+										<a
+											id="delete${cuentaObj.nroCuenta}"
+											name="eliminarCuenta"
+											class="btn btn-outline-secondary btn-sm"
+											onclick="
+												document.getElementById('confirmDelete${cuentaObj.nroCuenta}').style.display = 'inline';
+												document.getElementById('undoDelete${cuentaObj.nroCuenta}').style.display = 'inline';
+												document.getElementById('delete${cuentaObj.nroCuenta}').style.display = 'none';
+												document.getElementById('edit${cuentaObj.nroCuenta}').style.display = 'none';
+											"
+										>
+												<i class="fa fa-trash"></i>
+										</a>
+										<button
+											id="confirmDelete${cuentaObj.nroCuenta}"
+											type="submit"
+											style="display: none;"
+											name="eliminarCuenta"
+											class="btn btn-outline-secondary btn-sm"
+										>
+											Confirmar
+										</button>
+										<a
+											id="undoDelete${cuentaObj.nroCuenta}"
+											name="eliminarCuenta"
+											style="display: none;"
+											class="btn btn-outline-secondary btn-sm"
+											onclick="
+												document.getElementById('confirmDelete${cuentaObj.nroCuenta}').style.display = 'none';
+												document.getElementById('undoDelete${cuentaObj.nroCuenta}').style.display = 'none';
+												document.getElementById('delete${cuentaObj.nroCuenta}').style.display = 'inline';
+												document.getElementById('edit${cuentaObj.nroCuenta}').style.display = 'inline';
+											"
+										>
+											<i class="fa fa-undo"></i>
+										</a>
 								</td>
 							</tr>
 						</form>
