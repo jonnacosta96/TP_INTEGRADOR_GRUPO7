@@ -158,4 +158,29 @@ public class CuentaDaoImpl implements CuentaDao {
 		
 	}
 
+	@Override
+	public Long ContarCuentasActivas() {
+		Long cantidad;
+		
+		try {
+			Conexion cn = (Conexion)appContext.getBean("conexion");
+			Session session = cn.abrirConexion();
+			
+			session.beginTransaction();
+			
+			String hql = "SELECT COUNT(c) FROM Cuenta c WHERE c.activo = 1";
+			
+			cantidad = (Long)session.createQuery(hql).uniqueResult();
+			
+			session.getTransaction().commit();
+			
+			cn.cerrarSession();
+		}
+		catch(Exception ex) {
+			return null;
+		}
+		
+		return cantidad;
+	}
+
 }

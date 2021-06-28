@@ -19,6 +19,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMethod;
 import frgp.utn.edu.ar.entidades.Usuario;
+import frgp.utn.edu.ar.negocioImpl.ClienteNegImpl;
+import frgp.utn.edu.ar.negocioImpl.EmpleadoNegImpl;
+import frgp.utn.edu.ar.negocioImpl.UserNegImpl;
 import frgp.utn.edu.ar.entidades.Cliente;
 import frgp.utn.edu.ar.entidades.Empleado;
 import frgp.utn.edu.ar.entidades.Login;
@@ -56,18 +59,15 @@ public class LogInController {
 		  HttpServletResponse response,
 		  @ModelAttribute("login") Login login,
 		  HttpSession httpSession
-		  ) {
-    ModelAndView mav = null;
+		  )
+  {
+	
+	ModelAndView mav = null;
+    UserNegImpl userNegImpl = (UserNegImpl)appContext.getBean("userNegImpl");
+    EmpleadoNegImpl empleadoNegImpl = (EmpleadoNegImpl)appContext.getBean("empleadoNegImpl");
+    ClienteNegImpl clienteNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
     
-    Conexion cn = (Conexion)appContext.getBean("conexion");
-    Session session = cn.abrirConexion();
-    
-    String hql = "from Usuario u where u.username = :username and u.password = :password and u.activo = 1";
-    Usuario user = (Usuario)session.createQuery(hql)
-	    		.setParameter("username", login.getUsername())
-	    		.setParameter("password", login.getPassword())
-	    		.uniqueResult();
-
+    Usuario user = userNegImpl.validateUser(login);
 
     if (null != user) {
     	mav = new ModelAndView();
@@ -76,20 +76,14 @@ public class LogInController {
     	
 		if(user.getTipo().toString().toUpperCase().equals("ADMIN"))
 		{
-			hql = "from Empleado e where e.usuario = :username";
-			Empleado empleado = (Empleado)session.createQuery(hql)
-					.setParameter("username", user)
-					.uniqueResult();
+			Empleado empleado = empleadoNegImpl.ObtenerEmpleadoXUserId(user);
 
 			userName = empleado.getNombre() + " " + empleado.getApellido();
 			mav.setViewName("redirect:/adminHome.html");
 		}
 		if(user.getTipo().toString().toUpperCase().equals("CUSTOMER"))
 		{
-			hql = "from Cliente c where c.usuario = :username";
-			Cliente cliente = (Cliente)session.createQuery(hql)
-					.setParameter("username", user)
-					.uniqueResult();
+			Cliente cliente = clienteNegImpl.ObtenerClientexUsuario(user); 
 
 			userName = cliente.getNombre() + " " + cliente.getApellido();
 			
@@ -108,8 +102,6 @@ public class LogInController {
       mav.setViewName("login");
       mav.addObject("message", "Error. Usuario y/o contraseña incorrectos.");
     }
-    
-    cn.cerrarSession();
     
     return mav;
   }

@@ -29,8 +29,17 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public Usuario validateUser(Login login) {
-		// TODO Auto-generated method stub
-		return null;
+		Conexion cn = (Conexion)appContext.getBean("conexion");
+	    Session session = cn.abrirConexion();
+	    
+	    String hql = "from Usuario u where u.username = :username and u.password = :password and u.activo = 1";
+	    Usuario user = (Usuario)session.createQuery(hql)
+		    		.setParameter("username", login.getUsername())
+		    		.setParameter("password", login.getPassword())
+		    		.uniqueResult();
+	    
+	    
+		return user;
 	}
 
 	@Override

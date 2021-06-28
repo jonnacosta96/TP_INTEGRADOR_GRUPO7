@@ -133,5 +133,30 @@ public class ClienteDaoImpl implements ClienteDao {
 		return cli;
 	}
 
+	@Override
+	public Long ContarClientesActivos() {
+		Long cantidad;
+		
+		try {
+			Conexion cn = (Conexion)appContext.getBean("conexion");
+			Session session = cn.abrirConexion();
+			
+			session.beginTransaction();
+			
+			String hql = "SELECT COUNT(c) FROM Cliente c WHERE c.estadoCliente = 1";
+			
+			cantidad = (Long)session.createQuery(hql).uniqueResult();
+			
+			session.getTransaction().commit();
+			
+			cn.cerrarSession();
+		}
+		catch(Exception ex) {
+			return null;
+		}
+		
+		return cantidad;
+	}
+
 
 }
