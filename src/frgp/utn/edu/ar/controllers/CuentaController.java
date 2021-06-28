@@ -322,9 +322,20 @@ public class CuentaController {
 	}
 	
 	@RequestMapping("accionCuenta.html")
-	public ModelAndView accionCuenta(int nroCuenta, String modificarCuenta, String returnUrl)
+	public ModelAndView accionCuenta(int nroCuenta, String modificarCuenta, String returnUrl, HttpSession httpSession, HttpServletRequest request)
 	{
 		ModelAndView mv = new ModelAndView();
+		String viewName = ViewNameResolver.resolveViewName(
+			(UserSessionDto)httpSession.getAttribute("userSession"),
+			request.getServletPath()
+		);
+		
+		if(viewName.contains("redirect"))
+		{
+			mv.setViewName(viewName);
+			return mv;
+		}
+		
 		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 		Cuenta cuenta = cuentaNegImpl.ObtenerCuentaxNroCuenta(nroCuenta);
 		

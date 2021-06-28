@@ -86,6 +86,13 @@ public class HomeClienteController {
 			request.getServletPath()
 		);
 		
+		if(viewName.contains("redirect"))
+		{
+			mav.setViewName(viewName);
+			return mav;
+		}
+		
+		
 		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 		TransaccionNegImpl transacNegImpl = (TransaccionNegImpl)appContext.getBean("transaccionNegImpl");
 		

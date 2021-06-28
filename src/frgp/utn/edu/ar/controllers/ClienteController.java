@@ -41,9 +41,19 @@ public class ClienteController {
 	static ApplicationContext appContext = new ClassPathXmlApplicationContext("frgp/utn/edu/ar/resources/Beans.xml");
 
 	@RequestMapping("listadoClientes.html")
-	public ModelAndView LoadListClients() {
+	public ModelAndView LoadListClients(HttpSession httpSession, HttpServletRequest request) {
 		
 		ModelAndView mv = new ModelAndView();
+		String viewName = ViewNameResolver.resolveViewName(
+			(UserSessionDto)httpSession.getAttribute("userSession"),
+			request.getServletPath()
+		);
+		
+		if(viewName.contains("redirect"))
+		{
+			mv.setViewName(viewName);
+			return mv;
+		}
 		
 		ClienteNegImpl cliNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
 		
@@ -83,9 +93,20 @@ public class ClienteController {
 	}
 	
 	@RequestMapping("accionCliente.html")
-	public ModelAndView clickActionClient(int nroCliente, String btnModificarCli) {
+	public ModelAndView clickActionClient(int nroCliente, String btnModificarCli, HttpSession httpSession, HttpServletRequest request) {
 
 		ModelAndView mv = new ModelAndView();
+		String viewName = ViewNameResolver.resolveViewName(
+			(UserSessionDto)httpSession.getAttribute("userSession"),
+			request.getServletPath()
+		);
+		
+		if(viewName.contains("redirect"))
+		{
+			mv.setViewName(viewName);
+			return mv;
+		}
+		
 		ClienteNegImpl cliNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
 		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 		TipoCuentaNegImpl tipoCuentaNegImpl = (TipoCuentaNegImpl)appContext.getBean("tipoCuentaNegImpl");
@@ -178,6 +199,7 @@ public class ClienteController {
 	    	return "crearCliente";
 	    }
 	    
+	    
 	    Cliente cliente = cliNegImpl.ObtenerClientexDNI(cli.getDni());
 	    
 	    if(cliente != null)
@@ -252,7 +274,7 @@ public class ClienteController {
 			    
 		    }
 		    
-		    String altaExitosa = "Usuario: " + usu.getUsername() + " - Contraseña: "+ usu.getPassword();
+		    String altaExitosa = "Usuario: " + usu.getUsername() + " - Contraseï¿½a: "+ usu.getPassword();
 	    	model.addAttribute("msgAlta", altaExitosa);
 		    model.addAttribute("ListaClientes", lista);
 		    
