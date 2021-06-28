@@ -54,6 +54,7 @@
                 <div class="col">
                   <h5><form:label path="dni">DNI</form:label></h5>
                   <form:input class="form-control" path="dni" value="" placeholder="DNI" pattern="[0-9]{1,10}" title="Solo se admiten Números. Tamaño mínimo: 1. Tamaño máximo: 10"/>  
+                  <p class="text-danger" id="dniMessage">${dniMessage}</p>
                 </div>
                 
                 <div class="col">
@@ -143,7 +144,7 @@
               <br>
               <br>
               <button type="submit" class="btn btn-dark d-inline">Actualizar cliente</button>
-              <a class="mx-3" href="${pageContext.servletContext.contextPath}/adminClientes.html">Cancelar</a>
+              <a class="mx-3" href="${pageContext.servletContext.contextPath}/listadoClientes.html">Cancelar</a>
               </form:form> 
             </div>
               <br>
@@ -247,7 +248,7 @@
                 </div>
                 <br>
                 <button class="btn btn-dark d-inline">Guardar</button>
-              	<a class="mx-3" href="${pageContext.servletContext.contextPath}/adminClientes.html">Cancelar</a>
+                <a class="mx-3" href="${pageContext.servletContext.contextPath}/listadoClientes.html">Cancelar</a>
                 </form:form>
               </div>
               

@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import frgp.utn.edu.ar.daoImpl.TipoCuentaDaoImpl;
 import frgp.utn.edu.ar.daoImpl.TransaccionDaoImpl;
 import frgp.utn.edu.ar.entidades.Cliente;
 import frgp.utn.edu.ar.entidades.Cuenta;
@@ -13,8 +17,10 @@ import frgp.utn.edu.ar.negocio.TransaccionNeg;
 
 public class TransaccionNegImpl implements TransaccionNeg{
 	
-	private TransaccionDaoImpl transacDaoImpl = new TransaccionDaoImpl();
-	private CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
+	static ApplicationContext appContext = new ClassPathXmlApplicationContext("frgp/utn/edu/ar/resources/Beans.xml");
+	
+	private TransaccionDaoImpl transacDaoImpl = (TransaccionDaoImpl)appContext.getBean("transaccionDaoImpl");
+	private CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 
 	@Override
 	public boolean GenerarTransferencia(Cuenta ctaOrigen, Cuenta ctaDestino,float monto) {
@@ -25,15 +31,19 @@ public class TransaccionNegImpl implements TransaccionNeg{
 		String descripcion = "";
 		
 		//GENERO LAS TRANSACCIONES.
-		Transaccion transacCtaOrigen = new Transaccion();
-		Transaccion transacCtaDestino = new Transaccion();
+		Transaccion transacCtaOrigen = (Transaccion)appContext.getBean("transaccion");
+		Transaccion transacCtaDestino = (Transaccion)appContext.getBean("transaccion");
 		
 		descripcion = ctaDestino.getCliente().getNombre() + " " + ctaDestino.getCliente().getApellido()+ "-Cta: " + ctaDestino.getNroCuenta();
 		transacCtaOrigen.setCuentaAsoc(ctaOrigen);
 		transacCtaOrigen.setDescripcion("Transferencia realizada a " + descripcion);
 		transacCtaOrigen.setSaldo(monto);
 		transacCtaOrigen.setFechaTransaccion(LocalDate.now());
-		transacCtaOrigen.setTipoTransaccion(new TipoTransaccion(2, "Debito", true));
+		TipoTransaccion tt1 = (TipoTransaccion)appContext.getBean("TipoTransaccion");
+		tt1.setIdTipoTransaccion(2);
+		tt1.setDescripcion("Debito");
+		tt1.setEstadoTipoTransaccion(true);
+		transacCtaOrigen.setTipoTransaccion(tt1);
 		transacCtaOrigen.setEstadoTransaccion(true);
 		
 		estadoTransaccion1 = transacDaoImpl.GenerarTransaccion(transacCtaOrigen);
@@ -43,7 +53,11 @@ public class TransaccionNegImpl implements TransaccionNeg{
 		transacCtaDestino.setDescripcion("Transferencia recibida de " + descripcion);
 		transacCtaDestino.setSaldo(monto);
 		transacCtaDestino.setFechaTransaccion(LocalDate.now());
-		transacCtaDestino.setTipoTransaccion(new TipoTransaccion(1, "Credito", true));
+		TipoTransaccion tt2 = (TipoTransaccion)appContext.getBean("TipoTransaccion");
+		tt2.setIdTipoTransaccion(1);
+		tt2.setDescripcion("Credito");
+		tt2.setEstadoTipoTransaccion(true);
+		transacCtaDestino.setTipoTransaccion(tt2);
 		transacCtaDestino.setEstadoTransaccion(true);
 		
 		estadoTransaccion2 = transacDaoImpl.GenerarTransaccion(transacCtaDestino);
@@ -104,14 +118,18 @@ public class TransaccionNegImpl implements TransaccionNeg{
 		String descripcion = "";
 		
 		//GENERO LAS TRANSACCIONES.
-		Transaccion transacCtaDestino = new Transaccion();
+		Transaccion transacCtaDestino = (Transaccion)appContext.getBean("transaccion");
 		
 		descripcion = "Regalo de bienvenida";
 		transacCtaDestino.setCuentaAsoc(ctaDestino);
 		transacCtaDestino.setDescripcion(descripcion);
 		transacCtaDestino.setSaldo(monto);
 		transacCtaDestino.setFechaTransaccion(LocalDate.now());
-		transacCtaDestino.setTipoTransaccion(new TipoTransaccion(1, "Credito", true));
+		TipoTransaccion tt2 = (TipoTransaccion)appContext.getBean("TipoTransaccion");
+		tt2.setIdTipoTransaccion(1);
+		tt2.setDescripcion("Credito");
+		tt2.setEstadoTipoTransaccion(true);
+		transacCtaDestino.setTipoTransaccion(tt2);
 		transacCtaDestino.setEstadoTransaccion(true);
 		
 		estadoTransaccion = transacDaoImpl.GenerarTransaccion(transacCtaDestino);

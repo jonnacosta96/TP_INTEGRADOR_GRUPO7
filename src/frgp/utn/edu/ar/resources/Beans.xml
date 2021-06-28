@@ -26,6 +26,8 @@
     </bean>
     <bean id="transaccion" class="frgp.utn.edu.ar.entidades.Transaccion" >
     </bean>
+    <bean id="tipoTransaccion" class="frgp.utn.edu.ar.entidades.TipoTransaccion" >
+    </bean>
     
     <!-- NegImpl -->
     <bean id="parametroNegImpl" class="frgp.utn.edu.ar.negocioImpl.ParametroNegImpl" >
@@ -63,6 +65,8 @@
     <bean id="clienteDaoImpl" class="frgp.utn.edu.ar.daoImpl.ClienteDaoImpl" >
     </bean>
     <bean id="parametroDaoImpl" class="frgp.utn.edu.ar.daoImpl.ParametroDaoImpl" >
+    </bean>
+    <bean id="transaccionDaoImpl" class="frgp.utn.edu.ar.daoImpl.TransaccionDaoImpl" >
     </bean>
 
 	<!-- Misc -->

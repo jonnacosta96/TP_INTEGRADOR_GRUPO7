@@ -70,6 +70,7 @@
 					</tbody>
 				</table>
             </div>
+            <br>
             <div>
             <a class="btn btn-primary d-inline" href="${pageContext.servletContext.contextPath}/clienteHome.html">Volver</a>	
             </div>

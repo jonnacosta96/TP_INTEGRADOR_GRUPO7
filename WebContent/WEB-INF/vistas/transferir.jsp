@@ -48,13 +48,18 @@
 	    <div class="container">
 	        <h2>Transferir</h2>
 	        <br>
+            <div class="row">
+              <div class="col">
+         			<center></center><p class="text-danger">${cuentasIguales}</td></center>       
+              </div>
+            </div> 
 	        <form action="${pageContext.servletContext.contextPath}/TransferirDinero.html" method="post">
 	          <input type="hidden" name="nroCliente" value="${Cliente.nroCliente}">
 	          <div class="border border-dark mb-4 px-5 py-3 pb-5 rounded">
 	            <div class="row">
 	              <div class="col">
 	                <h5><label for="exampleInputEmail1">CBU destino</label></h5>
-	                <input type="text" name="cbuDestino" class="form-control" placeholder="Nombre" >
+	                <input type="text" name="cbuDestino" class="form-control" placeholder="Nombre" required>
 	              </div>
 	              <div class="col">
 	                <h5><label for="exampleInputEmail1">Transferir desde</label></h5>
@@ -70,7 +75,7 @@
 	            <div class="row">
 	              <div class="col">
 	                <h5><label for="exampleInputEmail1">Monto</label></h5>
-	                <input type="text" name="monto" class="form-control" placeholder="Monto" >
+	                <input type="text" name="monto" class="form-control" placeholder="Monto" required>
 	              </div>
 	              <div class="col"></div>
 	            </div>
