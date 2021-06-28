@@ -49,6 +49,11 @@
 			<h2>Modificar Cliente</h2>
             <br>
               <div class="border border-dark mb-4 px-5 py-3 pb-5 rounded">
+               <div class="row">
+                <div class="col">
+           			<center></center><p class="text-danger">${errorFaltanCampos}</td></center>       
+                </div>
+              </div> 
               <form:form method="POST" action="${pageContext.servletContext.contextPath}/modificarCliente.html" modelAttribute="Cliente">
               <form:hidden path="nroCliente" value="${Cliente.nroCliente}" />
               <div class="row">
