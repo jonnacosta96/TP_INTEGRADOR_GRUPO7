@@ -162,7 +162,6 @@
                       <th scope="col">#</th>
                       <th scope="col">Fecha Creacion</th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">Cliente</th>
                       <th scope="col">Tipo</th>
                       <th scope="col">Saldo</th>
                       <th scope="col">CBU</th>
@@ -178,7 +177,6 @@
 								<th scope="col">${cuentaObj.nroCuenta}<input type="hidden" name="nroCuenta" value="${cuentaObj.nroCuenta}"></th>
 								<th scope="col">${cuentaObj.fechaCreacion}</th>
 								<th scope="col">${cuentaObj.nombre}</th>
-								<th scope="col">${cuentaObj.cliente.nombre} ${cuentaObj.cliente.apellido}</th>
 								<th scope="col">${cuentaObj.tipoCuenta.nombre}</th>
 								<th scope="col">${cuentaObj.saldo}</th>
 								<th scope="col">${cuentaObj.CBU}</th>

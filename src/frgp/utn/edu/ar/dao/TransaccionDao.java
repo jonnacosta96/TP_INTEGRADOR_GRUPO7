@@ -9,5 +9,6 @@ public interface TransaccionDao {
 	
 	public boolean GenerarTransaccion(Transaccion transac);
 	public List<Transaccion> ObtenerListadoTransaccionesxCuenta(Cuenta cuenta);
+	public Long ContarTransaccionesRealizadas();
 	
 }

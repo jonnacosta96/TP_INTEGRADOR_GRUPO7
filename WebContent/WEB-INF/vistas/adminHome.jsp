@@ -23,28 +23,30 @@
     <div style="background-color: #e9ecef; min-height:94vh!important" class="container-fluid py-3" >
         <div></div>
         <div class="dashboard_container my-5" id="dashboard_container">
+        <div class="container">
+        <center><h2>Dashboard</h2></center>
+        <br>
+        <br>
             <div class="row justify-content-center">
-                <div class="card custom_card mx-3" style="width: 18rem;">
-                    <div class="card-body">
-                        <h1 class="card-title">125</h1>
-                        <h6 class="card-subtitle mb-2 text-muted">Clientes</h6>
-                        <a onclick="Lib.Collocations.Dashboard.ViewList()" class="card-link text-primary">Ver Lista</a>
+                <div class="card custom_card mx-3 rounded" style="width: 18rem;">
+                    <div class="card-body mx-5 my-5">
+                        <center><h1 class="card-title">${cantidadCuentas}</h1></center>
+                        <center><h5 class="card-subtitle mb-2 text-muted">Cuentas activas</h5></center>
                     </div>
                 </div>
                 <div class="card custom_card mx-3" style="width: 18rem;">
-                    <div class="card-body">
-                        <h1 class="card-title">153</h1>
-                        <h6 class="card-subtitle mb-2 text-muted">Cuentas</h6>
-                        <a onclick="Lib.Collocations.Dashboard.ViewList()" class="card-link text-primary">Ver Lista</a>
+                    <div class="card-body mx-5 my-5">
+                        <center><h1 class="card-title">${cantidadClientes}</h1></center>
+                        <center><h5 class="card-subtitle mb-2 text-muted">Clientes activos</h5></center>
                     </div>
                 </div>
                 <div class="card custom_card mx-3" style="width: 18rem;">
-                    <div class="card-body">
-                        <h1 class="card-title">2103</h1>
-                        <h6 class="card-subtitle mb-2 text-muted">Transacciones hoy</h6>
-                        <a onclick="Lib.Collocations.Dashboard.ViewList()" class="card-link text-primary">Ver Lista</a>
+                    <div class="card-body mx-5 my-5">
+                        <center><h1 class="card-title">${cantidadCuentas}</h1></center>
+                        <center><h5 class="card-subtitle mb-2 text-muted">Transacciones realizadas</h5></center>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </div>

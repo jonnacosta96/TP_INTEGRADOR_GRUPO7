@@ -13,5 +13,6 @@ public interface CuentaDao {
 	public Cuenta ObtenerCuentaxCBU(int cbu);
 	public boolean GuardarCuenta(Cuenta cuenta);
 	public Long CantidadCuentasxNroCliente(Cliente cliente);
+	public Long ContarCuentasActivas();
 
 }

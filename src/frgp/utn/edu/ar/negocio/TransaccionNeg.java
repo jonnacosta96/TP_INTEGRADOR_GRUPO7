@@ -12,4 +12,5 @@ public interface TransaccionNeg{
 	public boolean GenerarTransferenciaInicial(Cuenta ctaDestino,float monto);
 	public List<Transaccion> ObtenerListadoTransaccionesxCuenta(Cuenta cuenta);
 	public List<Transaccion> ObtenerListadoTransaccionesxCliente(Cliente cli);
+	public Long ContarTransaccionesRealizadas();
 }
