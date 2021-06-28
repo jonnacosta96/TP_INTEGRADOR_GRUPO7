@@ -12,4 +12,5 @@ public interface ClienteNeg {
 	public Cliente ObtenerClientexDNI(int dni);
 	public Cliente ObtenerClientexUsuario(Usuario usuario) ;
 	public boolean GuardarCliente(Cliente cli);
+	public Long ContarClientesActivos();
 }

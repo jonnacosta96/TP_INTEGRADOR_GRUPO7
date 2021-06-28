@@ -54,4 +54,29 @@ public class TransaccionDaoImpl implements TransaccionDao{
 		}
 	}
 
+	@Override
+	public Long ContarTransaccionesRealizadas() {
+		Long cantidad;
+		
+		try {
+			Conexion cn = (Conexion)appContext.getBean("conexion");
+			Session session = cn.abrirConexion();
+			
+			session.beginTransaction();
+			
+			String hql = "SELECT COUNT(t) FROM Transaccion t WHERE t.estadoTransaccion = 1";
+			
+			cantidad = (Long)session.createQuery(hql).uniqueResult();
+			
+			session.getTransaction().commit();
+			
+			cn.cerrarSession();
+		}
+		catch(Exception ex) {
+			return null;
+		}
+		
+		return cantidad;
+	}
+
 }

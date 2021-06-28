@@ -80,7 +80,7 @@
 							<th>Pais</th>
 							<th>Provincia</th>
 							<th>Localidad</th>
-							<th>Accion</th>
+							<th style="width:200px;">Accion</th>
 						</tr>
 					</thead>
 					<tfoot>
@@ -104,8 +104,51 @@
 									<td>${objcli.prov.nombre}</td>
 									<td>${objcli.loc.nombre}</td>
 									<td>
-										<button type="submit" name="btnModificarCli" class="btn btn-outline-secondary btn-sm"><i class="fa fa-edit"></i></button>
-										<button type="submit" name="btnEliminarCli" class="btn btn-outline-secondary btn-sm"><i class="fa fa-trash"></i></button>
+										<input type="hidden" name="returnUrl" value="adminCuentas">
+										<button
+											id="edit${objcli.nroCliente}"
+											type="submit"
+											name="btnModificarCli"
+											class="btn btn-outline-secondary btn-sm"
+										>
+												<i class="fa fa-edit"></i>
+										</button>
+										<a
+											id="delete${objcli.nroCliente}"
+											name="eliminarCuenta"
+											class="btn btn-outline-secondary btn-sm"
+											onclick="
+												document.getElementById('confirmDelete${objcli.nroCliente}').style.display = 'inline';
+												document.getElementById('undoDelete${objcli.nroCliente}').style.display = 'inline';
+												document.getElementById('delete${objcli.nroCliente}').style.display = 'none';
+												document.getElementById('edit${objcli.nroCliente}').style.display = 'none';
+											"
+										>
+												<i class="fa fa-trash"></i>
+										</a>
+										<button
+											id="confirmDelete${objcli.nroCliente}"
+											type="submit"
+											style="display: none;"
+											name="btnEliminarCli"
+											class="btn btn-outline-secondary btn-sm"
+										>
+											Confirmar
+										</button>
+										<a
+											id="undoDelete${objcli.nroCliente}"
+											name="eliminarCuenta"
+											style="display: none;"
+											class="btn btn-outline-secondary btn-sm"
+											onclick="
+												document.getElementById('confirmDelete${objcli.nroCliente}').style.display = 'none';
+												document.getElementById('undoDelete${objcli.nroCliente}').style.display = 'none';
+												document.getElementById('delete${objcli.nroCliente}').style.display = 'inline';
+												document.getElementById('edit${objcli.nroCliente}').style.display = 'inline';
+											"
+										>
+											<i class="fa fa-undo"></i>
+										</a>
 									</td>
 								</form>
 							</tr>

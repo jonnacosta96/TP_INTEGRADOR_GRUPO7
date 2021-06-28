@@ -205,7 +205,8 @@ public class CuentaController {
     	if(resultado)
     	{
     		resultado = transaccionNegImpl.GenerarTransferenciaInicial(cuenta, 10000);
-    		model.addAttribute("msgAlta", cuenta.getNroCuenta());
+    		//modelAndView.setViewName("redirect:/adminCuentas.html");
+    		httpSession.setAttribute("avisoSuccess", "Se ha creado la cuenta " + cuenta.getNroCuenta());
     	}
     	else
     	{
@@ -292,7 +293,7 @@ public class CuentaController {
 		
 		if(resultado)
     	{
-			
+			httpSession.setAttribute("avisoSuccess", "Se ha modificado la cuenta " + cuenta.getNroCuenta());
 			
     		model.addAttribute("msgModificacion", cuenta.getNroCuenta());
     		if(returnUrl != null)
@@ -322,9 +323,20 @@ public class CuentaController {
 	}
 	
 	@RequestMapping("accionCuenta.html")
-	public ModelAndView accionCuenta(int nroCuenta, String modificarCuenta, String returnUrl)
+	public ModelAndView accionCuenta(int nroCuenta, String modificarCuenta, String returnUrl, HttpSession httpSession, HttpServletRequest request)
 	{
 		ModelAndView mv = new ModelAndView();
+		String viewName = ViewNameResolver.resolveViewName(
+			(UserSessionDto)httpSession.getAttribute("userSession"),
+			request.getServletPath()
+		);
+		
+		if(viewName.contains("redirect"))
+		{
+			mv.setViewName(viewName);
+			return mv;
+		}
+		
 		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 		Cuenta cuenta = cuentaNegImpl.ObtenerCuentaxNroCuenta(nroCuenta);
 		
@@ -345,10 +357,13 @@ public class CuentaController {
 			Boolean resultado = cuentaNegImpl.GuardarCuenta(cuenta);
 			
 			if(resultado) {
-				mv.addObject("eliminacionExitosa", "correcto");
+				//mv.addObject("eliminacionExitosa", "correcto");
+				//mv.setViewName("redirect:/adminCuentas.html");
+	    		httpSession.setAttribute("avisoSuccess", "Se ha eliminado la cuenta " + cuenta.getNroCuenta());
 			}
 			else {
-				mv.addObject("eliminacionFallida", "fallo");
+				//mv.setViewName("redirect:/adminCuentas.html");
+	    		httpSession.setAttribute("avisoError", "Cuenta " + cuenta.getNroCuenta() + " creada correctamente");
 			}
 			
 			List<Cuenta> cuentas = cuentaNegImpl.ObtenerListadoCuentas(true);

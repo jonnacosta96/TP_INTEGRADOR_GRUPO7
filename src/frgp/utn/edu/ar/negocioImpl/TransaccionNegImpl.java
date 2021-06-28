@@ -19,12 +19,13 @@ public class TransaccionNegImpl implements TransaccionNeg{
 	
 	static ApplicationContext appContext = new ClassPathXmlApplicationContext("frgp/utn/edu/ar/resources/Beans.xml");
 	
-	private TransaccionDaoImpl transacDaoImpl = (TransaccionDaoImpl)appContext.getBean("transaccionDaoImpl");
-	private CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
+	
 
 	@Override
 	public boolean GenerarTransferencia(Cuenta ctaOrigen, Cuenta ctaDestino,float monto) {
-
+		
+		TransaccionDaoImpl transacDaoImpl = (TransaccionDaoImpl)appContext.getBean("transaccionDaoImpl");
+		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 		
 		boolean estadoTransaccion1 = false;
 		boolean estadoTransaccion2 = false;
@@ -81,6 +82,8 @@ public class TransaccionNegImpl implements TransaccionNeg{
 	@Override
 	public List<Transaccion> ObtenerListadoTransaccionesxCuenta(Cuenta cuenta) {
 		
+		TransaccionDaoImpl transacDaoImpl = (TransaccionDaoImpl)appContext.getBean("transaccionDaoImpl");
+		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 		List<Transaccion> lista = transacDaoImpl.ObtenerListadoTransaccionesxCuenta(cuenta);
 		
 		return lista;
@@ -89,6 +92,8 @@ public class TransaccionNegImpl implements TransaccionNeg{
 	@Override
 	public List<Transaccion> ObtenerListadoTransaccionesxCliente(Cliente cli) {
 		
+		TransaccionDaoImpl transacDaoImpl = (TransaccionDaoImpl)appContext.getBean("transaccionDaoImpl");
+		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 		ArrayList<Transaccion> lista = new ArrayList<Transaccion>();
 		int contador = 0;
 		
@@ -114,6 +119,8 @@ public class TransaccionNegImpl implements TransaccionNeg{
 	@Override
 	public boolean GenerarTransferenciaInicial(Cuenta ctaDestino, float monto) {
 		
+		TransaccionDaoImpl transacDaoImpl = (TransaccionDaoImpl)appContext.getBean("transaccionDaoImpl");
+		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 		boolean estadoTransaccion = false;
 		String descripcion = "";
 		
@@ -125,7 +132,7 @@ public class TransaccionNegImpl implements TransaccionNeg{
 		transacCtaDestino.setDescripcion(descripcion);
 		transacCtaDestino.setSaldo(monto);
 		transacCtaDestino.setFechaTransaccion(LocalDate.now());
-		TipoTransaccion tt2 = (TipoTransaccion)appContext.getBean("TipoTransaccion");
+		TipoTransaccion tt2 = (TipoTransaccion)appContext.getBean("tipoTransaccion");
 		tt2.setIdTipoTransaccion(1);
 		tt2.setDescripcion("Credito");
 		tt2.setEstadoTipoTransaccion(true);
@@ -145,6 +152,13 @@ public class TransaccionNegImpl implements TransaccionNeg{
 			return false;
 		}
 		
+	}
+
+	@Override
+	public Long ContarTransaccionesRealizadas() {
+		TransaccionDaoImpl transacDaoImpl = (TransaccionDaoImpl)appContext.getBean("transaccionDaoImpl");
+		
+		return transacDaoImpl.ContarTransaccionesRealizadas();
 	}
 
 }

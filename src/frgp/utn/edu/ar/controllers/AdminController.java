@@ -26,6 +26,7 @@ import frgp.utn.edu.ar.negocioImpl.LocalidadNegImpl;
 import frgp.utn.edu.ar.negocioImpl.PaisNegImpl;
 import frgp.utn.edu.ar.negocioImpl.ProvinciaNegImpl;
 import frgp.utn.edu.ar.negocioImpl.TipoCuentaNegImpl;
+import frgp.utn.edu.ar.negocioImpl.TransaccionNegImpl;
 import helpers.ViewNameResolver;
 
 import org.json.simple.JSONArray;
@@ -46,6 +47,14 @@ public class AdminController {
 			(UserSessionDto)httpSession.getAttribute("userSession"),
 			request.getServletPath()
 		);
+		
+		ClienteNegImpl cliNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
+		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
+		TransaccionNegImpl transaccionNegImpl = (TransaccionNegImpl)appContext.getBean("transaccionNegImpl");
+		
+		mav.addObject("cantidadCuentas",cuentaNegImpl.ContarCuentasActivas());
+		mav.addObject("cantidadClientes",cliNegImpl.ContarClientesActivos());
+		mav.addObject("cantidadTransacciones",transaccionNegImpl.ContarTransaccionesRealizadas());
 	    
 	    mav.setViewName(viewName);
 		return mav;
@@ -56,7 +65,8 @@ public class AdminController {
 			HttpSession httpSession,
 			HttpServletRequest request,
 			@ModelAttribute("msgAlta") final String msgAlta,
-			@ModelAttribute("msgModificacion") final String msgModificacion
+			@ModelAttribute("msgModificacion") final String msgModificacion,
+			Model model
 	) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -70,8 +80,15 @@ public class AdminController {
 		List<Cuenta> lista = cuentaNegImpl.ObtenerListadoCuentas(true);
 		
 		mav.addObject("ListaCuentas", lista);
-		mav.addObject("msgAlta", msgAlta);
-		mav.addObject("msgModificacion", msgModificacion);
+		//mav.addObject("msgAlta", msgAlta);
+		//mav.addObject("msgModificacion", msgModificacion);
+		
+		String avisoSuccess = (String)httpSession.getAttribute("avisoSuccess");
+		String avisoError = (String)httpSession.getAttribute("avisoError");
+		httpSession.removeAttribute("avisoSuccess");
+		httpSession.removeAttribute("avisoError");
+		model.addAttribute("avisoSuccess", avisoSuccess);
+		model.addAttribute("avisoError", avisoError);
 	    
 	    mav.setViewName(viewName);
 		return mav;

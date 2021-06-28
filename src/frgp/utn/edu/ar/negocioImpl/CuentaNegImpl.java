@@ -77,10 +77,20 @@ public class CuentaNegImpl implements CuentaNeg {
 
 	@Override
 	public Cuenta ObtenerCuentaxCBU(int cbu) {
+		if(cuentaDaoImpl == null)
+			cuentaDaoImpl = (CuentaDaoImpl)appContext.getBean("cuentaDaoImpl");
 		
 		Cuenta cuenta = cuentaDaoImpl.ObtenerCuentaxCBU(cbu);
 		
 		return cuenta;
+	}
+
+	@Override
+	public Long ContarCuentasActivas() {
+		if(cuentaDaoImpl == null)
+			cuentaDaoImpl = (CuentaDaoImpl)appContext.getBean("cuentaDaoImpl");
+		
+		return cuentaDaoImpl.ContarCuentasActivas();
 	}
 
 }

@@ -78,4 +78,12 @@ public class ClienteNegImpl implements ClienteNeg {
 		return cli;
 	}
 
+	@Override
+	public Long ContarClientesActivos() {
+		if(cliDaoImpl == null)
+			cliDaoImpl = (ClienteDaoImpl)appContext.getBean("clienteDaoImpl");
+		
+		return cliDaoImpl.ContarClientesActivos();
+	}
+
 }

@@ -13,4 +13,5 @@ public interface CuentaNeg {
 	public Long CantidadCuentasxNroCliente(Cliente cliente);
 	public List<Cuenta> ObtenerListadoCuentasxCliente(Cliente cliente);
 	public Cuenta ObtenerCuentaxCBU(int cbu);
+	public Long ContarCuentasActivas();
 }
