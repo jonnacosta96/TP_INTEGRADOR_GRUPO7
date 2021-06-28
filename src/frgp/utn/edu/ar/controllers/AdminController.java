@@ -65,7 +65,8 @@ public class AdminController {
 			HttpSession httpSession,
 			HttpServletRequest request,
 			@ModelAttribute("msgAlta") final String msgAlta,
-			@ModelAttribute("msgModificacion") final String msgModificacion
+			@ModelAttribute("msgModificacion") final String msgModificacion,
+			Model model
 	) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -79,8 +80,15 @@ public class AdminController {
 		List<Cuenta> lista = cuentaNegImpl.ObtenerListadoCuentas(true);
 		
 		mav.addObject("ListaCuentas", lista);
-		mav.addObject("msgAlta", msgAlta);
-		mav.addObject("msgModificacion", msgModificacion);
+		//mav.addObject("msgAlta", msgAlta);
+		//mav.addObject("msgModificacion", msgModificacion);
+		
+		String avisoSuccess = (String)httpSession.getAttribute("avisoSuccess");
+		String avisoError = (String)httpSession.getAttribute("avisoError");
+		httpSession.removeAttribute("avisoSuccess");
+		httpSession.removeAttribute("avisoError");
+		model.addAttribute("avisoSuccess", avisoSuccess);
+		model.addAttribute("avisoError", avisoError);
 	    
 	    mav.setViewName(viewName);
 		return mav;

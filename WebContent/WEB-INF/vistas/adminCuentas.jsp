@@ -1,3 +1,4 @@
+<%@ page session= "true" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -31,14 +32,14 @@
     <jsp:include page="header.jsp"></jsp:include>
     
     <c:choose>
-	     <c:when test="${not empty msgAlta}">
+	     <c:when test="${not empty avisoSuccess}">
 	         <script type="text/javascript">
-	        	AltaCuentaExitosa("${msgAlta}")
+	        	SuccessMessage("${avisoSuccess}")
 	         </script>
 	     </c:when>
-	     <c:when test="${not empty msgModificacion}">
+	     <c:when test="${not empty avisoError}">
 	         <script type="text/javascript">
-	         	ModificacionCuentaExitosa("${msgModificacion}")
+	         	ErrorMessage("${avisoError}")
 	         </script>
 	     </c:when>
 	 </c:choose>	
