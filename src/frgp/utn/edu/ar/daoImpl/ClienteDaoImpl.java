@@ -9,6 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import frgp.utn.edu.ar.dao.ClienteDao;
 import frgp.utn.edu.ar.dao.Conexion;
 import frgp.utn.edu.ar.entidades.Cliente;
+import frgp.utn.edu.ar.entidades.Usuario;
 
 public class ClienteDaoImpl implements ClienteDao {
 	
@@ -90,7 +91,7 @@ public class ClienteDaoImpl implements ClienteDao {
 			
 			session.beginTransaction();
 			
-			String query = "FROM Cliente cli WHERE cli.dni = :dni";
+			String query = "FROM Cliente cli WHERE cli.dni = :dni and cli.estadoCliente=1";
 		
 			Cliente cli = (Cliente) session.createQuery(query).setParameter("dni", dni).uniqueResult();
 			
@@ -104,6 +105,32 @@ public class ClienteDaoImpl implements ClienteDao {
 			return null;
 		}
 		
+	}
+
+	@Override
+	public Cliente ObtenerClientexUsuario(Usuario usuario) {
+		
+		Cliente cli = new Cliente();
+		
+		try {
+			Conexion cn = (Conexion)appContext.getBean("conexion");
+			Session session = cn.abrirConexion();
+			
+			session.beginTransaction();
+			
+			String query = "FROM Cliente cli WHERE cli.usuario= :user";
+		
+			cli = (Cliente) session.createQuery(query).setParameter("user", usuario).uniqueResult();
+			
+			session.getTransaction().commit();
+			
+			cn.cerrarSession();
+		}
+		catch(Exception ex) {
+			return null;
+		}
+		
+		return cli;
 	}
 
 

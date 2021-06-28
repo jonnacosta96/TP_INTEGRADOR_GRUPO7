@@ -75,4 +75,12 @@ public class CuentaNegImpl implements CuentaNeg {
 		return lista;
 	}
 
+	@Override
+	public Cuenta ObtenerCuentaxCBU(int cbu) {
+		
+		Cuenta cuenta = cuentaDaoImpl.ObtenerCuentaxCBU(cbu);
+		
+		return cuenta;
+	}
+
 }

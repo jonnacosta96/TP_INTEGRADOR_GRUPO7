@@ -51,19 +51,6 @@ public class AdminController {
 		return mav;
 	}
 	
-	@RequestMapping(value="adminClientes.html")
-	public ModelAndView eventClickMenuClientes(HttpSession httpSession, HttpServletRequest request) {
-		
-		ModelAndView mav = new ModelAndView();
-		String viewName = ViewNameResolver.resolveViewName(
-			(UserSessionDto)httpSession.getAttribute("userSession"),
-			request.getServletPath()
-		);
-	    
-	    mav.setViewName(viewName);
-		return mav;
-	}
-	
 	@RequestMapping(value="adminCuentas.html")
 	public ModelAndView eventClickMenuCuentas(
 			HttpSession httpSession,

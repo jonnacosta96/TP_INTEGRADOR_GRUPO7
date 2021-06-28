@@ -40,6 +40,15 @@ function EliminacionExitosa(itemEliminar){
 		});
 }
 
+function TransferenciaExitosa(){
+	swal({
+		  title: "Transferencia Exitosa!",
+		  text: "La tranferencia fue realizada correctamente.",
+		  icon: "success",
+		  button: "Aceptar",
+		});
+}
+
 function AltaFallida(itemAlta){
 	swal({
 		  title: "Error en el Alta!",
@@ -67,11 +76,38 @@ function EliminacioncionFallida(){
 		});
 }
 
+function TransaferenciaFallida(){
+	swal({
+		  title: "Error al realizar la Transferencia!",
+		  text: "Intente nuevamente en unos minutos.",
+		  icon: "error",
+		  button: "Aceptar",
+		});
+}
+
+function MontoInsuficiente(saldo){
+	swal({
+		  title: "Error al realizar la Transferencia!",
+		  text: "Monto insuficiente en la cuenta. Saldo Dispnible: " + saldo,
+		  icon: "error",
+		  button: "Aceptar",
+		});
+}
+
 function InformarUsuarioCliente(msgAlta){
 	swal({
 		  title: "Usuario Cliente Creado Correctamente!",
 		  text: msgAlta,
 		  icon: "success",
+		  button: "Ok",
+		});
+}
+
+function CuentaInexistente(){
+	swal({
+		  title: "Cuenta Inexistente!",
+		  text: "El nro de CBU ingresado no corresponde a ninguna cuenta activa.",
+		  icon: "info",
 		  button: "Ok",
 		});
 }

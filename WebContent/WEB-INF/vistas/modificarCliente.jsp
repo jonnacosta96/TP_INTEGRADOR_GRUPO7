@@ -11,7 +11,8 @@
 		<link rel="stylesheet" href="./css/table.css" type="text/css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		
-	    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	    
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
@@ -53,6 +54,7 @@
                 <div class="col">
                   <h5><form:label path="dni">DNI</form:label></h5>
                   <form:input class="form-control" path="dni" value="" placeholder="DNI" pattern="[0-9]{1,10}" title="Solo se admiten Números. Tamaño mínimo: 1. Tamaño máximo: 10"/>  
+                  <p class="text-danger" id="dniMessage">${dniMessage}</p>
                 </div>
                 
                 <div class="col">
@@ -142,7 +144,7 @@
               <br>
               <br>
               <button type="submit" class="btn btn-dark d-inline">Actualizar cliente</button>
-              <a class="mx-3" href="javascript:history.back()">Cancelar</a>
+              <a class="mx-3" href="${pageContext.servletContext.contextPath}/listadoClientes.html">Cancelar</a>
               </form:form> 
             </div>
               <br>
@@ -181,7 +183,7 @@
 								<th scope="col">${cuentaObj.saldo}</th>
 								<th scope="col">${cuentaObj.CBU}</th>
 								<td>
-									<input type="hidden" name="origin" value="modificarCliente">
+									<input type="hidden" name="returnUrl" value="modificarCliente">
 									<button type="submit" name="modificarCuenta" class="btn btn-outline-secondary btn-sm"><i class="fa fa-edit"></i></button>
 									<button type="submit" name="eliminarCuenta" class="btn btn-outline-secondary btn-sm"><i class="fa fa-trash"></i></button>
 								</td>
@@ -200,6 +202,13 @@
                 <form:form id="crearCuentaForm" action="${pageContext.servletContext.contextPath}/guardarNuevaCuenta.html" method="post" modelAttribute="cuentaCrear">
                 <div class="row">
                   <div class="col">
+                  <input type="hidden" class="form-control d-inline disabled" readonly
+                    	placeholder="Cliente"
+                    	id="cantidadCuentas"
+                    	name="cantidadCuentas"
+                    	path="cantidadCuentas"
+                    	value="<c:out value="${ListaCuentas}"/>"
+                   	>
                   <input type="hidden" class="form-control d-inline disabled" readonly
                     	placeholder="Cliente"
                     	id="clienteId"
@@ -231,10 +240,15 @@
 				 		</c:forEach>
                     </select>
                   </div>
+                  <div class="row">
+	                  <div class="col">
+	             			<center></center><p class="text-danger">${error}</td></center>       
+	                  </div>
+	                </div>
                 </div>
                 <br>
                 <button class="btn btn-dark d-inline">Guardar</button>
-              	<a class="mx-3" href="${pageContext.servletContext.contextPath}/adminCuentas.html">Cancelar</a>
+                <a class="mx-3" href="${pageContext.servletContext.contextPath}/listadoClientes.html">Cancelar</a>
                 </form:form>
               </div>
               
@@ -243,4 +257,38 @@
 </body>
 </html>
 
+<script type="text/javascript">
+$('#crearCuentaForm').submit(function(event)
+	{
+		if($("#cantidadCuentas").val().match(/nroCuenta/g).length >= 4 )
+		{
+			$('#cuentaNombreMessage').text("El cliente ya tiene 4 cuentas asociadas");
+			event.preventDefault();
+			return;
+		}
+		if($("#cuentaNombre").val().length > 50 ){
+			$('#cuentaNombreMessage').text("Ingrese un nombre de hasta 50 caracteres");
+			event.preventDefault();
+			return;
+		}
+		if($("#cuentaNombre").val().length == 0 )
+		{
+			$('#cuentaNombreMessage').text("Ingrese un nombre");
+			event.preventDefault();
+			return;
+		}
+	}   
+);
+$('#cuentaNombre').keyup(function(){
+	
+	if($("#cuentaNombre").val().length > 50 ){
+		$('#cuentaNombreMessage').text("Ingrese un nombre de hasta 50 caracteres.");
+		return;
+	}
+	else{
+		$('#cuentaNombreMessage').text("");
+	}
+}
 
+);
+</script>

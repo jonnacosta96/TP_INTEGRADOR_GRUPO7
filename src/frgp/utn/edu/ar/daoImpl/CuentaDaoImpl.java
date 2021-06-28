@@ -130,4 +130,32 @@ public class CuentaDaoImpl implements CuentaDao {
 		}
 	}
 
+	@Override
+	public Cuenta ObtenerCuentaxCBU(int cbu) {
+		
+		try {
+			Conexion cn = new Conexion();
+			Session session = cn.abrirConexion();
+			
+			session.beginTransaction();
+			
+			String query = "FROM Cuenta cue WHERE cue.CBU = :cbu AND cue.activo = 1";
+		
+			Cuenta cuenta = (Cuenta) session.createQuery(query)
+						.setParameter("cbu", cbu)
+						.uniqueResult();
+			
+			session.getTransaction().commit();
+			
+			cn.cerrarSession();
+			
+			return cuenta;
+		}
+		catch(Exception ex) {
+			return null;
+		}
+		
+		
+	}
+
 }
