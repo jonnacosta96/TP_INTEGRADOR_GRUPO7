@@ -160,10 +160,19 @@ function validar(formulario){
         });
 }
 
-function AltaCuentaExitosa(itemAlta){
+function SuccessMessage(mensaje){
 	swal({
-		  title: "Alta exitosa",
-		  text: "La cuenta " + itemAlta + " fue dada de alta correctamente.",
+		  title: "Confirmacion",
+		  text: mensaje,
+		  icon: "success",
+		  button: "Aceptar",
+		});
+}
+
+function ErrorMessage(mensaje){
+	swal({
+		  title: "Confirmacion",
+		  text: mensaje,
 		  icon: "success",
 		  button: "Aceptar",
 		});

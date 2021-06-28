@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -93,7 +94,7 @@ public class ClienteController {
 	}
 	
 	@RequestMapping("accionCliente.html")
-	public ModelAndView clickActionClient(int nroCliente, String btnModificarCli, HttpSession httpSession, HttpServletRequest request) {
+	public ModelAndView clickActionClient(int nroCliente, String btnModificarCli, HttpSession httpSession, HttpServletRequest request, Model model) {
 
 		ModelAndView mv = new ModelAndView();
 		String viewName = ViewNameResolver.resolveViewName(
@@ -111,6 +112,13 @@ public class ClienteController {
 		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 		TipoCuentaNegImpl tipoCuentaNegImpl = (TipoCuentaNegImpl)appContext.getBean("tipoCuentaNegImpl");
 		Cliente cli = cliNegImpl.ObtenerClientexNroCliente(nroCliente);
+		
+		String avisoSuccess = (String)httpSession.getAttribute("avisoSuccess");
+		String avisoError = (String)httpSession.getAttribute("avisoError");
+		httpSession.removeAttribute("avisoSuccess");
+		httpSession.removeAttribute("avisoError");
+		model.addAttribute("avisoSuccess", avisoSuccess);
+		model.addAttribute("avisoError", avisoError);
 		
 		
 		if(btnModificarCli != null) 

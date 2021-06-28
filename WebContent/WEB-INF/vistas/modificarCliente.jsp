@@ -29,7 +29,19 @@
 	     <c:when test="${not empty errorEnModif}">
 	         <script type="text/javascript">ModificacionFallida()</script>
 	     </c:when>
-	 </c:choose> 
+	 </c:choose>
+	 <c:choose>
+	     <c:when test="${not empty avisoSuccess}">
+	         <script type="text/javascript">
+	        	SuccessMessage("${avisoSuccess}")
+	         </script>
+	     </c:when>
+	     <c:when test="${not empty avisoError}">
+	         <script type="text/javascript">
+	         	ErrorMessage("${avisoError}")
+	         </script>
+	     </c:when>
+	 </c:choose>
 	  
 	 
     <div style="background-color: #e9ecef; min-height:94vh!important" class="container-fluid py-3" >
