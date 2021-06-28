@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,7 @@ import helpers.ViewNameResolver;
 @Controller
 public class HomeClienteController {
 	
+	static ApplicationContext appContext = new ClassPathXmlApplicationContext("frgp/utn/edu/ar/resources/Beans.xml");
 	
 	@RequestMapping("clienteHome.html")
 	public ModelAndView eventLoadPage(HttpSession httpSession, HttpServletRequest request) {
@@ -35,9 +38,9 @@ public class HomeClienteController {
 			request.getServletPath()
 		);
 	    
-		ClienteNegImpl cliNegImpl = new ClienteNegImpl();
-		CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
-		TransaccionNegImpl transacNegImpl = new TransaccionNegImpl();
+		ClienteNegImpl cliNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
+		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
+		TransaccionNegImpl transacNegImpl = (TransaccionNegImpl)appContext.getBean("transaccionNegImpl");
 		
 		Usuario user = (Usuario)httpSession.getAttribute("userLogeado");
 		Cliente cli = cliNegImpl.ObtenerClientexUsuario(user);
@@ -61,8 +64,8 @@ public class HomeClienteController {
 			request.getServletPath()
 		);
 		
-		ClienteNegImpl cliNegImpl = new ClienteNegImpl();
-		CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
+		ClienteNegImpl cliNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
+		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 		
 		Cliente cli = cliNegImpl.ObtenerClientexNroCliente(nroCliente);
 	    List<Cuenta> lista = cuentaNegImpl.ObtenerListadoCuentasxCliente(cli);
@@ -83,8 +86,8 @@ public class HomeClienteController {
 			request.getServletPath()
 		);
 		
-		CuentaNegImpl cuentaNegImpl = new CuentaNegImpl();
-		TransaccionNegImpl transacNegImpl = new TransaccionNegImpl();
+		CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
+		TransaccionNegImpl transacNegImpl = (TransaccionNegImpl)appContext.getBean("transaccionNegImpl");
 		
 		Cuenta cuenta = cuentaNegImpl.ObtenerCuentaxNroCuenta(nroCuenta);
 		List<Transaccion> lista = transacNegImpl.ObtenerListadoTransaccionesxCuenta(cuenta);

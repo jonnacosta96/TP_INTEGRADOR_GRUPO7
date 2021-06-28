@@ -113,7 +113,7 @@ public class ClienteDaoImpl implements ClienteDao {
 		Cliente cli = new Cliente();
 		
 		try {
-			Conexion cn = new Conexion();
+			Conexion cn = (Conexion)appContext.getBean("conexion");
 			Session session = cn.abrirConexion();
 			
 			session.beginTransaction();
