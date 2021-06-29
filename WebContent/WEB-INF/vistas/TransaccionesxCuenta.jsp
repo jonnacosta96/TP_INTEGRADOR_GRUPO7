@@ -72,7 +72,7 @@
             </div>
             <br>
             <div>
-            <a class="btn btn-primary d-inline" href="${pageContext.servletContext.contextPath}/clienteHome.html">Volver</a>	
+            <a class="btn btn-dark d-inline" href="${pageContext.servletContext.contextPath}/clienteHome.html">Volver</a>	
             </div>
              	
         </div>

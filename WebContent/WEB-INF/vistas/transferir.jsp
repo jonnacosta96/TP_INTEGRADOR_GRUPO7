@@ -59,7 +59,7 @@
 	            <div class="row">
 	              <div class="col">
 	                <h5><label for="exampleInputEmail1">CBU destino</label></h5>
-	                <input type="text" name="cbuDestino" class="form-control" placeholder="Nombre" required>
+	                <input type="text" name="cbuDestino" class="form-control" placeholder="CBU" required>
 	              </div>
 	              <div class="col">
 	                <h5><label for="exampleInputEmail1">Transferir desde</label></h5>
@@ -80,8 +80,8 @@
 	              <div class="col"></div>
 	            </div>
 	          </div>
-	          <button type="submit" name="btnTransferir" class="btn btn-success d-inline">Transferir</button>
-	          <a class="btn btn-primary d-inline" href="${pageContext.servletContext.contextPath}/clienteHome.html">Cancelar</a>
+	          <button type="submit" name="btnTransferir" class="btn btn-dark d-inline">Transferir</button>
+	          <a class="btn btn-secondary d-inline" href="${pageContext.servletContext.contextPath}/clienteHome.html">Cancelar</a>
 	        </form>
 	    </div>
 	</div>

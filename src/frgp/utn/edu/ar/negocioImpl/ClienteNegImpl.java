@@ -57,12 +57,12 @@ public class ClienteNegImpl implements ClienteNeg {
 	}
 
 	@Override
-	public Cliente ObtenerClientexDNI(int dni) {
+	public Cliente ObtenerClientexDNI(int dni, Boolean activo) {
 		
 		if(cliDaoImpl == null)
 			cliDaoImpl = (ClienteDaoImpl)appContext.getBean("clienteDaoImpl");
 		
-		Cliente cli = cliDaoImpl.ObtenerClientexDNI(dni);
+		Cliente cli = cliDaoImpl.ObtenerClientexDNI(dni, activo);
 		
 		return cli;
 	}

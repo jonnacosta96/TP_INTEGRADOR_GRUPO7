@@ -40,7 +40,7 @@ public class TransaccionNegImpl implements TransaccionNeg{
 		transacCtaOrigen.setDescripcion("Transferencia realizada a " + descripcion);
 		transacCtaOrigen.setSaldo(monto);
 		transacCtaOrigen.setFechaTransaccion(LocalDate.now());
-		TipoTransaccion tt1 = (TipoTransaccion)appContext.getBean("TipoTransaccion");
+		TipoTransaccion tt1 = (TipoTransaccion)appContext.getBean("tipoTransaccion");
 		tt1.setIdTipoTransaccion(2);
 		tt1.setDescripcion("Debito");
 		tt1.setEstadoTipoTransaccion(true);
@@ -54,7 +54,7 @@ public class TransaccionNegImpl implements TransaccionNeg{
 		transacCtaDestino.setDescripcion("Transferencia recibida de " + descripcion);
 		transacCtaDestino.setSaldo(monto);
 		transacCtaDestino.setFechaTransaccion(LocalDate.now());
-		TipoTransaccion tt2 = (TipoTransaccion)appContext.getBean("TipoTransaccion");
+		TipoTransaccion tt2 = (TipoTransaccion)appContext.getBean("tipoTransaccion");
 		tt2.setIdTipoTransaccion(1);
 		tt2.setDescripcion("Credito");
 		tt2.setEstadoTipoTransaccion(true);

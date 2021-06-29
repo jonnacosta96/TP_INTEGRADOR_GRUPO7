@@ -190,6 +190,27 @@ public class ClienteController {
 	    ClienteNegImpl cliNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
 	    TipoCuentaNegImpl tipoCuentaNegImpl = (TipoCuentaNegImpl)appContext.getBean("tipoCuentaNegImpl");
 	    CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
+	    
+	    if(cmbBoxLocalidades != null)
+	    {
+	    	model.addAttribute("localidadSeleccionada",cmbBoxLocalidades.split("-")[0]);
+	    }
+	    if(cmbBoxProvincias != null)
+	    {
+	    	model.addAttribute("provinciaSeleccionada",cmbBoxProvincias.split("-")[0]);
+	    }
+	    if(cmbBoxPaises != null)
+	    {
+	    	model.addAttribute("paisSeleccionado",cmbBoxPaises.split("-")[0]);
+	    }
+	    if(fechaNac != null)
+	    {
+	    	model.addAttribute("fechaSeleccionada",fechaNac);
+	    }
+	    if(email != null)
+	    {
+	    	model.addAttribute("emailSeteado",email);
+	    }
 	   
 	    if(cli.getApellido().equals("") || cli.getNombre().equals("") || cli.getSexo() == null) {
     		String errorEnAlta = "error";
@@ -208,7 +229,7 @@ public class ClienteController {
 	    }
 	    
 	    
-	    Cliente cliente = cliNegImpl.ObtenerClientexDNI(cli.getDni());
+	    Cliente cliente = cliNegImpl.ObtenerClientexDNI(cli.getDni(), null);
 	    
 	    if(cliente != null)
 	    {
@@ -313,41 +334,9 @@ public class ClienteController {
 	    }
 	    
 	    ClienteNegImpl cliNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
+	    Cliente clienteActual = cliNegImpl.ObtenerClientexNroCliente(cli.getNroCliente());
 	    
 	    TipoCuentaNegImpl tipoCuentaNegImpl = (TipoCuentaNegImpl)appContext.getBean("tipoCuentaNegImpl");
-	    
-	    if(cli.getApellido().equals("") || cli.getNombre().equals("") || cli.getSexo() == null) {
-	    	PaisNegImpl paisNegImpl = (PaisNegImpl)appContext.getBean("paisNegImpl");
-			ProvinciaNegImpl provNegImpl = (ProvinciaNegImpl)appContext.getBean("provinciaNegImpl");
-			LocalidadNegImpl locNegImpl = (LocalidadNegImpl)appContext.getBean("localidadNegImpl");
-			
-			model.addAttribute("ListaPaises", paisNegImpl.obtenerListadoPaises(true));
-			model.addAttribute("ListaProvincias",provNegImpl.obtenerListadoProvincias(true));
-			model.addAttribute("ListaLocalidades",locNegImpl.obtenerListadoLocalidades(true));
-			model.addAttribute("ListaTiposCuenta",tipoCuentaNegImpl.ObtenerListadoTiposCuenta(true));
-	    	model.addAttribute("errorFaltanCampos", "*Algunos de lo siguientes campos (Nombre,Apellido o Sexo) no fue completado.");
-	    	
-	    	return "modificarCliente";
-	    }
-	    
-	    Cliente cliente = cliNegImpl.ObtenerClientexDNI(cli.getDni());
-	    
-	    if(cli.getNroCliente() != cliente.getNroCliente())
-	    {
-    		String errorEnAlta = "error";
-	    	
-	    	PaisNegImpl paisNegImpl = (PaisNegImpl)appContext.getBean("paisNegImpl");
-			ProvinciaNegImpl provNegImpl = (ProvinciaNegImpl)appContext.getBean("provinciaNegImpl");
-			LocalidadNegImpl locNegImpl = (LocalidadNegImpl)appContext.getBean("localidadNegImpl");
-			
-			model.addAttribute("ListaPaises", paisNegImpl.obtenerListadoPaises(true));
-			model.addAttribute("ListaProvincias",provNegImpl.obtenerListadoProvincias(true));
-			model.addAttribute("ListaLocalidades",locNegImpl.obtenerListadoLocalidades(true));
-			model.addAttribute("ListaTiposCuenta",tipoCuentaNegImpl.ObtenerListadoTiposCuenta(true));
-	    	model.addAttribute("dniMessage", "Este DNI ya se encuentra asociado a un cliente");
-	    	
-	    	return "modificarCliente";
-	    }
 	    
 	    Pais pais = (Pais)appContext.getBean("pais");
 	    pais.setIdPais(Integer.parseInt(cmbBoxPaises.split("-")[0]));
@@ -364,17 +353,65 @@ public class ClienteController {
 	    localidad.setNombre(cmbBoxLocalidades.split("-")[1]);
 	    localidad.setEstadoLocalidad(true);
 	    
+	    clienteActual.setFechaNacimiento(LocalDate.parse(fechaNac));
+	    clienteActual.setPais(pais);
+	    clienteActual.setProv(provincia);
+	    clienteActual.setLoc(localidad);
+	    clienteActual.setEstadoCliente(true);
+	    clienteActual.setDni(cli.getDni());
+	    clienteActual.setNombre(cli.getNombre());
+	    clienteActual.setApellido(cli.getApellido());
+	    
+	    if(cli.getApellido().equals("") || cli.getNombre().equals("") || cli.getSexo() == null) {
+	    	PaisNegImpl paisNegImpl = (PaisNegImpl)appContext.getBean("paisNegImpl");
+			ProvinciaNegImpl provNegImpl = (ProvinciaNegImpl)appContext.getBean("provinciaNegImpl");
+			LocalidadNegImpl locNegImpl = (LocalidadNegImpl)appContext.getBean("localidadNegImpl");
+			
+			model.addAttribute("ListaPaises", paisNegImpl.obtenerListadoPaises(true));
+			model.addAttribute("ListaProvincias",provNegImpl.obtenerListadoProvincias(true));
+			model.addAttribute("ListaLocalidades",locNegImpl.obtenerListadoLocalidades(true));
+			model.addAttribute("ListaTiposCuenta",tipoCuentaNegImpl.ObtenerListadoTiposCuenta(true));
+	    	model.addAttribute("errorFaltanCampos", "*Algunos de lo siguientes campos (Nombre,Apellido o Sexo) no fue completado.");
+	    	model.addAttribute("fechaNacimiento", clienteActual.getFechaNacimiento());
+	    	model.addAttribute("email", clienteActual.getUsuario().getEmail());
+	    	model.addAttribute("Cliente",clienteActual);
+	    	
+	    	return "modificarCliente";
+	    }
+	    
+	    Cliente cliente = cliNegImpl.ObtenerClientexDNI(cli.getDni(), null);
+	    
+	    if(cliente != null && cli.getNroCliente() != cliente.getNroCliente())
+	    {
+    		String errorEnAlta = "error";
+	    	
+	    	PaisNegImpl paisNegImpl = (PaisNegImpl)appContext.getBean("paisNegImpl");
+			ProvinciaNegImpl provNegImpl = (ProvinciaNegImpl)appContext.getBean("provinciaNegImpl");
+			LocalidadNegImpl locNegImpl = (LocalidadNegImpl)appContext.getBean("localidadNegImpl");
+			
+			model.addAttribute("ListaPaises", paisNegImpl.obtenerListadoPaises(true));
+			model.addAttribute("ListaProvincias",provNegImpl.obtenerListadoProvincias(true));
+			model.addAttribute("ListaLocalidades",locNegImpl.obtenerListadoLocalidades(true));
+			model.addAttribute("ListaTiposCuenta",tipoCuentaNegImpl.ObtenerListadoTiposCuenta(true));
+			model.addAttribute("Cliente",clienteActual);
+			model.addAttribute("fechaNacimiento", clienteActual.getFechaNacimiento());
+	    	model.addAttribute("email", clienteActual.getUsuario().getEmail());
+	    	model.addAttribute("dniMessage", "Este DNI ya se encuentra asociado a un cliente");
+	    	
+	    	return "modificarCliente";
+	    }
+	    
 	    cli.setFechaNacimiento(LocalDate.parse(fechaNac));
 	    cli.setPais(pais);
 	    cli.setProv(provincia);
 	    cli.setLoc(localidad);
-	    cli.setEstadoCliente(true);
+	    cli.setEstadoCliente(true);	    
 	    
 	    UserNegImpl userNegImpl = (UserNegImpl)appContext.getBean("userNegImpl");
   
 	    cli.setUsuario(userNegImpl.obtenerUsuarioClientexNroCliente(cli.getNroCliente()));
 	    cli.getUsuario().setEmail(email);
-	    
+
 	    boolean resultadoGuardado = cliNegImpl.GuardarCliente(cli);
 	    
 	    if(resultadoGuardado) {

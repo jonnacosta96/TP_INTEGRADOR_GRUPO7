@@ -83,19 +83,30 @@ public class ClienteDaoImpl implements ClienteDao {
 	}
 
 	@Override
-	public Cliente ObtenerClientexDNI(int dni) {
+	public Cliente ObtenerClientexDNI(int dni, Boolean activo) {
 		
 		try {
 			Conexion cn = (Conexion)appContext.getBean("conexion");
 			Session session = cn.abrirConexion();
 			
-			session.beginTransaction();
+			String query = "";
+			Cliente cli;
 			
-			String query = "FROM Cliente cli WHERE cli.dni = :dni";
-		
-			Cliente cli = (Cliente) session.createQuery(query).setParameter("dni", dni).uniqueResult();
-			
-			session.getTransaction().commit();
+			if(activo == null)
+			{
+				query = "FROM Cliente cli WHERE cli.dni = :dni";
+				cli = (Cliente) session.createQuery(query)
+						.setParameter("dni", dni)
+						.uniqueResult();
+			}
+			else
+			{
+				query = "FROM Cliente cli WHERE cli.dni = :dni and cli.estadoCliente = :activo";
+				cli = (Cliente) session.createQuery(query)
+						.setParameter("dni", dni)
+						.setParameter("activo", activo)
+						.uniqueResult();
+			}
 			
 			cn.cerrarSession();
 			

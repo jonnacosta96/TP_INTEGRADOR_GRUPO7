@@ -136,6 +136,7 @@ $('#buscarCliente').on('click',
 		    		$('#dniMessage').text("");
 		    		$("#clienteNombre").val(json.nombre);
 		    		$("#clienteId").val(json.id);
+		    		$('#clienteMessage').text("");
 	    		}
 		    }
 		})

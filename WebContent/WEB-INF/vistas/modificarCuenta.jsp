@@ -44,7 +44,7 @@
                    	>
                   </div>
                   <div class="col">
-                    <h5><label for="exampleInputEmail1">Tipo</label></h5>
+                    <h5><label for="exampleInputEmail1">Numero de cuenta</label></h5>
                     <input type="text" class="form-control d-inline disabled" readonly
                     	placeholder="Cliente"
                     	id="nroCuenta"
