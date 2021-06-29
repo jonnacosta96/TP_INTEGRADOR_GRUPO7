@@ -34,12 +34,17 @@
         <div class="container">
             <h2>Nuevo Cliente</h2>
             <br>
-            <form:form method="POST" action="${pageContext.servletContext.contextPath}/altaCliente.html" modelAttribute="Cliente">
+            <form:form id="formAltaCliente" method="POST" action="${pageContext.servletContext.contextPath}/altaCliente.html" modelAttribute="Cliente">
               <div class="border border-dark mb-4 px-5 py-3 pb-5 rounded">
-              
+              <div class="border border-dark mb-4 px-5 py-3 pb-5 rounded">
+	              <div class="row">
+	               <div class="col">
+	          			<center></center><p class="text-danger">${errorFaltanCampos}</td></center>       
+	               </div>
+              </div> 
               <div class="row">
                 <div class="col">
-           			<center></center><p class="text-danger">${errorFaltanCampos}</td></center>       
+           			<p id="msgErrorCampos" class="text-danger"></p>   
                 </div>
               </div>  
               <div class="row">
@@ -49,7 +54,7 @@
                 </div>
                 <div class="col">
                   <h5><form:label path="apellido">Apellido</form:label></h5>
-                  <form:input class="form-control" path="apellido" placeholder="Apellido" pattern="[A-Za-z]*{1,30}" title="Solo se admiten Letras sin caracteres especiales. Tamaño mínimo: 1. Tamaño máximo: 30"/>    
+                  <form:input id="txtApellido" class="form-control" path="apellido" placeholder="Apellido" pattern="[A-Za-z]*{1,30}" title="Solo se admiten Letras sin caracteres especiales. Tamaño mínimo: 1. Tamaño máximo: 30"/>    
                 </div>
               </div>
               <br>
@@ -163,71 +168,17 @@
 </html>
 
  <script type="text/javascript">
-    	$('#buscarCliente').on('click',
-    		function()
-    		{
-    			var regExp = new RegExp("[0-9]{7,8}")
-    			if(!regExp.test($("#txtdni").val())){
-    				$('#dniMessage').text("Por favor, ingrese un numero de 7 u 8 digitos");
-    				return;
-    			}
-    				
-    		
-    			$.ajax({
-    			    type : "GET",
-    			    url : "buscarCliente.html",
-    			    data : {
-    			    	"dni" : $("#txtdni").val()
-    			    },
-    			    success: function(data){
-    			    	debugger;
-    			    	var json = JSON.parse(data);
-    			    	if(json.result == "error")
-    		    		{
-    			    		$('#dniMessage').text(json.error);
-    		    		}
-    			    	else
-    		    		{
-    			    		$('#dniMessage').text("El dni ingresado ya existe en el sistema.");
-    		    		}
-    			    }
-    			})
-    		}   
-    	);
-    	
-    	$( "#txtdni" ).blur(function() {
-			debugger;
-    		var cantDigitos = $("#txtdni").val().length;
-    		
-    		if(cantDigitos > 0)
-    		{
-    			alert(cantDigitos);
-    			var regExp = new RegExp("[0-9]{7,8}")
-    			if(!regExp.test($("#txtdni").val())){
-    				$('#dniMessage').text("Por favor, ingrese un numero de 7 u 8 digitos");
-    				return;
-    			}
-    				
-    		
-    			$.ajax({
-    			    type : "GET",
-    			    url : "buscarCliente.html",
-    			    data : {
-    			    	"dni" : $("#txtdni").val()
-    			    },
-    			    success: function(data){
-    			    	debugger;
-    			    	var json = JSON.parse(data);
-    			    	if(json.result == "error")
-    		    		{
-    			    		$('#dniMessage').text(json.error);
-    		    		}
-    			    	else
-    		    		{
-    			    		$('#dniMessage').text("El dni ingresado ya existe en el sistema.");
-    		    		}
-    			    }
-    			})
-    		}
-    	);
-    </script>
+ 
+ $('#formAltaCliente').submit(function(event)
+			{
+	 			var prueba = $("#txtdni").val().length;
+				if($("#txtdni").val().length == 0 ){
+					$('#msgErrorCampos').text("*Ingrese un numero de dni.");
+					event.preventDefault();
+					return;
+				}
+
+			}   
+		);  	
+ 
+ </script>

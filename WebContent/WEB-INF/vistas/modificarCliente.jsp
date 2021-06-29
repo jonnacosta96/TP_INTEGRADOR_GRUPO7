@@ -49,12 +49,17 @@
 			<h2>Modificar Cliente</h2>
             <br>
               <div class="border border-dark mb-4 px-5 py-3 pb-5 rounded">
-               <div class="row">
+	              <div class="row">
+	               <div class="col">
+	          			<center></center><p class="text-danger">${errorFaltanCampos}</td></center>       
+	               </div>
+              </div> 
+              <div class="row">
                 <div class="col">
-           			<center></center><p class="text-danger">${errorFaltanCampos}</td></center>       
+           			<p id="msgErrorCampos" class="text-danger"></p>   
                 </div>
               </div> 
-              <form:form method="POST" action="${pageContext.servletContext.contextPath}/modificarCliente.html" modelAttribute="Cliente">
+              <form:form id="formModifCliente" method="POST" action="${pageContext.servletContext.contextPath}/modificarCliente.html" modelAttribute="Cliente">
               <form:hidden path="nroCliente" value="${Cliente.nroCliente}" />
               <div class="row">
                 <div class="col">
@@ -70,7 +75,7 @@
               <div class="row">
                 <div class="col">
                   <h5><form:label path="dni">DNI</form:label></h5>
-                  <form:input class="form-control" path="dni" value="" placeholder="DNI" pattern="[0-9]{1,10}" title="Solo se admiten N�meros. Tama�o m�nimo: 1. Tama�o m�ximo: 10"/>  
+                  <form:input class="form-control" id="txtdni" path="dni" value="" placeholder="DNI" pattern="[0-9]{1,10}" title="Solo se admiten N�meros. Tama�o m�nimo: 1. Tama�o m�ximo: 10"/>  
                   <p class="text-danger" id="dniMessage">${dniMessage}</p>
                 </div>
                 
@@ -347,4 +352,17 @@ $('#cuentaNombre').keyup(function(){
 }
 
 );
+
+$('#formModifCliente').submit(function(event)
+		{
+ 			var prueba = $("#txtdni").val().length;
+			if($("#txtdni").val().length == 0 ){
+				$('#msgErrorCampos').text("*Ingrese un numero de DNI.");
+				event.preventDefault();
+				return;
+			}
+
+		}   
+	); 
 </script>
+
