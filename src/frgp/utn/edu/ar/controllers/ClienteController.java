@@ -191,7 +191,7 @@ public class ClienteController {
 	    TipoCuentaNegImpl tipoCuentaNegImpl = (TipoCuentaNegImpl)appContext.getBean("tipoCuentaNegImpl");
 	    CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 	   
-	    if(cli.getApellido().equals("") || cli.getNombre().equals("") || cli.getSexo() == null || cli.getDni()==0) {
+	    if(cli.getApellido().equals("") || cli.getNombre().equals("") || cli.getSexo() == null) {
     		String errorEnAlta = "error";
 	    	
 	    	PaisNegImpl paisNegImpl = (PaisNegImpl)appContext.getBean("paisNegImpl");
@@ -202,7 +202,7 @@ public class ClienteController {
 			model.addAttribute("ListaProvincias",provNegImpl.obtenerListadoProvincias(true));
 			model.addAttribute("ListaLocalidades",locNegImpl.obtenerListadoLocalidades(true));
 			model.addAttribute("ListaTiposCuenta",tipoCuentaNegImpl.ObtenerListadoTiposCuenta(true));
-	    	model.addAttribute("errorFaltanCampos", "*Algunos de lo siguientes campos (Nombre,Apellido,DNI o Sexo) no fue completado.");
+	    	model.addAttribute("errorFaltanCampos", "*Algunos de lo siguientes campos (Nombre,Apellido o Sexo) no fue completado.");
 	    	
 	    	return "crearCliente";
 	    }
@@ -313,11 +313,10 @@ public class ClienteController {
 	    }
 	    
 	    ClienteNegImpl cliNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
+	    
 	    TipoCuentaNegImpl tipoCuentaNegImpl = (TipoCuentaNegImpl)appContext.getBean("tipoCuentaNegImpl");
 	    
-	    if(cli.getApellido().equals("") || cli.getNombre().equals("") || cli.getSexo() == null || cli.getDni()==0) {
-	    	String errorEnAlta = "error";
-	    	
+	    if(cli.getApellido().equals("") || cli.getNombre().equals("") || cli.getSexo() == null) {
 	    	PaisNegImpl paisNegImpl = (PaisNegImpl)appContext.getBean("paisNegImpl");
 			ProvinciaNegImpl provNegImpl = (ProvinciaNegImpl)appContext.getBean("provinciaNegImpl");
 			LocalidadNegImpl locNegImpl = (LocalidadNegImpl)appContext.getBean("localidadNegImpl");
@@ -326,7 +325,7 @@ public class ClienteController {
 			model.addAttribute("ListaProvincias",provNegImpl.obtenerListadoProvincias(true));
 			model.addAttribute("ListaLocalidades",locNegImpl.obtenerListadoLocalidades(true));
 			model.addAttribute("ListaTiposCuenta",tipoCuentaNegImpl.ObtenerListadoTiposCuenta(true));
-			model.addAttribute("errorFaltanCampos", "*Algunos de lo siguientes campos (Nombre,Apellido,DNI o Sexo) no fue completado.");
+	    	model.addAttribute("errorFaltanCampos", "*Algunos de lo siguientes campos (Nombre,Apellido o Sexo) no fue completado.");
 	    	
 	    	return "modificarCliente";
 	    }
