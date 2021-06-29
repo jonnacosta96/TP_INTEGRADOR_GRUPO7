@@ -160,7 +160,7 @@
                 </div>
                 <div class="col">
             		<h5><label for="txtEmail">Email:</label></h5>
-			 		<input type="email" class="form-control" name="email" value="${email}" required> 
+			 		<input type="email" class="form-control" name="email" placeholder="Email" value="${email}" required> 
                 </div>
               </div>
               <br>

@@ -42,7 +42,7 @@
                 </div>
                 <div class="card custom_card mx-3" style="width: 18rem;">
                     <div class="card-body mx-5 my-5">
-                        <center><h1 class="card-title">${cantidadCuentas}</h1></center>
+                        <center><h1 class="card-title">${cantidadTransacciones}</h1></center>
                         <center><h5 class="card-subtitle mb-2 text-muted">Transacciones realizadas</h5></center>
                     </div>
                 </div>

@@ -55,7 +55,7 @@ public class CuentaController {
 		ClienteNegImpl clienteNegImpl = (ClienteNegImpl)appContext.getBean("clienteNegImpl");
 	    CuentaNegImpl cuentaNegImpl = (CuentaNegImpl)appContext.getBean("cuentaNegImpl");
 	    
-	    Cliente cliente = clienteNegImpl.ObtenerClientexDNI(dni);
+	    Cliente cliente = clienteNegImpl.ObtenerClientexDNI(dni, true);
 	    
 	    if(cliente != null)
 	    {

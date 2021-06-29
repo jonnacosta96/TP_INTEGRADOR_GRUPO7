@@ -36,7 +36,6 @@
             <br>
             <form:form id="formAltaCliente" method="POST" action="${pageContext.servletContext.contextPath}/altaCliente.html" modelAttribute="Cliente">
               <div class="border border-dark mb-4 px-5 py-3 pb-5 rounded">
-              <div class="border border-dark mb-4 px-5 py-3 pb-5 rounded">
 	              <div class="row">
 	               <div class="col">
 	          			<center></center><p class="text-danger">${errorFaltanCampos}</td></center>       
@@ -86,13 +85,21 @@
 					<select name="cmbBoxPaises" class="form-control"  required>
 						<option value="">Seleccione Pais</option>
 						<c:forEach items="${ListaPaises}" var="objpais">
-							<option value="${objpais.idPais}-${objpais.nombre}">${objpais.nombre}</option>
+							<c:choose>
+							    <c:when test="${objpais.idPais == paisSeleccionado}">
+						        	<option value="${objpais.idPais}-${objpais.nombre}" selected="selected">${objpais.nombre}</option> 
+							    </c:when>    
+							    <c:otherwise>
+							        <option value="${objpais.idPais}-${objpais.nombre}">${objpais.nombre}</option> 
+							        <br />
+							    </c:otherwise>
+							</c:choose>
 						</c:forEach>
 					</select>	 
                 </div>
                 <div class="col">
                   <h5><label for="exampleInputEmail1">Fecha de nacimiento</label></h5>
-                  <input class="form-control" placeholder="Nacimiento" name="fechaNac" min="1970-01-01" max="2030-12-31" step="1" type="date" required>
+                  <input class="form-control" placeholder="Nacimiento" name="fechaNac" min="1970-01-01" max="2030-12-31" step="1" type="date" required value="${fechaSeleccionada}">
                 </div>
               </div>
               <br>
@@ -102,7 +109,15 @@
               	    <select name="cmbBoxProvincias" class="form-control"  required>
 		 		 		<option value="">Seleccione Provincia</option>
 		 		 		<c:forEach items="${ListaProvincias}" var="objprov">
-					 		<option value="${objprov.idProvincia}-${objprov.nombre}">${objprov.nombre}</option>
+					 		<c:choose>
+							    <c:when test="${objprov.idProvincia == provinciaSeleccionada}">
+						        	<option value="${objprov.idProvincia}-${objprov.nombre}" selected="selected">${objprov.nombre}</option> 
+							    </c:when>    
+							    <c:otherwise>
+							        <option value="${objprov.idProvincia}-${objprov.nombre}">${objprov.nombre}</option> 
+							        <br />
+							    </c:otherwise>
+							</c:choose>
 				 		</c:forEach>
 			 		 </select>	  	 		
 				</div>
@@ -111,7 +126,15 @@
              		<select name="cmbBoxLocalidades" class="form-control"  required>
 		 		 		<option value="">Seleccione Localidad</option>
 		 		 		<c:forEach items="${ListaLocalidades}" var="objloc">
-					 		<option value="${objloc.idLocalidad}-${objloc.nombre}">${objloc.nombre}</option>
+					 		<c:choose>
+							    <c:when test="${objloc.idLocalidad == localidadSeleccionada}">
+						        	<option value="${objloc.idLocalidad}-${objloc.nombre}" selected="selected">${objloc.nombre}</option> 
+							    </c:when>    
+							    <c:otherwise>
+							        <option value="${objloc.idLocalidad}-${objloc.nombre}">${objloc.nombre}</option> 
+							        <br />
+							    </c:otherwise>
+							</c:choose>
 				 		</c:forEach>
 			 		 </select>	
 				</div>
@@ -124,7 +147,7 @@
                 </div>
                 <div class="col">
             		<h5><label for="txtEmail">Email:</label></h5>
-			 		<input type="email" class="form-control" name="email" required> 
+			 		<input type="email" class="form-control" placeholder="Email" name="email" required value="${emailSeteado}"> 
                 </div>
               </div>
             </div>
@@ -141,7 +164,7 @@
                   <div class="col">
                     <h5><label for="NombreCuenta">Nombre de cuenta</label></h5>
                     <input type="text" class="form-control"
-                    	placeholder="NombreCuenta"
+                    	placeholder="Nombre cuenta"
                     	id="cuentaNombre"
                     	name="cuentaNombre"
                     	path="cuentaNombre">
@@ -158,6 +181,7 @@
               </div>
               <div>
               	<button type="submit" class="btn btn-dark d-inline">Guardar</button>
+              	<a class="mx-3" href="${pageContext.servletContext.contextPath}/listadoClientes.html">Cancelar</a>
               </div>
             </form:form>  
         </div>
@@ -174,6 +198,12 @@
 	 			var prueba = $("#txtdni").val().length;
 				if($("#txtdni").val().length == 0 ){
 					$('#msgErrorCampos').text("*Ingrese un numero de dni.");
+					event.preventDefault();
+					return;
+				}
+				var regExp = new RegExp("\\b[0-9]{7,8}\\b")
+				if(!regExp.test($("#txtdni").val())){
+					$('#dniMessage').text("Por favor, ingrese un numero de 7 u 8 digitos");
 					event.preventDefault();
 					return;
 				}

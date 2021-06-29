@@ -66,12 +66,13 @@
 							<th>Fecha de creacion</th>
 							<th>Saldo</th>
 							<th>Cliente</th>
+							<th>CBU</th>
 							<th style="width:200px">#</th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="7">
+							<td colspan="8">
 							</td>
 						</tr>
 					</tfoot>
@@ -85,6 +86,7 @@
 									<td>${objCuenta.fechaCreacion}</td>
 									<td>${objCuenta.saldo}</td>
 									<td>${objCuenta.cliente.nombre} &nbsp; ${objCuenta.cliente.apellido}</td>
+									<td>${objCuenta.CBU}</td>
 									<td>
 										<input type="hidden" name="returnUrl" value="adminCuentas">
 										<button
