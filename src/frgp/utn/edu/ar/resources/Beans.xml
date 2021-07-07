@@ -24,7 +24,7 @@
     </bean>
     <bean id="usuario" class="frgp.utn.edu.ar.entidades.Usuario" >
     </bean>
-    <bean id="transaccion" class="frgp.utn.edu.ar.entidades.Transaccion" >
+    <bean id="transaccion" class="frgp.utn.edu.ar.entidades.Transaccion" scope="prototype" >
     </bean>
     <bean id="tipoTransaccion" class="frgp.utn.edu.ar.entidades.TipoTransaccion" >
     </bean>
